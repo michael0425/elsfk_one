@@ -29,31 +29,32 @@
 		glBindFramebufferOES(GL_FRAMEBUFFER_OES, defaultFramebuffer);
 		glBindRenderbufferOES(GL_RENDERBUFFER_OES, colorRenderbuffer);
 		glFramebufferRenderbufferOES(GL_FRAMEBUFFER_OES, GL_COLOR_ATTACHMENT0_OES, GL_RENDERBUFFER_OES, colorRenderbuffer);
+		
+		glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
+		glDisable(GL_DEPTH_TEST);
+		
+		glMatrixMode(GL_PROJECTION);
+		glLoadIdentity();
+		glOrthof(0.0f, 320.0f, 480.0f, 0.0f, -1.0f, 1.0f);
+		
+		pinkBlock = [[Texture2D alloc] initWithImage:[UIImage imageNamed:@"pink.jpg"]];
+		
+		
 	}
 	
 	return self;
 }
 
+//temp square vertices
+const static GLfloat squareVertices[8] = {
+	0.0f, 0.0f,
+	20.0f, 0.0f,
+	0.0f, 20.0f,
+	20.0f, 20.0f
+};
+
 - (void) render
 {
-    // Replace the implementation of this method to do your own custom drawing
-    
-    static const GLfloat squareVertices[] = {
-        -0.5f,  -0.33f,
-         0.5f,  -0.33f,
-        -0.5f,   0.33f,
-         0.5f,   0.33f,
-    };
-	
-    static const GLubyte squareColors[] = {
-        255, 255,   0, 255,
-        0,   255, 255, 255,
-        0,     0,   0,   0,
-        255,   0, 255, 255,
-    };
-    
-	static float transY = 0.0f;
-	
 	// This application only creates a single context which is already set current at this point.
 	// This call is redundant, but needed if dealing with multiple contexts.
     [EAGLContext setCurrentContext:context];
@@ -62,24 +63,32 @@
 	// This call is redundant, but needed if dealing with multiple framebuffers.
     glBindFramebufferOES(GL_FRAMEBUFFER_OES, defaultFramebuffer);
     glViewport(0, 0, backingWidth, backingHeight);
-    
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
-    glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
-    glTranslatef(0.0f, (GLfloat)(sinf(transY)/2.0f), 0.0f);
-	transY += 0.075f;
 	
-    glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
-    glClear(GL_COLOR_BUFFER_BIT);
-    
-    glVertexPointer(2, GL_FLOAT, 0, squareVertices);
-    glEnableClientState(GL_VERTEX_ARRAY);
-    glColorPointer(4, GL_UNSIGNED_BYTE, 0, squareColors);
-    glEnableClientState(GL_COLOR_ARRAY);
-    
-    glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
-    
+	//change to model view and clear transformation
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+	
+	//clear previous frame's color
+	glClear(GL_COLOR_BUFFER_BIT);
+	
+	//set blend color
+	glColor4f(1.0f, 1.0f, 1.0f, 0.0f);
+	
+	//draw a small square without texture
+	glEnableClientState(GL_VERTEX_ARRAY);
+	glVertexPointer(2, GL_FLOAT, 0, squareVertices);
+	glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+	glDisableClientState(GL_VERTEX_ARRAY);
+	
+	//draw a square using texture class
+	glEnable(GL_TEXTURE_2D);
+	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+	glEnableClientState(GL_VERTEX_ARRAY);
+	[pinkBlock drawInRect:CGRectMake(120, 120, 30, 30)];//:CGPointMake(120.0, 120.0)];
+	glDisableClientState(GL_VERTEX_ARRAY);
+	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+	glDisable(GL_TEXTURE_2D);
+	
 	// This application only creates a single color renderbuffer which is already bound at this point.
 	// This call is redundant, but needed if dealing with multiple renderbuffers.
     glBindRenderbufferOES(GL_RENDERBUFFER_OES, colorRenderbuffer);

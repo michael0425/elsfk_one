@@ -10,6 +10,7 @@
 
 #import <OpenGLES/ES1/gl.h>
 #import <OpenGLES/ES1/glext.h>
+#import "Texture2D.h"
 
 @interface ES1Renderer : NSObject <ESRenderer>
 {
@@ -22,6 +23,8 @@
 	
 	// The OpenGL names for the framebuffer and renderbuffer used to render to this view
 	GLuint defaultFramebuffer, colorRenderbuffer;
+	
+	Texture2D* pinkBlock;
 }
 
 - (void) render;

@@ -24,6 +24,7 @@
 		6A60514F108E5BBC00389313 /* GameModel.1 in Resources */ = {isa = PBXBuildFile; fileRef = 6A605146108E5BBC00389313 /* GameModel.1 */; };
 		6A6051A2108E5E3A00389313 /* Texture2D.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A6051A1108E5E3A00389313 /* Texture2D.m */; };
 		6A6051A6108E5F4600389313 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A6051A5108E5F4600389313 /* CoreGraphics.framework */; };
+		6AF4426A108FADD400589A7F /* pink.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6AF44269108FADD400589A7F /* pink.jpg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -31,7 +32,7 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = 6A605148108E5BBC00389313 /* GameModel.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = 8DD76FA10486AA7600D96B5E /* GameModel */;
+			remoteGlobalIDString = 8DD76FA10486AA7600D96B5E;
 			remoteInfo = GameModel;
 		};
 /* End PBXContainerItemProxy section */
@@ -67,6 +68,7 @@
 		6A6051A0108E5E3A00389313 /* Texture2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Texture2D.h; sourceTree = "<group>"; };
 		6A6051A1108E5E3A00389313 /* Texture2D.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Texture2D.m; sourceTree = "<group>"; };
 		6A6051A5108E5F4600389313 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		6AF44269108FADD400589A7F /* pink.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = pink.jpg; path = Images/pink.jpg; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Graphics-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Graphics-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -145,6 +147,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				6AF44268108FAD6600589A7F /* Images */,
 				28AD733E0D9D9553002E5188 /* MainWindow.xib */,
 				8D1107310486CEB800E47090 /* Graphics-Info.plist */,
 			);
@@ -187,6 +190,14 @@
 				6A605157108E5BBC00389313 /* GameModel */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		6AF44268108FAD6600589A7F /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				6AF44269108FADD400589A7F /* pink.jpg */,
+			);
+			name = Images;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -251,6 +262,7 @@
 				2514C27C10084DCA00A42282 /* Shader.vsh in Resources */,
 				28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */,
 				6A60514F108E5BBC00389313 /* GameModel.1 in Resources */,
+				6AF4426A108FADD400589A7F /* pink.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
