@@ -1,6 +1,16 @@
-GameModel/build/**/*
+# xcode noise
 */build/**/*
-log/*.log
+*.pbxuser
+*.mode1v3
+
+# svn files
+.svn
+
+# osx noise
 .DS_Store
+profile
+
+# temp and log files
+log/*.log
 tmp/**/*
 
