@@ -15,11 +15,13 @@
 	int y;
 	BOOL **poArray;
 	Block *currentBlock;
+	int unit;
 }
 
 @property(readonly) int x;
 @property(readonly) int y;
 @property(retain) Block *currentBlock;
+@property(readonly) int unit;
 
 
 -(id)initWithX:(int)x_ Y:(int)y_;
@@ -32,7 +34,7 @@
 // this is used when a block hits the ground.
 -(void)landCurrentBlock;
 
--(void)setBoardWithCubeSet:(NSSet *)cubeSet status:(BOOL)status_;
+-(void)setBoardWithCubeSet:(NSArray *)cubeSet status:(BOOL)status_;
 //set viewable status with a block in this board
 -(void)setBoardWithBlock:(Block*)block_ status:(BOOL)status_;
 -(void)setArrayCubeStatusWithX:(int)x_ Y:(int)y_ status:(BOOL)status_;

@@ -11,12 +11,11 @@
 
 @implementation Board
 
-static size_t noOfX = 10;
-static size_t noOfY = 14;
 
 @synthesize x;
 @synthesize y;
 @synthesize currentBlock;
+@synthesize unit;
 
 
 -(id)initWithX:(int)x_ Y:(int)y_
@@ -44,7 +43,7 @@ static size_t noOfY = 14;
 // default setting for Board is 10 * 14
 -(id)init
 {
-	return [self initWithX:noOfX Y:noOfY];
+	return [self initWithX:10 Y:14];
 }
 
 /*
@@ -53,7 +52,7 @@ static size_t noOfY = 14;
  */
 -(BOOL)validateBlock:(Block*)block_
 {
-//	NSSet *keepCurrentCubeSet = self.currentCubeSet;
+//	NSArray *keepCurrentCubeSet = self.currentCubeSet;
 //	[keepCurrentCubeSet retain];
 //	
 //	[self clearCurrentCubeSet];
@@ -65,7 +64,7 @@ static size_t noOfY = 14;
 	[self clearCurrentBlock];
 	
 	BOOL isValid = YES;
-	NSSet *cubeSet = [block_ getCubeSetToBoard];
+	NSArray *cubeSet = [block_ getCubeSetToBoard];
 	[cubeSet retain];
 	
 	NSEnumerator *enumberator = [cubeSet objectEnumerator];
@@ -113,12 +112,12 @@ static size_t noOfY = 14;
 -(void)setBoardWithBlock:(Block*)block_ status:(BOOL)status_
 {
 	[block_ retain];
-	NSSet *cubeSet = [block_ getCubeSetToBoard];
+	NSArray *cubeSet = [block_ getCubeSetToBoard];
 	[self setBoardWithCubeSet:cubeSet status:status_];
 	[block_ release];
 }
 
--(void)setBoardWithCubeSet:(NSSet*)cubeSet status:(BOOL)status_
+-(void)setBoardWithCubeSet:(NSArray*)cubeSet status:(BOOL)status_
 {
 	[cubeSet retain];
 	NSEnumerator *enumerator = [cubeSet objectEnumerator];
@@ -145,7 +144,7 @@ static size_t noOfY = 14;
 	int cX = cube_.x;
 	int cY = cube_.y;
 	
-	if (cX >= 0 && cY >= 0 && cX < noOfX && cY < noOfY) {
+	if (cX >= 0 && cY >= 0 && cX < self.x && cY < self.y) {
 		// then it is valid in the board, then check
 		// if the location is taken
 		if (!poArray[cY][cX]) {
@@ -170,9 +169,9 @@ static size_t noOfY = 14;
 {
 	NSMutableString *str = [NSMutableString stringWithString:@"\n"];
 	
-	for (size_t i = 0; i < noOfY; ++i)
+	for (size_t i = 0; i < self.y; ++i)
 	{
-		for (size_t j = 0; j < noOfX; ++j)
+		for (size_t j = 0; j < self.x; ++j)
 		{
 			if (poArray[i][j])
 			{
@@ -193,7 +192,7 @@ static size_t noOfY = 14;
 -(void)dealloc
 {
 	NSLog(@"#####Deallocing Board.");
-	for (int i = 0; i < noOfY; ++i)
+	for (int i = 0; i < self.y; ++i)
 	{
 		free(poArray[i]);
 	}

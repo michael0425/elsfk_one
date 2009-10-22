@@ -298,7 +298,7 @@
 							<real>186</real>
 						</array>
 						<key>RubberWindowFrame</key>
-						<string>302 177 1098 623 0 0 1440 878 </string>
+						<string>70 158 1098 623 0 0 1440 878 </string>
 					</dict>
 					<key>Module</key>
 					<string>PBXSmartGroupTreeModule</string>
@@ -326,14 +326,19 @@
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>4C7C156C108D175700378F4D</string>
+										<string>4C7C16811090EFD100378F4D</string>
 										<key>history</key>
 										<array>
-											<string>4C7C1514108C6A8B00378F4D</string>
-											<string>4C7C153E108C768B00378F4D</string>
-											<string>4C7C1548108CC58C00378F4D</string>
-											<string>4C7C156A108D175700378F4D</string>
-											<string>4C7C156B108D175700378F4D</string>
+											<string>4C7C16751090EFD100378F4D</string>
+											<string>4C7C16771090EFD100378F4D</string>
+											<string>4C7C16791090EFD100378F4D</string>
+											<string>4C7C167A1090EFD100378F4D</string>
+											<string>4C7C167B1090EFD100378F4D</string>
+											<string>4C7C167C1090EFD100378F4D</string>
+											<string>4C7C167D1090EFD100378F4D</string>
+											<string>4C7C167E1090EFD100378F4D</string>
+											<string>4C7C167F1090EFD100378F4D</string>
+											<string>4C7C16801090EFD100378F4D</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -347,7 +352,7 @@
 								<key>Frame</key>
 								<string>{{0, 0}, {890, 382}}</string>
 								<key>RubberWindowFrame</key>
-								<string>302 177 1098 623 0 0 1440 878 </string>
+								<string>70 158 1098 623 0 0 1440 878 </string>
 							</dict>
 							<key>Module</key>
 							<string>PBXNavigatorGroup</string>
@@ -367,7 +372,7 @@
 								<key>Frame</key>
 								<string>{{0, 387}, {890, 195}}</string>
 								<key>RubberWindowFrame</key>
-								<string>302 177 1098 623 0 0 1440 878 </string>
+								<string>70 158 1098 623 0 0 1440 878 </string>
 							</dict>
 							<key>Module</key>
 							<string>XCDetailModule</string>
@@ -539,7 +544,7 @@
 		<string>/Users/michael/Projects/elsfk_one/GameModel/GameModel.xcodeproj</string>
 	</array>
 	<key>WindowString</key>
-	<string>302 177 1098 623 0 0 1440 878 </string>
+	<string>70 158 1098 623 0 0 1440 878 </string>
 	<key>WindowToolsV3</key>
 	<array>
 		<dict>
@@ -560,7 +565,7 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>1CD0528F0623707200166675</string>
 								<key>PBXProjectModuleLabel</key>
-								<string></string>
+								<string>Board.m</string>
 								<key>StatusBarVisibility</key>
 								<true/>
 							</dict>
@@ -577,6 +582,8 @@
 							<string>218pt</string>
 						</dict>
 						<dict>
+							<key>BecomeActive</key>
+							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
@@ -871,6 +878,8 @@
 					<key>Dock</key>
 					<array>
 						<dict>
+							<key>BecomeActive</key>
+							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>

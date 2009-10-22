@@ -3,4 +3,5 @@ GameModel/build/**/*
 log/*.log
 .DS_Store
 tmp/**/*
+GameGraphics/**/*
 

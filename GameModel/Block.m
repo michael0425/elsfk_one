@@ -21,7 +21,7 @@
 	{
 		self.x = x_;
 		self.y = y_;
-		self.cubeSet = [[NSMutableSet alloc] initWithCapacity:cap_];
+		self.cubeSet = [[NSMutableArray alloc] initWithCapacity:cap_];
 		maxX = 0;
 		maxY = 0;
 		preX = 0;
@@ -135,10 +135,10 @@
 /*
  * get the cube set with coordination against board.
  */
--(NSMutableSet*)getCubeSetToBoard
+-(NSMutableArray*)getCubeSetToBoard
 {
 	NSLog(@"getCubeSetToBoard was called from %@", self);
-	NSMutableSet *newSet = [[NSMutableSet alloc] initWithCapacity:[cubeSet count]];
+	NSMutableArray *newSet = [[NSMutableArray alloc] initWithCapacity:[cubeSet count]];
 	
 	NSEnumerator *setEnumerator = [cubeSet objectEnumerator];
 	Cube *aCube;
