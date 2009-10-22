@@ -229,8 +229,6 @@
 			<key>Layout</key>
 			<array>
 				<dict>
-					<key>BecomeActive</key>
-					<true/>
 					<key>ContentConfiguration</key>
 					<dict>
 						<key>PBXBottomSmartGroupGIDs</key>
@@ -273,7 +271,8 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>10</integer>
+									<integer>3</integer>
+									<integer>2</integer>
 									<integer>1</integer>
 									<integer>0</integer>
 								</array>
@@ -298,7 +297,7 @@
 							<real>186</real>
 						</array>
 						<key>RubberWindowFrame</key>
-						<string>70 158 1098 623 0 0 1440 878 </string>
+						<string>53 211 1098 623 0 0 1440 878 </string>
 					</dict>
 					<key>Module</key>
 					<string>PBXSmartGroupTreeModule</string>
@@ -309,12 +308,14 @@
 					<key>Dock</key>
 					<array>
 						<dict>
+							<key>BecomeActive</key>
+							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
 								<string>1CE0B20306471E060097A5F4</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>GameModel.m</string>
+								<string>Cube.h</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
@@ -322,23 +323,23 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>1CE0B20406471E060097A5F4</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>GameModel.m</string>
+										<string>Cube.h</string>
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>4C7C16811090EFD100378F4D</string>
+										<string>4C7C16901091012B00378F4D</string>
 										<key>history</key>
 										<array>
 											<string>4C7C16751090EFD100378F4D</string>
 											<string>4C7C16771090EFD100378F4D</string>
 											<string>4C7C16791090EFD100378F4D</string>
-											<string>4C7C167A1090EFD100378F4D</string>
-											<string>4C7C167B1090EFD100378F4D</string>
 											<string>4C7C167C1090EFD100378F4D</string>
-											<string>4C7C167D1090EFD100378F4D</string>
-											<string>4C7C167E1090EFD100378F4D</string>
-											<string>4C7C167F1090EFD100378F4D</string>
-											<string>4C7C16801090EFD100378F4D</string>
+											<string>4C7C168A1091012B00378F4D</string>
+											<string>4C7C168B1091012B00378F4D</string>
+											<string>4C7C168C1091012B00378F4D</string>
+											<string>4C7C168D1091012B00378F4D</string>
+											<string>4C7C168E1091012B00378F4D</string>
+											<string>4C7C168F1091012B00378F4D</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -352,7 +353,7 @@
 								<key>Frame</key>
 								<string>{{0, 0}, {890, 382}}</string>
 								<key>RubberWindowFrame</key>
-								<string>70 158 1098 623 0 0 1440 878 </string>
+								<string>53 211 1098 623 0 0 1440 878 </string>
 							</dict>
 							<key>Module</key>
 							<string>PBXNavigatorGroup</string>
@@ -372,7 +373,7 @@
 								<key>Frame</key>
 								<string>{{0, 387}, {890, 195}}</string>
 								<key>RubberWindowFrame</key>
-								<string>70 158 1098 623 0 0 1440 878 </string>
+								<string>53 211 1098 623 0 0 1440 878 </string>
 							</dict>
 							<key>Module</key>
 							<string>XCDetailModule</string>
@@ -544,7 +545,7 @@
 		<string>/Users/michael/Projects/elsfk_one/GameModel/GameModel.xcodeproj</string>
 	</array>
 	<key>WindowString</key>
-	<string>70 158 1098 623 0 0 1440 878 </string>
+	<string>53 211 1098 623 0 0 1440 878 </string>
 	<key>WindowToolsV3</key>
 	<array>
 		<dict>
@@ -565,7 +566,7 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>1CD0528F0623707200166675</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>Board.m</string>
+								<string>Cube.h</string>
 								<key>StatusBarVisibility</key>
 								<true/>
 							</dict>

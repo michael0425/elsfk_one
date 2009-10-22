@@ -166,6 +166,23 @@
 			4C7C167F1090EFD100378F4D /* PBXTextBookmark */ = 4C7C167F1090EFD100378F4D /* PBXTextBookmark */;
 			4C7C16801090EFD100378F4D /* PBXTextBookmark */ = 4C7C16801090EFD100378F4D /* PBXTextBookmark */;
 			4C7C16811090EFD100378F4D /* PBXTextBookmark */ = 4C7C16811090EFD100378F4D /* PBXTextBookmark */;
+			4C7C16871091012800378F4D /* PBXTextBookmark */ = 4C7C16871091012800378F4D /* PBXTextBookmark */;
+			4C7C16881091012800378F4D /* XCBuildMessageTextBookmark */ = 4C7C16881091012800378F4D /* XCBuildMessageTextBookmark */;
+			4C7C16891091012800378F4D /* PBXTextBookmark */ = 4C7C16891091012800378F4D /* PBXTextBookmark */;
+			4C7C168A1091012B00378F4D /* PBXTextBookmark */ = 4C7C168A1091012B00378F4D /* PBXTextBookmark */;
+			4C7C168B1091012B00378F4D /* PBXTextBookmark */ = 4C7C168B1091012B00378F4D /* PBXTextBookmark */;
+			4C7C168C1091012B00378F4D /* PBXTextBookmark */ = 4C7C168C1091012B00378F4D /* PBXTextBookmark */;
+			4C7C168D1091012B00378F4D /* PBXTextBookmark */ = 4C7C168D1091012B00378F4D /* PBXTextBookmark */;
+			4C7C168E1091012B00378F4D /* PBXTextBookmark */ = 4C7C168E1091012B00378F4D /* PBXTextBookmark */;
+			4C7C168F1091012B00378F4D /* XCBuildMessageTextBookmark */ = 4C7C168F1091012B00378F4D /* XCBuildMessageTextBookmark */;
+			4C7C16901091012B00378F4D /* PBXTextBookmark */ = 4C7C16901091012B00378F4D /* PBXTextBookmark */;
+			4C7C169D109101E200378F4D /* XCBuildMessageTextBookmark */ = 4C7C169D109101E200378F4D /* XCBuildMessageTextBookmark */;
+			4C7C169E109101E200378F4D /* PBXTextBookmark */ = 4C7C169E109101E200378F4D /* PBXTextBookmark */;
+			4C7C16A51091021300378F4D /* XCBuildMessageTextBookmark */ = 4C7C16A51091021300378F4D /* XCBuildMessageTextBookmark */;
+			4C7C16A61091021300378F4D /* PBXTextBookmark */ = 4C7C16A61091021300378F4D /* PBXTextBookmark */;
+			4C7C16E41091063500378F4D /* XCBuildMessageTextBookmark */ = 4C7C16E41091063500378F4D /* XCBuildMessageTextBookmark */;
+			4C7C16E51091063500378F4D /* PBXTextBookmark */ = 4C7C16E51091063500378F4D /* PBXTextBookmark */;
+			4C7C16EA1091066D00378F4D /* PBXTextBookmark */ = 4C7C16EA1091066D00378F4D /* PBXTextBookmark */;
 		};
 		sourceControlManager = 4C7C12E91085000C00378F4D /* Source Control */;
 		userBuildSettings = {
@@ -173,9 +190,9 @@
 	};
 	08FB7796FE84155DC02AAC07 /* GameModel.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {829, 663}}";
-			sepNavSelRange = "{901, 0}";
-			sepNavVisRange = "{230, 675}";
+			sepNavIntBoundsRect = "{{0, 0}, {829, 676}}";
+			sepNavSelRange = "{840, 0}";
+			sepNavVisRange = "{621, 414}";
 		};
 	};
 	32A70AAB03705E1F00C91783 /* GameModel_Prefix.pch */ = {
@@ -236,16 +253,16 @@
 	};
 	4C7C12EB1085001D00378F4D /* Cube.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {829, 507}}";
-			sepNavSelRange = "{492, 0}";
-			sepNavVisRange = "{201, 417}";
+			sepNavIntBoundsRect = "{{0, 0}, {558, 559}}";
+			sepNavSelRange = "{553, 0}";
+			sepNavVisRange = "{393, 325}";
 		};
 	};
 	4C7C12EC1085001D00378F4D /* Cube.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {829, 754}}";
-			sepNavSelRange = "{953, 0}";
-			sepNavVisRange = "{547, 413}";
+			sepNavIntBoundsRect = "{{0, 0}, {829, 962}}";
+			sepNavSelRange = "{824, 0}";
+			sepNavVisRange = "{649, 527}";
 		};
 	};
 	4C7C12F81085043900378F4D /* Block.h */ = {
@@ -258,9 +275,9 @@
 	};
 	4C7C12F91085043900378F4D /* Block.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {829, 2535}}";
+			sepNavIntBoundsRect = "{{0, 0}, {829, 2509}}";
 			sepNavSelRange = "{2354, 1}";
-			sepNavVisRange = "{2354, 637}";
+			sepNavVisRange = "{0, 449}";
 			sepNavWindowFrame = "{{61, 242}, {1159, 589}}";
 		};
 	};
@@ -279,7 +296,7 @@
 		fRef = 4C7C12EB1085001D00378F4D /* Cube.h */;
 		name = "Cube.h: 33";
 		rLen = 0;
-		rLoc = 596;
+		rLoc = 701;
 		rType = 0;
 		vrLen = 414;
 		vrLoc = 172;
@@ -289,7 +306,7 @@
 		fRef = 4C7C12EC1085001D00378F4D /* Cube.m */;
 		name = "Cube.m: 41";
 		rLen = 0;
-		rLoc = 836;
+		rLoc = 1115;
 		rType = 0;
 		vrLen = 533;
 		vrLoc = 294;
@@ -299,7 +316,7 @@
 		fRef = 08FB7796FE84155DC02AAC07 /* GameModel.m */;
 		name = "GameModel.m: 16";
 		rLen = 0;
-		rLoc = 996;
+		rLoc = 1242;
 		rType = 0;
 		vrLen = 513;
 		vrLoc = 0;
@@ -336,17 +353,17 @@
 	};
 	4C7C13BD1086863100378F4D /* Board.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {829, 611}}";
-			sepNavSelRange = "{477, 0}";
-			sepNavVisRange = "{0, 415}";
+			sepNavIntBoundsRect = "{{0, 0}, {829, 637}}";
+			sepNavSelRange = "{963, 37}";
+			sepNavVisRange = "{292, 757}";
 			sepNavWindowFrame = "{{61, 96}, {1226, 735}}";
 		};
 	};
 	4C7C13BE1086863100378F4D /* Board.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {829, 2756}}";
-			sepNavSelRange = "{181, 0}";
-			sepNavVisRange = "{3, 413}";
+			sepNavIntBoundsRect = "{{0, 0}, {829, 2782}}";
+			sepNavSelRange = "{416, 0}";
+			sepNavVisRange = "{862, 584}";
 			sepNavWindowFrame = "{{84, 221}, {1159, 589}}";
 		};
 	};
@@ -401,7 +418,7 @@
 		fRef = 08FB7796FE84155DC02AAC07 /* GameModel.m */;
 		name = "GameModel.m: 27";
 		rLen = 0;
-		rLoc = 1033;
+		rLoc = 1279;
 		rType = 0;
 		vrLen = 665;
 		vrLoc = 0;
@@ -421,7 +438,7 @@
 		fRef = 4C7C13BE1086863100378F4D /* Board.m */;
 		name = "Board.m: 76";
 		rLen = 0;
-		rLoc = 3896;
+		rLoc = 4326;
 		rType = 0;
 		vrLen = 467;
 		vrLoc = 515;
@@ -471,7 +488,7 @@
 		fRef = 4C7C12EB1085001D00378F4D /* Cube.h */;
 		name = "Cube.h: 29";
 		rLen = 31;
-		rLoc = 460;
+		rLoc = 520;
 		rType = 0;
 		vrLen = 446;
 		vrLoc = 172;
@@ -549,7 +566,7 @@
 		comments = "'enumberator' undeclared (first use in this function)";
 		fRef = 4C7C13BE1086863100378F4D /* Board.m */;
 		rLen = 1;
-		rLoc = 125;
+		rLoc = 129;
 		rType = 1;
 	};
 	4C7C14D8108A68CE00378F4D /* PBXTextBookmark */ = {
@@ -557,7 +574,7 @@
 		fRef = 4C7C13BE1086863100378F4D /* Board.m */;
 		name = "Board.m: 109";
 		rLen = 0;
-		rLoc = 2534;
+		rLoc = 2609;
 		rType = 0;
 		vrLen = 378;
 		vrLoc = 833;
@@ -617,7 +634,7 @@
 		fRef = 4C7C12EC1085001D00378F4D /* Cube.m */;
 		name = "Cube.m: 52";
 		rLen = 0;
-		rLoc = 930;
+		rLoc = 1209;
 		rType = 0;
 		vrLen = 465;
 		vrLoc = 494;
@@ -627,7 +644,7 @@
 		fRef = 4C7C12EB1085001D00378F4D /* Cube.h */;
 		name = "Cube.h: 23";
 		rLen = 0;
-		rLoc = 332;
+		rLoc = 392;
 		rType = 0;
 		vrLen = 479;
 		vrLoc = 138;
@@ -637,7 +654,7 @@
 		fRef = 4C7C13BE1086863100378F4D /* Board.m */;
 		name = "Board.m: 170";
 		rLen = 0;
-		rLoc = 3743;
+		rLoc = 4173;
 		rType = 0;
 		vrLen = 468;
 		vrLoc = 2781;
@@ -647,7 +664,7 @@
 		fRef = 4C7C13BE1086863100378F4D /* Board.m */;
 		name = "Board.m: 165";
 		rLen = 0;
-		rLoc = 3708;
+		rLoc = 4138;
 		rType = 0;
 		vrLen = 422;
 		vrLoc = 294;
@@ -657,7 +674,7 @@
 		comments = "'currentCubeSet' undeclared (first use in this function)";
 		fRef = 4C7C13BE1086863100378F4D /* Board.m */;
 		rLen = 1;
-		rLoc = 36;
+		rLoc = 40;
 		rType = 1;
 	};
 	4C7C14F0108B739700378F4D /* PBXTextBookmark */ = {
@@ -665,7 +682,7 @@
 		fRef = 4C7C13BE1086863100378F4D /* Board.m */;
 		name = "Board.m: 39";
 		rLen = 0;
-		rLoc = 539;
+		rLoc = 614;
 		rType = 0;
 		vrLen = 228;
 		vrLoc = 454;
@@ -675,7 +692,7 @@
 		comments = "'currentCubeSet' undeclared (first use in this function)";
 		fRef = 4C7C13BE1086863100378F4D /* Board.m */;
 		rLen = 1;
-		rLoc = 36;
+		rLoc = 40;
 		rType = 1;
 	};
 	4C7C14F4108B73B200378F4D /* PBXTextBookmark */ = {
@@ -683,7 +700,7 @@
 		comments = "'currentCubeSet' undeclared (first use in this function)";
 		fRef = 4C7C13BE1086863100378F4D /* Board.m */;
 		rLen = 1;
-		rLoc = 36;
+		rLoc = 40;
 		rType = 1;
 	};
 	4C7C14F5108B73B200378F4D /* PBXTextBookmark */ = {
@@ -691,7 +708,7 @@
 		fRef = 4C7C13BE1086863100378F4D /* Board.m */;
 		name = "Board.m: 38";
 		rLen = 0;
-		rLoc = 539;
+		rLoc = 614;
 		rType = 0;
 		vrLen = 213;
 		vrLoc = 454;
@@ -721,7 +738,7 @@
 		fRef = 4C7C12EB1085001D00378F4D /* Cube.h */;
 		name = "Cube.h: 31";
 		rLen = 0;
-		rLoc = 492;
+		rLoc = 597;
 		rType = 0;
 		vrLen = 445;
 		vrLoc = 138;
@@ -731,7 +748,7 @@
 		fRef = 4C7C12EC1085001D00378F4D /* Cube.m */;
 		name = "Cube.m: 63";
 		rLen = 0;
-		rLoc = 953;
+		rLoc = 1232;
 		rType = 0;
 		vrLen = 231;
 		vrLoc = 729;
@@ -751,7 +768,7 @@
 		fRef = 4C7C13BD1086863100378F4D /* Board.h */;
 		name = "Board.h: 33";
 		rLen = 0;
-		rLoc = 962;
+		rLoc = 1001;
 		rType = 0;
 		vrLen = 513;
 		vrLoc = 223;
@@ -761,7 +778,7 @@
 		comments = "'currentCubeSet' undeclared (first use in this function)";
 		fRef = 4C7C13BE1086863100378F4D /* Board.m */;
 		rLen = 1;
-		rLoc = 36;
+		rLoc = 40;
 		rType = 1;
 	};
 	4C7C14FD108B73BC00378F4D /* PBXTextBookmark */ = {
@@ -769,7 +786,7 @@
 		fRef = 4C7C13BE1086863100378F4D /* Board.m */;
 		name = "Board.m: 38";
 		rLen = 0;
-		rLoc = 539;
+		rLoc = 614;
 		rType = 0;
 		vrLen = 577;
 		vrLoc = 2105;
@@ -779,7 +796,7 @@
 		fRef = 4C7C13BE1086863100378F4D /* Board.m */;
 		name = "Board.m: 38";
 		rLen = 0;
-		rLoc = 539;
+		rLoc = 614;
 		rType = 0;
 		vrLen = 815;
 		vrLoc = 326;
@@ -799,7 +816,7 @@
 		fRef = 4C7C12EB1085001D00378F4D /* Cube.h */;
 		name = "Cube.h: 31";
 		rLen = 0;
-		rLoc = 492;
+		rLoc = 597;
 		rType = 0;
 		vrLen = 445;
 		vrLoc = 138;
@@ -809,7 +826,7 @@
 		fRef = 4C7C12EC1085001D00378F4D /* Cube.m */;
 		name = "Cube.m: 63";
 		rLen = 0;
-		rLoc = 953;
+		rLoc = 1232;
 		rType = 0;
 		vrLen = 386;
 		vrLoc = 0;
@@ -859,7 +876,7 @@
 		fRef = 4C7C13BE1086863100378F4D /* Board.m */;
 		name = "Board.m: 160";
 		rLen = 0;
-		rLoc = 3324;
+		rLoc = 3399;
 		rType = 0;
 		vrLen = 434;
 		vrLoc = 3073;
@@ -869,7 +886,7 @@
 		fRef = 4C7C13BE1086863100378F4D /* Board.m */;
 		name = "Board.m: 163";
 		rLen = 0;
-		rLoc = 3324;
+		rLoc = 3399;
 		rType = 0;
 		vrLen = 450;
 		vrLoc = 3164;
@@ -879,7 +896,7 @@
 		fRef = 4C7C13BE1086863100378F4D /* Board.m */;
 		name = "Board.m: 160";
 		rLen = 0;
-		rLoc = 3324;
+		rLoc = 3399;
 		rType = 0;
 		vrLen = 849;
 		vrLoc = 454;
@@ -889,7 +906,7 @@
 		fRef = 4C7C13BE1086863100378F4D /* Board.m */;
 		name = "Board.m: 108";
 		rLen = 5;
-		rLoc = 2140;
+		rLoc = 2215;
 		rType = 0;
 		vrLen = 1126;
 		vrLoc = 1516;
@@ -899,7 +916,7 @@
 		fRef = 4C7C13BE1086863100378F4D /* Board.m */;
 		name = "Board.m: 163";
 		rLen = 0;
-		rLoc = 3324;
+		rLoc = 3399;
 		rType = 0;
 		vrLen = 450;
 		vrLoc = 3164;
@@ -909,7 +926,7 @@
 		fRef = 4C7C13BE1086863100378F4D /* Board.m */;
 		name = "Board.m: 108";
 		rLen = 5;
-		rLoc = 2140;
+		rLoc = 2215;
 		rType = 0;
 		vrLen = 1126;
 		vrLoc = 1516;
@@ -919,7 +936,7 @@
 		fRef = 4C7C12EC1085001D00378F4D /* Cube.m */;
 		name = "Cube.m: 58";
 		rLen = 0;
-		rLoc = 953;
+		rLoc = 1232;
 		rType = 0;
 		vrLen = 206;
 		vrLoc = 754;
@@ -949,7 +966,7 @@
 		fRef = 4C7C13BE1086863100378F4D /* Board.m */;
 		name = "Board.m: 163";
 		rLen = 0;
-		rLoc = 3324;
+		rLoc = 3399;
 		rType = 0;
 		vrLen = 271;
 		vrLoc = 3561;
@@ -959,7 +976,7 @@
 		fRef = 4C7C13BE1086863100378F4D /* Board.m */;
 		name = "Board.m: 165";
 		rLen = 0;
-		rLoc = 3324;
+		rLoc = 3399;
 		rType = 0;
 		vrLen = 298;
 		vrLoc = 3569;
@@ -969,7 +986,7 @@
 		fRef = 4C7C13BE1086863100378F4D /* Board.m */;
 		name = "Board.m: 122";
 		rLen = 0;
-		rLoc = 2531;
+		rLoc = 2606;
 		rType = 0;
 		vrLen = 1017;
 		vrLoc = 1956;
@@ -979,7 +996,7 @@
 		fRef = 4C7C13BE1086863100378F4D /* Board.m */;
 		name = "Board.m: 117";
 		rLen = 0;
-		rLoc = 2371;
+		rLoc = 2446;
 		rType = 0;
 		vrLen = 772;
 		vrLoc = 2752;
@@ -1009,7 +1026,7 @@
 		fRef = 4C7C13BE1086863100378F4D /* Board.m */;
 		name = "Board.m: 95";
 		rLen = 0;
-		rLoc = 1889;
+		rLoc = 1964;
 		rType = 0;
 		vrLen = 282;
 		vrLoc = 3580;
@@ -1019,7 +1036,7 @@
 		fRef = 4C7C12EB1085001D00378F4D /* Cube.h */;
 		name = "Cube.h: 30";
 		rLen = 0;
-		rLoc = 492;
+		rLoc = 597;
 		rType = 0;
 		vrLen = 407;
 		vrLoc = 212;
@@ -1029,7 +1046,7 @@
 		fRef = 4C7C12EC1085001D00378F4D /* Cube.m */;
 		name = "Cube.m: 58";
 		rLen = 0;
-		rLoc = 953;
+		rLoc = 1232;
 		rType = 0;
 		vrLen = 233;
 		vrLoc = 727;
@@ -1039,7 +1056,7 @@
 		fRef = 4C7C12EC1085001D00378F4D /* Cube.m */;
 		name = "Cube.m: 55";
 		rLen = 0;
-		rLoc = 953;
+		rLoc = 1232;
 		rType = 0;
 		vrLen = 413;
 		vrLoc = 547;
@@ -1049,7 +1066,7 @@
 		fRef = 4C7C13BE1086863100378F4D /* Board.m */;
 		name = "Board.m: 116";
 		rLen = 0;
-		rLoc = 2371;
+		rLoc = 2446;
 		rType = 0;
 		vrLen = 706;
 		vrLoc = 3;
@@ -1059,7 +1076,7 @@
 		fRef = 4C7C12EC1085001D00378F4D /* Cube.m */;
 		name = "Cube.m: 55";
 		rLen = 0;
-		rLoc = 953;
+		rLoc = 1232;
 		rType = 0;
 		vrLen = 413;
 		vrLoc = 547;
@@ -1069,7 +1086,7 @@
 		fRef = 4C7C13BE1086863100378F4D /* Board.m */;
 		name = "Board.m: 95";
 		rLen = 0;
-		rLoc = 1889;
+		rLoc = 1964;
 		rType = 0;
 		vrLen = 291;
 		vrLoc = 3571;
@@ -1099,7 +1116,7 @@
 		fRef = 4C7C13BE1086863100378F4D /* Board.m */;
 		name = "Board.m: 116";
 		rLen = 0;
-		rLoc = 2371;
+		rLoc = 2446;
 		rType = 0;
 		vrLen = 683;
 		vrLoc = 29;
@@ -1109,7 +1126,7 @@
 		fRef = 4C7C13BE1086863100378F4D /* Board.m */;
 		name = "Board.m: 94";
 		rLen = 0;
-		rLoc = 1828;
+		rLoc = 1903;
 		rType = 0;
 		vrLen = 374;
 		vrLoc = 3522;
@@ -1134,7 +1151,7 @@
 		fRef = 4C7C13BE1086863100378F4D /* Board.m */;
 		fallbackIsa = XCBuildMessageTextBookmark;
 		rLen = 0;
-		rLoc = 12;
+		rLoc = 14;
 		rType = 1;
 	};
 	4C7C166B1090EF5700378F4D /* PBXTextBookmark */ = {
@@ -1142,7 +1159,7 @@
 		fRef = 4C7C13BE1086863100378F4D /* Board.m */;
 		name = "Board.m: 14";
 		rLen = 0;
-		rLoc = 181;
+		rLoc = 231;
 		rType = 0;
 		vrLen = 175;
 		vrLoc = 135;
@@ -1152,7 +1169,7 @@
 		fRef = 4C7C13BE1086863100378F4D /* Board.m */;
 		name = "Board.m: 13";
 		rLen = 0;
-		rLoc = 181;
+		rLoc = 231;
 		rType = 0;
 		vrLen = 157;
 		vrLoc = 135;
@@ -1204,7 +1221,7 @@
 		fRef = 4C7C12EB1085001D00378F4D /* Cube.h */;
 		name = "Cube.h: 30";
 		rLen = 0;
-		rLoc = 492;
+		rLoc = 597;
 		rType = 0;
 		vrLen = 417;
 		vrLoc = 201;
@@ -1214,7 +1231,7 @@
 		fRef = 4C7C12EC1085001D00378F4D /* Cube.m */;
 		name = "Cube.m: 55";
 		rLen = 0;
-		rLoc = 953;
+		rLoc = 1232;
 		rType = 0;
 		vrLen = 413;
 		vrLoc = 547;
@@ -1254,7 +1271,7 @@
 		fRef = 4C7C13BE1086863100378F4D /* Board.m */;
 		name = "Board.m: 13";
 		rLen = 0;
-		rLoc = 181;
+		rLoc = 231;
 		rType = 0;
 		vrLen = 413;
 		vrLoc = 3;
@@ -1278,6 +1295,171 @@
 		rType = 0;
 		vrLen = 675;
 		vrLoc = 230;
+	};
+	4C7C16871091012800378F4D /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 4C7C13BE1086863100378F4D /* Board.m */;
+		name = "Board.m: 15";
+		rLen = 0;
+		rLoc = 231;
+		rType = 0;
+		vrLen = 173;
+		vrLoc = 135;
+	};
+	4C7C16881091012800378F4D /* XCBuildMessageTextBookmark */ = {
+		isa = PBXTextBookmark;
+		comments = "Expected ')' before 'GLFloat'";
+		fRef = 4C7C12EB1085001D00378F4D /* Cube.h */;
+		fallbackIsa = XCBuildMessageTextBookmark;
+		rLen = 1;
+		rLoc = 33;
+		rType = 1;
+	};
+	4C7C16891091012800378F4D /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 4C7C12EB1085001D00378F4D /* Cube.h */;
+		name = "Cube.h: 32";
+		rLen = 0;
+		rLoc = 553;
+		rType = 0;
+		vrLen = 325;
+		vrLoc = 334;
+	};
+	4C7C168A1091012B00378F4D /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 08FB7796FE84155DC02AAC07 /* GameModel.m */;
+		name = "GameModel.m: 37";
+		rLen = 0;
+		rLoc = 901;
+		rType = 0;
+		vrLen = 675;
+		vrLoc = 230;
+	};
+	4C7C168B1091012B00378F4D /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 4C7C12F91085043900378F4D /* Block.m */;
+		name = "Block.m: 134";
+		rLen = 1;
+		rLoc = 2354;
+		rType = 0;
+		vrLen = 449;
+		vrLoc = 0;
+	};
+	4C7C168C1091012B00378F4D /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 4C7C13BD1086863100378F4D /* Board.h */;
+		name = "Board.h: 29";
+		rLen = 0;
+		rLoc = 477;
+		rType = 0;
+		vrLen = 723;
+		vrLoc = 292;
+	};
+	4C7C168D1091012B00378F4D /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 4C7C13BE1086863100378F4D /* Board.m */;
+		name = "Board.m: 12";
+		rLen = 0;
+		rLoc = 207;
+		rType = 0;
+		vrLen = 407;
+		vrLoc = 209;
+	};
+	4C7C168E1091012B00378F4D /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 4C7C12EC1085001D00378F4D /* Cube.m */;
+		name = "Cube.m: 44";
+		rLen = 43;
+		rLoc = 730;
+		rType = 0;
+		vrLen = 528;
+		vrLoc = 649;
+	};
+	4C7C168F1091012B00378F4D /* XCBuildMessageTextBookmark */ = {
+		isa = PBXTextBookmark;
+		comments = "Expected ')' before 'GLFloat'";
+		fRef = 4C7C12EB1085001D00378F4D /* Cube.h */;
+		fallbackIsa = XCBuildMessageTextBookmark;
+		rLen = 1;
+		rLoc = 33;
+		rType = 1;
+	};
+	4C7C16901091012B00378F4D /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 4C7C12EB1085001D00378F4D /* Cube.h */;
+		name = "Cube.h: 32";
+		rLen = 0;
+		rLoc = 553;
+		rType = 0;
+		vrLen = 451;
+		vrLoc = 214;
+	};
+	4C7C169D109101E200378F4D /* XCBuildMessageTextBookmark */ = {
+		isa = PBXTextBookmark;
+		comments = "Expected ')' before 'GLFloat'";
+		fRef = 4C7C12EB1085001D00378F4D /* Cube.h */;
+		fallbackIsa = XCBuildMessageTextBookmark;
+		rLen = 1;
+		rLoc = 33;
+		rType = 1;
+	};
+	4C7C169E109101E200378F4D /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 4C7C12EB1085001D00378F4D /* Cube.h */;
+		name = "Cube.h: 33";
+		rLen = 0;
+		rLoc = 553;
+		rType = 0;
+		vrLen = 298;
+		vrLoc = 314;
+	};
+	4C7C16A51091021300378F4D /* XCBuildMessageTextBookmark */ = {
+		isa = PBXTextBookmark;
+		comments = "Expected ')' before 'GLFloat'";
+		fRef = 4C7C12EB1085001D00378F4D /* Cube.h */;
+		fallbackIsa = XCBuildMessageTextBookmark;
+		rLen = 1;
+		rLoc = 33;
+		rType = 1;
+	};
+	4C7C16A61091021300378F4D /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 4C7C12EB1085001D00378F4D /* Cube.h */;
+		name = "Cube.h: 35";
+		rLen = 0;
+		rLoc = 553;
+		rType = 0;
+		vrLen = 317;
+		vrLoc = 421;
+	};
+	4C7C16E41091063500378F4D /* XCBuildMessageTextBookmark */ = {
+		isa = PBXTextBookmark;
+		comments = "Expected ')' before 'GLFloat'";
+		fRef = 4C7C12EB1085001D00378F4D /* Cube.h */;
+		fallbackIsa = XCBuildMessageTextBookmark;
+		rLen = 1;
+		rLoc = 33;
+		rType = 1;
+	};
+	4C7C16E51091063500378F4D /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 4C7C12EB1085001D00378F4D /* Cube.h */;
+		name = "Cube.h: 34";
+		rLen = 0;
+		rLoc = 553;
+		rType = 0;
+		vrLen = 325;
+		vrLoc = 393;
+	};
+	4C7C16EA1091066D00378F4D /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 4C7C12EB1085001D00378F4D /* Cube.h */;
+		name = "Cube.h: 34";
+		rLen = 0;
+		rLoc = 553;
+		rType = 0;
+		vrLen = 325;
+		vrLoc = 393;
 	};
 	8DD76F960486AA7600D96B5E /* GameModel */ = {
 		activeExec = 0;

@@ -8,6 +8,8 @@
 
 #import "Board.h"
 
+static int maxXCo = 320;
+static int maxYCo = 420;
 
 @implementation Board
 
@@ -23,6 +25,8 @@
 	if (self = [super init]) {
 		x = x_;
 		y = y_;
+		
+		unit = maxXCo / x_;
 		
 		poArray = calloc(y, sizeof(BOOL*));
 		for (size_t i = 0; i < y; ++i)
@@ -163,6 +167,18 @@
 	[self setBoardWithBlock:currentBlock status:YES];
 	[currentBlock release];
 	currentBlock = NULL;
+}
+
+// used to provide real vertex to draw cubes in openGL
+-(GLfloat*)getCubeVertex:(Cube*)cube
+{
+	Cube *tmpCube = [[Cube alloc]initWithCube:cube];
+	tmpCube.x = tmpCube.x * unit;
+	tmpCube.y = maxYCo - tmpCube.y * unit;
+	NSLog(@"Getting Vertex from %@", tmpCube);
+	GLfloat *vertex = [tmpCube getCubeVertexWithUnit:unit];
+	[tmpCube release];
+	return vertex;
 }
 
 -(void)printBoard

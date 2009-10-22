@@ -41,6 +41,22 @@
 	return [self initWithX:cube_.x Y:cube_.y color:cube_.color type:cube_.type];
 }
 
+-(GLfloat*)getCubeVertexWithUnit:(int)unit;
+{
+	GLfloat *vertex;
+	vertex = calloc(8, sizeof(GLfloat));
+	vertex[0] = x;
+	vertex[1] = y;
+	vertex[2] = x + unit;
+	vertex[3] = y;
+	vertex[4] = x + unit;
+	vertex[5] = y - unit;
+	vertex[6] = x;
+	vertex[7] = y - unit;
+	
+	return vertex;
+}
+
 -(NSString*)description
 {
 	return [NSString stringWithFormat:@"Cube with X:%d Y:%d Color:%d Type:%d", 

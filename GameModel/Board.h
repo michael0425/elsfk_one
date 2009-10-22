@@ -39,6 +39,8 @@
 -(void)setBoardWithBlock:(Block*)block_ status:(BOOL)status_;
 -(void)setArrayCubeStatusWithX:(int)x_ Y:(int)y_ status:(BOOL)status_;
 
+-(GLfloat*)getCubeVertex:(Cube*)cube;
+
 -(void)clearCurrentBlock;
 
 -(void)printBoard;
