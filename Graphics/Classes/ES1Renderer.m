@@ -30,14 +30,14 @@
 		glBindRenderbufferOES(GL_RENDERBUFFER_OES, colorRenderbuffer);
 		glFramebufferRenderbufferOES(GL_FRAMEBUFFER_OES, GL_COLOR_ATTACHMENT0_OES, GL_RENDERBUFFER_OES, colorRenderbuffer);
 		
-		glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
+		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		glDisable(GL_DEPTH_TEST);
 		
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
 		glOrthof(0.0f, 320.0f, 480.0f, 0.0f, -1.0f, 1.0f);
 		
-		pinkBlock = [[Texture2D alloc] initWithImage:[UIImage imageNamed:@"pink.jpg"]];
+		pinkBlock = [[Texture2D alloc] initWithImage:[UIImage imageNamed:@"grey.jpg"]];
 		
 		
 	}
@@ -55,6 +55,8 @@ const static GLfloat squareVertices[8] = {
 
 - (void) render
 {
+	static GLfloat ty = 0.0f;
+	
 	// This application only creates a single context which is already set current at this point.
 	// This call is redundant, but needed if dealing with multiple contexts.
     [EAGLContext setCurrentContext:context];
@@ -72,22 +74,31 @@ const static GLfloat squareVertices[8] = {
 	glClear(GL_COLOR_BUFFER_BIT);
 	
 	//set blend color
-	glColor4f(1.0f, 1.0f, 1.0f, 0.0f);
+	glColor4f(0.9f, 0.0f, 0.1f, 1.0f);
 	
 	//draw a small square without texture
+	/*
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glVertexPointer(2, GL_FLOAT, 0, squareVertices);
 	glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 	glDisableClientState(GL_VERTEX_ARRAY);
+	 */
 	
 	//draw a square using texture class
 	glEnable(GL_TEXTURE_2D);
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 	glEnableClientState(GL_VERTEX_ARRAY);
-	[pinkBlock drawInRect:CGRectMake(120, 120, 30, 30)];//:CGPointMake(120.0, 120.0)];
+	[pinkBlock drawInRect:CGRectMake(120, 60+ty, 30, 30)];//:CGPointMake(120.0, 120.0)];
+	[pinkBlock drawInRect:CGRectMake(120, 30+ty, 30, 30)];
+	[pinkBlock drawInRect:CGRectMake(120, 0+ty, 30, 30)];
+	[pinkBlock drawInRect:CGRectMake(150, 0+ty, 30, 30)];
 	glDisableClientState(GL_VERTEX_ARRAY);
 	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 	glDisable(GL_TEXTURE_2D);
+	
+	ty+=2.0f;
+	if(ty>=390)
+		ty = 0.0f;
 	
 	// This application only creates a single color renderbuffer which is already bound at this point.
 	// This call is redundant, but needed if dealing with multiple renderbuffers.
