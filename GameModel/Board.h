@@ -8,12 +8,13 @@
 
 #import <Foundation/Foundation.h>
 #import "Block.h"
+#import "Cube.h"
 
 
 @interface Board : NSObject {
 	int x;
 	int y;
-	BOOL **poArray;
+	CubeType **poArray;
 	Block *currentBlock;
 	int unit;
 }
@@ -24,20 +25,22 @@
 @property(readonly) int unit;
 
 
--(id)initWithX:(int)x_ Y:(int)y_;
+-(id)initWithX:(int)gX Y:(int)gY;
 
 //return YES if the block can be shown in the board.
--(BOOL)validateBlock:(Block*)block_;
--(BOOL)validateCube:(Cube *)cube_;
+-(BOOL)validateBlock:(Block*)block;
+-(BOOL)validateCube:(Cube *)cube;
 
 // make current block solid and remove it out of currenBlock.
 // this is used when a block hits the ground.
 -(void)landCurrentBlock;
 
--(void)setBoardWithCubeSet:(NSArray *)cubeSet status:(BOOL)status_;
+-(void)setBoardWithCubeSet:(NSArray *)cubeSet;
 //set viewable status with a block in this board
--(void)setBoardWithBlock:(Block*)block_ status:(BOOL)status_;
--(void)setArrayCubeStatusWithX:(int)x_ Y:(int)y_ status:(BOOL)status_;
+-(void)setBoardWithBlock:(Block*)block;
+-(void)setArrayCubeTypeWithX:(int)gX Y:(int)gY type:(CubeType)type;
+-(void)clearBoardWithBlock:(Block*)block;
+-(void)clearBoardWithCubeSet:(NSArray*)cubeSet;
 
 -(GLfloat*)getCubeVertex:(Cube*)cube;
 

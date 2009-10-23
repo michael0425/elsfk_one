@@ -20,22 +20,22 @@ static int maxYCo = 420;
 @synthesize unit;
 
 
--(id)initWithX:(int)x_ Y:(int)y_
+-(id)initWithX:(int)gX Y:(int)gY
 {
 	if (self = [super init]) {
-		x = x_;
-		y = y_;
+		x = gX;
+		y = gY;
 		
-		unit = maxXCo / x_;
+		unit = maxXCo / gX;
 		
-		poArray = calloc(y, sizeof(BOOL*));
+		poArray = calloc(y, sizeof(CubeType*));
 		for (size_t i = 0; i < y; ++i)
 		{
-			poArray[i] = calloc(x, sizeof(BOOL));
+			poArray[i] = calloc(x, sizeof(CubeType));
 			
 			for (size_t j = 0; j < x; ++j)
 			{
-				poArray[i][j] = NO;
+				poArray[i][j] = EMPTY;
 			}
 		}
 		
@@ -54,13 +54,13 @@ static int maxYCo = 420;
  * YES = ok to continue
  * NO = needs to revert back to the last status
  */
--(BOOL)validateBlock:(Block*)block_
+-(BOOL)validateBlock:(Block*)block
 {
 //	NSArray *keepCurrentCubeSet = self.currentCubeSet;
 //	[keepCurrentCubeSet retain];
 //	
 //	[self clearCurrentCubeSet];
-	[block_ retain];
+	[block retain];
 	
 	Block *keepCurrentBlock = self.currentBlock;
 	[keepCurrentBlock retain];
@@ -68,7 +68,7 @@ static int maxYCo = 420;
 	[self clearCurrentBlock];
 	
 	BOOL isValid = YES;
-	NSArray *cubeSet = [block_ getCubeSetToBoard];
+	NSArray *cubeSet = [block getCubeSetToBoard];
 	[cubeSet retain];
 	
 	NSEnumerator *enumberator = [cubeSet objectEnumerator];
@@ -82,24 +82,24 @@ static int maxYCo = 420;
 	}
 	
 	if (isValid) {
-		NSLog(@"%@ is valid.", block_);
-		[self setBoardWithCubeSet:cubeSet status:YES];
-		self.currentBlock = [[Block alloc] initWithBlock:block_];
+		NSLog(@"%@ is valid.", block);
+		[self setBoardWithCubeSet:cubeSet];
+		self.currentBlock = [[Block alloc] initWithBlock:block];
 		[self.currentBlock release];
 	}else {
 		// if not valid, then we need to set back the previous state.
 		// now the self.currentCubeSet is set to NULL, the board status
 		// is kept.
-		NSLog(@"%@ is invalid.", block_);
-		[self setBoardWithBlock:keepCurrentBlock status:YES];
+		NSLog(@"%@ is invalid.", block);
+		[self setBoardWithBlock:keepCurrentBlock];
 		self.currentBlock = keepCurrentBlock;
-		[block_ moveReset];
-		NSLog(@"Reset block to %@", block_);
+		[block moveReset];
+		NSLog(@"Reset block to %@", block);
 	}
 
 	[keepCurrentBlock release];
 	[cubeSet release];
-	[block_ release];
+	[block release];
 	return isValid;
 }
 
@@ -108,50 +108,72 @@ static int maxYCo = 420;
 -(void)clearCurrentBlock
 {
 	if (self.currentBlock) {
-		[self setBoardWithBlock:self.currentBlock status:NO];
+		[self clearBoardWithBlock:self.currentBlock];
 		self.currentBlock = NULL;
 	}
 }
 
--(void)setBoardWithBlock:(Block*)block_ status:(BOOL)status_
+-(void)clearBoardWithBlock:(Block *)block
 {
-	[block_ retain];
-	NSArray *cubeSet = [block_ getCubeSetToBoard];
-	[self setBoardWithCubeSet:cubeSet status:status_];
-	[block_ release];
+	[block retain];
+	NSArray *cubeSet = [block getCubeSetToBoard];
+	[self clearBoardWithCubeSet:cubeSet];
+	[block release];
 }
 
--(void)setBoardWithCubeSet:(NSArray*)cubeSet status:(BOOL)status_
+-(void)clearBoardWithCubeSet:(NSArray*)cubeSet
 {
 	[cubeSet retain];
 	NSEnumerator *enumerator = [cubeSet objectEnumerator];
 	Cube *aCube;
 	
 	while (aCube = (Cube*)[enumerator nextObject]) {
-		[self setArrayCubeStatusWithX:aCube.x Y:aCube.y status:status_];
+		[self setArrayCubeTypeWithX:aCube.x Y:aCube.y type:EMPTY];
 	}
 	
 	[cubeSet release];
 }
 
--(void)setArrayCubeStatusWithX:(int)x_ Y:(int)y_ status:(BOOL)status_
+-(void)setBoardWithBlock:(Block*)block
 {
-	poArray[y_][x_] = status_;
+	[block retain];
+	NSArray *cubeSet = [block getCubeSetToBoard];
+	[self setBoardWithCubeSet:cubeSet];
+	[block release];
+}
+
+-(void)setBoardWithCubeSet:(NSArray*)cubeSet
+{
+	[cubeSet retain];
+	NSEnumerator *enumerator = [cubeSet objectEnumerator];
+	Cube *aCube;
+	
+	while (aCube = (Cube*)[enumerator nextObject]) {
+		[self setArrayCubeTypeWithX:aCube.x Y:aCube.y type:aCube.type];
+	}
+	
+	[cubeSet release];
+}
+
+-(void)setArrayCubeTypeWithX:(int)gX Y:(int)gY type:(CubeType)type
+{
+	poArray[gY][gX] = type;
 }
 /*
  * YES = ok to continue
  * NO = needs to revert back to the last status
  */
--(BOOL)validateCube:(Cube*)cube_
+-(BOOL)validateCube:(Cube*)cube
 {
-	[cube_ retain];
-	int cX = cube_.x;
-	int cY = cube_.y;
+	[cube retain];
+	int cX = cube.x;
+	int cY = cube.y;
 	
 	if (cX >= 0 && cY >= 0 && cX < self.x && cY < self.y) {
 		// then it is valid in the board, then check
 		// if the location is taken
-		if (!poArray[cY][cX]) {
+		// TODO all the logic related to cube ocupation should go here. 
+		if (poArray[cY][cX] == EMPTY) {
 			return YES;
 		}else {
 			return NO;
@@ -159,12 +181,12 @@ static int maxYCo = 420;
 	}else {
 		return NO;
 	}
-	[cube_ release];
+	[cube release];
 }
 
 -(void)landCurrentBlock
 {
-	[self setBoardWithBlock:currentBlock status:YES];
+	[self setBoardWithBlock:currentBlock];
 	[currentBlock release];
 	currentBlock = NULL;
 }
@@ -189,7 +211,7 @@ static int maxYCo = 420;
 	{
 		for (size_t j = 0; j < self.x; ++j)
 		{
-			if (poArray[i][j])
+			if (poArray[i][j] == SOLID)
 			{
 //				NSLog(@"Has value %d", poArray[i][j]);
 				[str appendString:@"0"];

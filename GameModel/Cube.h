@@ -12,6 +12,7 @@
 
 
 typedef enum cType {
+	EMPTY,
 	SOLID
 }CubeType;
 
