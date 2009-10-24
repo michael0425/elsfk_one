@@ -30,16 +30,18 @@
 		glBindRenderbufferOES(GL_RENDERBUFFER_OES, colorRenderbuffer);
 		glFramebufferRenderbufferOES(GL_FRAMEBUFFER_OES, GL_COLOR_ATTACHMENT0_OES, GL_RENDERBUFFER_OES, colorRenderbuffer);
 		
+		//clear colour
 		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+		//disable depth test, 2D only
 		glDisable(GL_DEPTH_TEST);
 		
+		//setup projection
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
 		glOrthof(0.0f, 320.0f, 480.0f, 0.0f, -1.0f, 1.0f);
 		
-		pinkBlock = [[Texture2D alloc] initWithImage:[UIImage imageNamed:@"grey.jpg"]];
-		
-		
+		//create a cube texture
+		cube = [[Texture2D alloc] initWithImage:[UIImage imageNamed:@"grey.jpg"]];
 	}
 	
 	return self;
@@ -54,9 +56,7 @@ const static GLfloat squareVertices[8] = {
 };
 
 - (void) render
-{
-	static GLfloat ty = 0.0f;
-	
+{	
 	// This application only creates a single context which is already set current at this point.
 	// This call is redundant, but needed if dealing with multiple contexts.
     [EAGLContext setCurrentContext:context];
@@ -84,26 +84,32 @@ const static GLfloat squareVertices[8] = {
 	glDisableClientState(GL_VERTEX_ARRAY);
 	 */
 	
-	//draw a square using texture class
-	glEnable(GL_TEXTURE_2D);
-	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-	glEnableClientState(GL_VERTEX_ARRAY);
-	[pinkBlock drawInRect:CGRectMake(120, 60+ty, 30, 30)];//:CGPointMake(120.0, 120.0)];
-	[pinkBlock drawInRect:CGRectMake(120, 30+ty, 30, 30)];
-	[pinkBlock drawInRect:CGRectMake(120, 0+ty, 30, 30)];
-	[pinkBlock drawInRect:CGRectMake(150, 0+ty, 30, 30)];
-	glDisableClientState(GL_VERTEX_ARRAY);
-	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-	glDisable(GL_TEXTURE_2D);
-	
-	ty+=2.0f;
-	if(ty>=390)
-		ty = 0.0f;
+	[self drawCubes];
 	
 	// This application only creates a single color renderbuffer which is already bound at this point.
 	// This call is redundant, but needed if dealing with multiple renderbuffers.
     glBindRenderbufferOES(GL_RENDERBUFFER_OES, colorRenderbuffer);
     [context presentRenderbuffer:GL_RENDERBUFFER_OES];
+}
+
+- (void) drawCubes {
+	static GLfloat ty = 0.0f;
+	
+	//draw a square using texture class
+	glEnable(GL_TEXTURE_2D);
+	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+	glEnableClientState(GL_VERTEX_ARRAY);
+	[cube drawInRect:CGRectMake(120, 40+ty, 20, 20)];//:CGPointMake(120.0, 120.0)];
+	[cube drawInRect:CGRectMake(120, 20+ty, 20, 20)];
+	[cube drawInRect:CGRectMake(120, 0+ty, 20, 20)];
+	[cube drawInRect:CGRectMake(140, 0+ty, 20, 20)];
+	glDisableClientState(GL_VERTEX_ARRAY);
+	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+	glDisable(GL_TEXTURE_2D);
+	
+	ty+=2.0f;
+	if(ty>=420)
+		ty = 0.0f;
 }
 
 - (BOOL) resizeFromLayer:(CAEAGLLayer *)layer

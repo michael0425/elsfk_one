@@ -24,10 +24,11 @@
 	// The OpenGL names for the framebuffer and renderbuffer used to render to this view
 	GLuint defaultFramebuffer, colorRenderbuffer;
 	
-	Texture2D* pinkBlock;
+	Texture2D* cube;
 }
 
 - (void) render;
+- (void) drawCubes;
 - (BOOL) resizeFromLayer:(CAEAGLLayer *)layer;
 
 @end
