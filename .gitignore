@@ -13,4 +13,5 @@ profile
 # temp and log files
 log/*.log
 tmp/**/*
+GameGraphics/**/*
 

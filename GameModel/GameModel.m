@@ -40,6 +40,13 @@ int main (int argc, const char * argv[]) {
 	
 	[board printBoard];
 	
+	GLfloat *ver = [board getCubeVertex:[[board.currentBlock getCubeSetToBoard] objectAtIndex:0]];
+	NSMutableString *str = [NSMutableString stringWithString:@""];
+	for (int i; i < 8; ++i)
+	{
+		[str appendFormat:@"%f,",ver[i]];
+	}
+	NSLog(@"%@",str);
 	
 	
 	[block release];
