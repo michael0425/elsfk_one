@@ -18,6 +18,8 @@ static int maxYCo = 420;
 @synthesize y;
 @synthesize currentBlock;
 @synthesize unit;
+@synthesize poArray;
+@synthesize currentCubeSet;
 
 
 -(id)initWithX:(int)gX Y:(int)gY
@@ -40,6 +42,8 @@ static int maxYCo = 420;
 		}
 		
 		currentBlock = NULL;
+		poCubeSet = [[NSMutableSet alloc] initWithCapacity:x * y];
+		currentCubeSet = NULL;
 	}
 	return self;
 }
@@ -56,139 +60,66 @@ static int maxYCo = 420;
  */
 -(BOOL)validateBlock:(Block*)block
 {
-//	NSArray *keepCurrentCubeSet = self.currentCubeSet;
-//	[keepCurrentCubeSet retain];
-//	
-//	[self clearCurrentCubeSet];
+
 	[block retain];
 	
-	Block *keepCurrentBlock = self.currentBlock;
-	[keepCurrentBlock retain];
-	
-	[self clearCurrentBlock];
-	
-	BOOL isValid = YES;
-	NSArray *cubeSet = [block getCubeSetToBoard];
+	BOOL isValid = NO;
+	NSSet *cubeSet = [block getCubeSetToBoard];
 	[cubeSet retain];
+
+	// use the new method
 	
-	NSEnumerator *enumberator = [cubeSet objectEnumerator];
-	Cube *aCube;
+	[poCubeSet minusSet:currentCubeSet];
 	
-	while (aCube = (Cube*)[enumberator nextObject]) {
-		if (![self validateCube:aCube]) {
-			isValid = NO;
-			break;
+	if (block.x >= 0 && 
+		block.y >= 0 &&
+		block.x + block.maxX < self.x &&
+		block.y + block.maxY < self.y) {
+		//this means the block is valid, then we need to 
+		//find if there are intersections
+		if (![poCubeSet intersectsSet:cubeSet]){
+			isValid = YES;
 		}
 	}
 	
 	if (isValid) {
 		NSLog(@"%@ is valid.", block);
-		[self setBoardWithCubeSet:cubeSet];
-		self.currentBlock = [[Block alloc] initWithBlock:block];
-		[self.currentBlock release];
+		[poCubeSet unionSet:cubeSet];
+		self.currentCubeSet = [NSSet setWithSet:cubeSet];
 	}else {
 		// if not valid, then we need to set back the previous state.
 		// now the self.currentCubeSet is set to NULL, the board status
 		// is kept.
 		NSLog(@"%@ is invalid.", block);
-		[self setBoardWithBlock:keepCurrentBlock];
-		self.currentBlock = keepCurrentBlock;
+		[poCubeSet unionSet:currentCubeSet];
 		[block moveReset];
 		NSLog(@"Reset block to %@", block);
 	}
+	
+	// end of new method
 
-	[keepCurrentBlock release];
+ 
 	[cubeSet release];
 	[block release];
+
 	return isValid;
 }
 
-// set currentCubeSet to NULL
-// make sure the previous moving block is cleared
--(void)clearCurrentBlock
-{
-	if (self.currentBlock) {
-		[self clearBoardWithBlock:self.currentBlock];
-		self.currentBlock = NULL;
-	}
-}
-
--(void)clearBoardWithBlock:(Block *)block
-{
-	[block retain];
-	NSArray *cubeSet = [block getCubeSetToBoard];
-	[self clearBoardWithCubeSet:cubeSet];
-	[block release];
-}
-
--(void)clearBoardWithCubeSet:(NSArray*)cubeSet
-{
-	[cubeSet retain];
-	NSEnumerator *enumerator = [cubeSet objectEnumerator];
-	Cube *aCube;
-	
-	while (aCube = (Cube*)[enumerator nextObject]) {
-		[self setArrayCubeTypeWithX:aCube.x Y:aCube.y type:EMPTY];
-	}
-	
-	[cubeSet release];
-}
-
--(void)setBoardWithBlock:(Block*)block
-{
-	[block retain];
-	NSArray *cubeSet = [block getCubeSetToBoard];
-	[self setBoardWithCubeSet:cubeSet];
-	[block release];
-}
-
--(void)setBoardWithCubeSet:(NSArray*)cubeSet
-{
-	[cubeSet retain];
-	NSEnumerator *enumerator = [cubeSet objectEnumerator];
-	Cube *aCube;
-	
-	while (aCube = (Cube*)[enumerator nextObject]) {
-		[self setArrayCubeTypeWithX:aCube.x Y:aCube.y type:aCube.type];
-	}
-	
-	[cubeSet release];
-}
 
 -(void)setArrayCubeTypeWithX:(int)gX Y:(int)gY type:(CubeType)type
 {
+	NSLog(@"accessing x:%d y:%d", gX, gY);
 	poArray[gY][gX] = type;
 }
-/*
- * YES = ok to continue
- * NO = needs to revert back to the last status
- */
--(BOOL)validateCube:(Cube*)cube
-{
-	[cube retain];
-	int cX = cube.x;
-	int cY = cube.y;
-	
-	if (cX >= 0 && cY >= 0 && cX < self.x && cY < self.y) {
-		// then it is valid in the board, then check
-		// if the location is taken
-		// TODO all the logic related to cube ocupation should go here. 
-		if (poArray[cY][cX] == EMPTY) {
-			return YES;
-		}else {
-			return NO;
-		}
-	}else {
-		return NO;
-	}
-	[cube release];
-}
+
 
 -(void)landCurrentBlock
 {
-	[self setBoardWithBlock:currentBlock];
-	[currentBlock release];
+	// new method
+	//[currentCubeSet release];
+	
 	currentBlock = NULL;
+	self.currentCubeSet = NULL;
 }
 
 // used to provide real vertex to draw cubes in openGL
@@ -201,6 +132,26 @@ static int maxYCo = 420;
 	GLfloat *vertex = [tmpCube getCubeVertexWithUnit:unit];
 	[tmpCube release];
 	return vertex;
+}
+
+-(GLfloat*)getCubeSetVerticesInBoard
+{
+	size_t size = [poCubeSet count];
+	NSLog(@"#Bloard has %d cubes.", size);
+	GLfloat *vertices = calloc(size * 8, sizeof(GLfloat));
+	
+	NSEnumerator *enumerator = [poCubeSet objectEnumerator];
+	Cube *aCube;
+	
+	size_t i = 0;
+	
+	while (aCube = [enumerator nextObject]) {
+		GLfloat *vertex = [self getCubeVertex:aCube];
+		memcpy(vertices + i, vertex, 8 * sizeof(GLfloat));
+		i += 8;
+	}
+	
+	return vertices;
 }
 
 -(void)printBoard
@@ -227,6 +178,17 @@ static int maxYCo = 420;
 	NSLog(@"%@", str);
 }
 
+-(void)printNewBoard
+{
+	NSEnumerator *enumerator = [poCubeSet objectEnumerator];
+	Cube *aCube;
+	
+	while (aCube = [enumerator nextObject]) {
+		[self setArrayCubeTypeWithX:aCube.x Y:aCube.y type:aCube.type];
+	}
+	[self printBoard];
+}
+
 -(void)dealloc
 {
 	NSLog(@"#####Deallocing Board.");
@@ -238,6 +200,8 @@ static int maxYCo = 420;
 	
 	
 	[currentBlock release];
+	[poCubeSet release];
+	[currentCubeSet release];
 	
 	[super dealloc];
 }

@@ -14,14 +14,16 @@
 @synthesize x;
 @synthesize y;
 @synthesize cubeSet;
+@synthesize maxX;
+@synthesize maxY;
 
 -(id)initWithX:(int)x_ Y:(int)y_ capacity:(int)cap_;
 {
 	if (self = [super init])
 	{
-		self.x = x_;
-		self.y = y_;
-		self.cubeSet = [[NSMutableArray alloc] initWithCapacity:cap_];
+		x = x_;
+		y = y_;
+		cubeSet = [[NSMutableSet alloc] initWithCapacity:cap_];
 		maxX = 0;
 		maxY = 0;
 		preX = 0;
@@ -135,10 +137,10 @@
 /*
  * get the cube set with coordination against board.
  */
--(NSMutableArray*)getCubeSetToBoard
+-(NSMutableSet*)getCubeSetToBoard
 {
 	NSLog(@"getCubeSetToBoard was called from %@", self);
-	NSMutableArray *newSet = [[NSMutableArray alloc] initWithCapacity:[cubeSet count]];
+	NSMutableSet *newSet = [[NSMutableSet alloc] initWithCapacity:[cubeSet count]];
 	
 	NSEnumerator *setEnumerator = [cubeSet objectEnumerator];
 	Cube *aCube;

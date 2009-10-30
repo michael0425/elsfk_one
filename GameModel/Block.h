@@ -16,9 +16,8 @@
 	// location in the board.
 	int x;
 	int y;
-	NSMutableArray *cubeSet;
+	NSMutableSet *cubeSet;
 	
-	@private
 	int maxX;
 	int maxY;
 	int preX;
@@ -37,7 +36,7 @@
 
 -(void)rotate;
 
--(NSMutableArray*)getCubeSetToBoard;
+-(NSMutableSet*)getCubeSetToBoard;
 
 // navigation
 -(void)moveLeft;
@@ -51,6 +50,8 @@
 
 @property(assign) int x;
 @property(assign) int y;
-@property(retain) NSMutableArray *cubeSet;
+@property(retain) NSMutableSet *cubeSet;
+@property(readonly) int maxX;
+@property(readonly) int maxY;
 
 @end

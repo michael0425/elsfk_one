@@ -17,35 +17,34 @@
 	CubeType **poArray;
 	Block *currentBlock;
 	int unit;
+	NSMutableSet *poCubeSet;
+	NSSet *currentCubeSet;
 }
 
 @property(readonly) int x;
 @property(readonly) int y;
 @property(retain) Block *currentBlock;
 @property(readonly) int unit;
+@property(readonly) CubeType **poArray;
+@property(retain) NSSet *currentCubeSet;
 
 
 -(id)initWithX:(int)gX Y:(int)gY;
 
 //return YES if the block can be shown in the board.
 -(BOOL)validateBlock:(Block*)block;
--(BOOL)validateCube:(Cube *)cube;
 
 // make current block solid and remove it out of currenBlock.
 // this is used when a block hits the ground.
 -(void)landCurrentBlock;
 
--(void)setBoardWithCubeSet:(NSArray *)cubeSet;
-//set viewable status with a block in this board
--(void)setBoardWithBlock:(Block*)block;
--(void)setArrayCubeTypeWithX:(int)gX Y:(int)gY type:(CubeType)type;
--(void)clearBoardWithBlock:(Block*)block;
--(void)clearBoardWithCubeSet:(NSArray*)cubeSet;
 
 -(GLfloat*)getCubeVertex:(Cube*)cube;
+-(GLfloat*)getCubeSetVerticesInBoard;
 
--(void)clearCurrentBlock;
 
+-(void)setArrayCubeTypeWithX:(int)gX Y:(int)gY type:(CubeType)type;
 -(void)printBoard;
+-(void)printNewBoard;
 
 @end
