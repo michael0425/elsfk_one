@@ -47,50 +47,23 @@
         
 		animating = FALSE;
 		displayLinkSupported = FALSE;
-		animationFrameInterval = 1;
+		animationFrameInterval = 40;
 		displayLink = nil;
 		animationTimer = nil;
 		
-		
-		
-		
-		
-		
-		// insert code here...
-		Block* block = [[Block alloc] init];
+		block = [[Block alloc] init];
 		[block loadCubeWithX:0 Y:0 color:RED type:SOLID];
 		[block loadCubeWithX:0 Y:1 color:RED type:SOLID];
 		[block loadCubeWithX:0 Y:2 color:RED type:SOLID];
 		[block loadCubeWithX:1 Y:2 color:RED type:SOLID];
 		
-		//	[block printBlock];
-		//	[block rotate];
-		//	[block printBlock];
-		//	[block rotate];
-		//	[block printBlock];
-		
-		Board *board = [[Board alloc] init];
-		
-		[board validateBlock:block];
 		[block moveDown];
-		[board validateBlock:block];
-		[block moveLeft];
-		[board validateBlock:block];
-		[block moveRight];
-		[board validateBlock:block];
+		
+		board = [[Board alloc] init];
 		
 		
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+		//[self delegate]
 		
 		// A system version of 3.1 or greater is required to use CADisplayLink. The NSTimer
 		// class is used as fallback when it isn't available.
@@ -105,7 +78,13 @@
 
 - (void) drawView:(id)sender
 {
-    [renderer render];
+	[block rotate];
+	//if([board validateBlock:block])
+		//[block moveDown];	
+	cubes = [block getCubeSetToBoard];
+	[cubes retain];
+    [renderer render: cubes];
+	[cubes release];
 }
 
 - (void) layoutSubviews

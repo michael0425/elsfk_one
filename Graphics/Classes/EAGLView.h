@@ -10,6 +10,8 @@
 #import <QuartzCore/QuartzCore.h>
 
 #import "ESRenderer.h"
+#import "Block.h"
+#import "Board.h"
 
 // This class wraps the CAEAGLLayer from CoreAnimation into a convenient UIView subclass.
 // The view content is basically an EAGL surface you render your OpenGL scene into.
@@ -28,6 +30,10 @@
 	// isn't available.
 	id displayLink;
     NSTimer *animationTimer;
+	
+	NSMutableArray* cubes;
+	Block* block;
+	Board *board;
 }
 
 @property (readonly, nonatomic, getter=isAnimating) BOOL animating;

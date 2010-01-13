@@ -41,7 +41,7 @@
 		glOrthof(0.0f, 320.0f, 480.0f, 0.0f, -1.0f, 1.0f);
 		
 		//create a cube texture
-		cube = [[Texture2D alloc] initWithImage:[UIImage imageNamed:@"grey.jpg"]];
+		cubeTexture = [[Texture2D alloc] initWithImage:[UIImage imageNamed:@"grey.jpg"]];
 	}
 	
 	return self;
@@ -55,7 +55,7 @@ const static GLfloat squareVertices[8] = {
 	20.0f, 20.0f
 };
 
-- (void) render
+- (void) render: (NSMutableArray*) cubes
 {	
 	// This application only creates a single context which is already set current at this point.
 	// This call is redundant, but needed if dealing with multiple contexts.
@@ -73,8 +73,7 @@ const static GLfloat squareVertices[8] = {
 	//clear previous frame's color
 	glClear(GL_COLOR_BUFFER_BIT);
 	
-	//set blend color
-	glColor4f(0.9f, 0.0f, 0.1f, 1.0f);
+	
 	
 	//draw a small square without texture
 	/*
@@ -84,7 +83,7 @@ const static GLfloat squareVertices[8] = {
 	glDisableClientState(GL_VERTEX_ARRAY);
 	 */
 	
-	[self drawCubes];
+	[self drawCubes: cubes];
 	
 	// This application only creates a single color renderbuffer which is already bound at this point.
 	// This call is redundant, but needed if dealing with multiple renderbuffers.
@@ -92,17 +91,23 @@ const static GLfloat squareVertices[8] = {
     [context presentRenderbuffer:GL_RENDERBUFFER_OES];
 }
 
-- (void) drawCubes {
+- (void) drawCubes: (NSMutableArray*) cubes {
 	static GLfloat ty = 0.0f;
 	
 	//draw a square using texture class
 	glEnable(GL_TEXTURE_2D);
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 	glEnableClientState(GL_VERTEX_ARRAY);
-	[cube drawInRect:CGRectMake(120, 40+ty, 20, 20)];//:CGPointMake(120.0, 120.0)];
-	[cube drawInRect:CGRectMake(120, 20+ty, 20, 20)];
-	[cube drawInRect:CGRectMake(120, 0+ty, 20, 20)];
-	[cube drawInRect:CGRectMake(140, 0+ty, 20, 20)];
+	
+	NSEnumerator *setEnumerator = [cubes objectEnumerator];
+	Cube *aCube;
+	while (aCube = (Cube*)[setEnumerator nextObject]) {
+		//set blend color
+		glColor4f(1.0f, 1.0f, 0.0f, 1.0f);
+		[aCube getCubeVertexWithUnit:20];
+		[cubeTexture drawInRect:CGRectMake(aCube.x * 20, aCube.y * 20, 20, 20)];
+	}
+	
 	glDisableClientState(GL_VERTEX_ARRAY);
 	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 	glDisable(GL_TEXTURE_2D);

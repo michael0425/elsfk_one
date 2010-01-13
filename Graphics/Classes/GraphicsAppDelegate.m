@@ -13,6 +13,7 @@
 
 @synthesize window;
 @synthesize glView;
+@synthesize controller;
 
 - (void) applicationDidFinishLaunching:(UIApplication *)application
 {

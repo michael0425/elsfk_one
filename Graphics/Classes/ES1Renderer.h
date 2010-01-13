@@ -11,6 +11,7 @@
 #import <OpenGLES/ES1/gl.h>
 #import <OpenGLES/ES1/glext.h>
 #import "Texture2D.h"
+#import "Cube.h"
 
 @interface ES1Renderer : NSObject <ESRenderer>
 {
@@ -24,11 +25,11 @@
 	// The OpenGL names for the framebuffer and renderbuffer used to render to this view
 	GLuint defaultFramebuffer, colorRenderbuffer;
 	
-	Texture2D* cube;
+	Texture2D* cubeTexture;
 }
 
-- (void) render;
-- (void) drawCubes;
+- (void) render: (NSMutableArray*) cubes;
+- (void) drawCubes: (NSMutableArray*) cubes;
 - (BOOL) resizeFromLayer:(CAEAGLLayer *)layer;
 
 @end
