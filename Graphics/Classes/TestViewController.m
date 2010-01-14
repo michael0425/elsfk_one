@@ -12,5 +12,6 @@
 @implementation TestViewController
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
 	printf("controller handled touch");
+	[[[self view] getBlock] moveRight];
 }
 @end

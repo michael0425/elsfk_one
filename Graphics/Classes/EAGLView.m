@@ -139,6 +139,10 @@
 	}
 }
 
+- (Block*) getBlock{
+	return block;
+}
+
 - (void)stopAnimation
 {
 	if (animating)

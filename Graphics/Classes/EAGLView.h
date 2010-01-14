@@ -42,5 +42,7 @@
 - (void) startAnimation;
 - (void) stopAnimation;
 - (void) drawView:(id)sender;
+- (void) moveLeft;
+- (Block*) getBlock;
 
 @end
