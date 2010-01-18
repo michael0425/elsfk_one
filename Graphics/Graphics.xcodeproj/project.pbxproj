@@ -24,7 +24,7 @@
 		6A60514F108E5BBC00389313 /* GameModel.1 in Resources */ = {isa = PBXBuildFile; fileRef = 6A605146108E5BBC00389313 /* GameModel.1 */; };
 		6A6051A2108E5E3A00389313 /* Texture2D.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A6051A1108E5E3A00389313 /* Texture2D.m */; };
 		6A6051A6108E5F4600389313 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A6051A5108E5F4600389313 /* CoreGraphics.framework */; };
-		6A772B4C10A0E5840053427B /* TestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A772B4B10A0E5840053427B /* TestViewController.m */; };
+		6A772B4C10A0E5840053427B /* GameController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A772B4B10A0E5840053427B /* GameController.m */; };
 		6AB205FE1090E6C300F5C1F7 /* pink.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6AB205FD1090E6C300F5C1F7 /* pink.jpg */; };
 		6AB206251090EFB400F5C1F7 /* grey.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6AB206241090EFB400F5C1F7 /* grey.jpg */; };
 /* End PBXBuildFile section */
@@ -70,8 +70,8 @@
 		6A6051A0108E5E3A00389313 /* Texture2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Texture2D.h; sourceTree = "<group>"; };
 		6A6051A1108E5E3A00389313 /* Texture2D.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Texture2D.m; sourceTree = "<group>"; };
 		6A6051A5108E5F4600389313 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		6A772B4A10A0E5840053427B /* TestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestViewController.h; sourceTree = "<group>"; };
-		6A772B4B10A0E5840053427B /* TestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestViewController.m; sourceTree = "<group>"; };
+		6A772B4A10A0E5840053427B /* GameController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameController.h; sourceTree = "<group>"; };
+		6A772B4B10A0E5840053427B /* GameController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameController.m; sourceTree = "<group>"; };
 		6AB205FD1090E6C300F5C1F7 /* pink.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = pink.jpg; path = Images/pink.jpg; sourceTree = "<group>"; };
 		6AB206241090EFB400F5C1F7 /* grey.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = grey.jpg; path = Images/grey.jpg; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Graphics-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Graphics-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
@@ -96,10 +96,9 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				6AAA788D1104FFA30023849D /* Utils */,
 				6A6251AA109C60B200A499D6 /* Controller */,
 				6A60513F108E5BBC00389313 /* GameModel */,
-				6A6051A0108E5E3A00389313 /* Texture2D.h */,
-				6A6051A1108E5E3A00389313 /* Texture2D.m */,
 				2514C26D10084DB100A42282 /* ES1Renderer.h */,
 				2514C26E10084DB100A42282 /* ES1Renderer.m */,
 				2514C27110084DB100A42282 /* ESRenderer.h */,
@@ -201,10 +200,19 @@
 		6A6251AA109C60B200A499D6 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				6A772B4A10A0E5840053427B /* TestViewController.h */,
-				6A772B4B10A0E5840053427B /* TestViewController.m */,
+				6A772B4A10A0E5840053427B /* GameController.h */,
+				6A772B4B10A0E5840053427B /* GameController.m */,
 			);
 			name = Controller;
+			sourceTree = "<group>";
+		};
+		6AAA788D1104FFA30023849D /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				6A6051A0108E5E3A00389313 /* Texture2D.h */,
+				6A6051A1108E5E3A00389313 /* Texture2D.m */,
+			);
+			name = Utils;
 			sourceTree = "<group>";
 		};
 		6AF44268108FAD6600589A7F /* Images */ = {
@@ -298,7 +306,7 @@
 				6A60514D108E5BBC00389313 /* Board.m in Sources */,
 				6A60514E108E5BBC00389313 /* Cube.m in Sources */,
 				6A6051A2108E5E3A00389313 /* Texture2D.m in Sources */,
-				6A772B4C10A0E5840053427B /* TestViewController.m in Sources */,
+				6A772B4C10A0E5840053427B /* GameController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

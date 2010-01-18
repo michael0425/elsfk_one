@@ -3,7 +3,7 @@
 //  Graphics
 //
 //  Created by Lyss on 20/10/2009.
-//  Copyright __MyCompanyName__ 2009. All rights reserved.
+//  Copyright Bangboo 2009. All rights reserved.
 //
 
 #import "ES1Renderer.h"
