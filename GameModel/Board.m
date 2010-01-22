@@ -3,7 +3,7 @@
 //  GameModel
 //
 //  Created by Yanlong Zhang on 14/10/2009.
-//  Copyright 2009 Yang Li. All rights reserved.
+//  Copyright 2009 __MyCompanyName__. All rights reserved.
 //
 
 #import "Board.h"
@@ -12,7 +12,6 @@ static int maxXCo = 320;
 static int maxYCo = 420;
 
 @implementation Board
-
 
 @synthesize x;
 @synthesize y;

@@ -13,7 +13,7 @@
 
 @protocol ESRenderer <NSObject>
 
-- (void) render: (NSMutableArray*) cubes;
+- (void) render;
 - (BOOL) resizeFromLayer:(CAEAGLLayer *)layer;
 
 @end

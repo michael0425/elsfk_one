@@ -8,7 +8,17 @@
 
 #import "ES1Renderer.h"
 
+
 @implementation ES1Renderer
+
+@synthesize controller;
+
+- (id) initWithGameController: (GameController*) _controller{
+	if (self = [self init]){
+		controller = _controller;
+	}
+	return self;
+}
 
 // Create an ES 1.1 context
 - (id) init
@@ -55,7 +65,7 @@ const static GLfloat squareVertices[8] = {
 	20.0f, 20.0f
 };
 
-- (void) render: (NSMutableArray*) cubes
+- (void) render
 {	
 	// This application only creates a single context which is already set current at this point.
 	// This call is redundant, but needed if dealing with multiple contexts.
@@ -83,7 +93,7 @@ const static GLfloat squareVertices[8] = {
 	glDisableClientState(GL_VERTEX_ARRAY);
 	 */
 	
-	[self drawCubes: cubes];
+	[self drawCubes];
 	
 	// This application only creates a single color renderbuffer which is already bound at this point.
 	// This call is redundant, but needed if dealing with multiple renderbuffers.
@@ -91,7 +101,8 @@ const static GLfloat squareVertices[8] = {
     [context presentRenderbuffer:GL_RENDERBUFFER_OES];
 }
 
-- (void) drawCubes: (NSMutableArray*) cubes {
+
+- (void) drawCubes{
 	static GLfloat ty = 0.0f;
 	
 	//draw a square using texture class
@@ -99,9 +110,11 @@ const static GLfloat squareVertices[8] = {
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 	glEnableClientState(GL_VERTEX_ARRAY);
 	
-	NSEnumerator *setEnumerator = [cubes objectEnumerator];
-	Cube *aCube;
-	while (aCube = (Cube*)[setEnumerator nextObject]) {
+	NSMutableSet* cubes = [controller.currentBlock getCubeSetToBoard];
+	NSEnumerator* enumerator = [cubes objectEnumerator];
+	Cube *aCube = nil;
+	while (aCube = (Cube*)[enumerator nextObject]) {
+		//NSLog(@"               cube x:%u  y:%u", aCube.x, aCube.y);
 		//set blend color
 		glColor4f(1.0f, 1.0f, 0.0f, 1.0f);
 		[aCube getCubeVertexWithUnit:20];

@@ -32,7 +32,7 @@
 		self.color = gColor;
 		self.type = gType;
 	}
-	NSLog(@"Created %@",self);
+	//NSLog(@"Created %@",self);
 	return self;
 }
 
@@ -65,7 +65,7 @@
 
 -(void)dealloc
 {
-	NSLog(@"####Deallocing %@", self);
+	//NSLog(@"####Deallocing %@", self);
 	[super dealloc];
 }
 

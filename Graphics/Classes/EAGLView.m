@@ -17,6 +17,7 @@
 @implementation EAGLView
 
 @synthesize animating;
+@synthesize controller;
 @dynamic animationFrameInterval;
 
 // You must implement this method
@@ -36,8 +37,12 @@
         eaglLayer.opaque = TRUE;
         eaglLayer.drawableProperties = [NSDictionary dictionaryWithObjectsAndKeys:
                                         [NSNumber numberWithBool:FALSE], kEAGLDrawablePropertyRetainedBacking, kEAGLColorFormatRGBA8, kEAGLDrawablePropertyColorFormat, nil];
-				
-		renderer = [[ES1Renderer alloc] init];
+		
+		// initialize the controller to handle the ui event and the game logic.
+		controller = [[GameController alloc] init];
+		controller.view = self;
+		
+		renderer = [[ES1Renderer alloc] initWithGameController:controller];
 			
 		if (!renderer)
 		{
@@ -50,20 +55,6 @@
 		animationFrameInterval = 40;
 		displayLink = nil;
 		animationTimer = nil;
-		
-		block = [[Block alloc] init];
-		[block loadCubeWithX:0 Y:0 color:RED type:SOLID];
-		[block loadCubeWithX:0 Y:1 color:RED type:SOLID];
-		[block loadCubeWithX:0 Y:2 color:RED type:SOLID];
-		[block loadCubeWithX:1 Y:2 color:RED type:SOLID];
-		
-		[block moveDown];
-		
-		board = [[Board alloc] init];
-		
-		
-		
-		//[self delegate]
 		
 		// A system version of 3.1 or greater is required to use CADisplayLink. The NSTimer
 		// class is used as fallback when it isn't available.
@@ -78,13 +69,10 @@
 
 - (void) drawView:(id)sender
 {
-	[block rotate];
-	//if([board validateBlock:block])
-		//[block moveDown];	
-	cubes = [block getCubeSetToBoard];
-	[cubes retain];
-    [renderer render: cubes];
-	[cubes release];
+	//main game loop
+	[controller mainGameLoop];
+	//render
+    [renderer render];
 }
 
 - (void) layoutSubviews
@@ -139,10 +127,6 @@
 	}
 }
 
-- (Block*) getBlock{
-	return block;
-}
-
 - (void)stopAnimation
 {
 	if (animating)
@@ -165,7 +149,6 @@
 - (void) dealloc
 {
     [renderer release];
-	
     [super dealloc];
 }
 

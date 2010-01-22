@@ -12,6 +12,7 @@
 #import "ESRenderer.h"
 #import "Block.h"
 #import "Board.h"
+#import "GameController.h"
 
 // This class wraps the CAEAGLLayer from CoreAnimation into a convenient UIView subclass.
 // The view content is basically an EAGL surface you render your OpenGL scene into.
@@ -31,18 +32,26 @@
 	id displayLink;
     NSTimer *animationTimer;
 	
-	NSMutableArray* cubes;
-	Block* block;
-	Board *board;
+	GameController* controller;
 }
 
 @property (readonly, nonatomic, getter=isAnimating) BOOL animating;
 @property (nonatomic) NSInteger animationFrameInterval;
+@property (readonly) GameController* controller;
 
+/**
+ *
+ */
 - (void) startAnimation;
+
+/**
+ *
+ */
 - (void) stopAnimation;
+
+/**
+ *
+ */
 - (void) drawView:(id)sender;
-- (void) moveLeft;
-- (Block*) getBlock;
 
 @end

@@ -12,6 +12,7 @@
 #import <OpenGLES/ES1/glext.h>
 #import "Texture2D.h"
 #import "Cube.h"
+#import "GameController.h"
 
 @interface ES1Renderer : NSObject <ESRenderer>
 {
@@ -26,10 +27,15 @@
 	GLuint defaultFramebuffer, colorRenderbuffer;
 	
 	Texture2D* cubeTexture;
+	
+	GameController* controller;
 }
 
-- (void) render: (NSMutableArray*) cubes;
-- (void) drawCubes: (NSMutableArray*) cubes;
+@property (readonly) GameController* controller;
+
+- (void) render;
 - (BOOL) resizeFromLayer:(CAEAGLLayer *)layer;
+- (id) initWithGameController: (GameController*) controller;
+- (void) drawCubes;
 
 @end

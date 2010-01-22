@@ -139,7 +139,7 @@
  */
 -(NSMutableSet*)getCubeSetToBoard
 {
-	NSLog(@"getCubeSetToBoard was called from %@", self);
+	//NSLog(@"getCubeSetToBoard was called from %@", self);
 	NSMutableSet *newSet = [[NSMutableSet alloc] initWithCapacity:[cubeSet count]];
 	
 	NSEnumerator *setEnumerator = [cubeSet objectEnumerator];
@@ -149,7 +149,7 @@
 		// calculate the board position
 		newCube.x += self.x;
 		newCube.y += self.y;
-//		NSLog(@"Changed to new %@",newCube);
+		NSLog(@"Changed to new %@", newCube);
 		[newSet addObject:newCube];
 		[newCube release];
 	}
