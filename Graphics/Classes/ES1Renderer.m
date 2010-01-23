@@ -16,6 +16,7 @@
 - (id) initWithGameController: (GameController*) _controller{
 	if (self = [self init]){
 		controller = _controller;
+		[controller retain];
 	}
 	return self;
 }
@@ -110,16 +111,22 @@ const static GLfloat squareVertices[8] = {
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 	glEnableClientState(GL_VERTEX_ARRAY);
 	
+	//NSLog(@"       controller.currentBlock x:%u  y:%u", controller.currentBlock.x, controller.currentBlock.y);
+	
 	NSMutableSet* cubes = [controller.currentBlock getCubeSetToBoard];
+	
+	[cubes retain];
 	NSEnumerator* enumerator = [cubes objectEnumerator];
 	Cube *aCube = nil;
 	while (aCube = (Cube*)[enumerator nextObject]) {
-		//NSLog(@"               cube x:%u  y:%u", aCube.x, aCube.y);
+		[aCube retain];
+		//NSLog(@"       cube x:%u  y:%u", aCube.x, aCube.y);
 		//set blend color
 		glColor4f(1.0f, 1.0f, 0.0f, 1.0f);
 		[aCube getCubeVertexWithUnit:20];
 		[cubeTexture drawInRect:CGRectMake(aCube.x * 20, aCube.y * 20, 20, 20)];
 	}
+	[cubes release];
 	
 	glDisableClientState(GL_VERTEX_ARRAY);
 	glDisableClientState(GL_TEXTURE_COORD_ARRAY);

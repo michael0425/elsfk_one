@@ -35,12 +35,18 @@
 	return self;
 }
 
+- (void) dealloc{
+	[currentBlock release];
+	[board release];
+	[super dealloc];
+}
+
 /**
  *
  *
  */
 - (void) mainGameLoop{
-	
+	currentBlock.y += 0.01f;
 }
 
 - (Block*) createBlock{
@@ -64,13 +70,25 @@
 	//touch begin, check whether the block is touched or empty space is touched.
 	UITouch* touch = [touches anyObject]; 
 	CGPoint pos = [touch locationInView:[self view]];
-	if(currentBlock.x > pos.x){
+	
+	
+	float centreX = (currentBlock.x + (currentBlock.maxX+1)/2) * 20;
+	float dis = pos.x - centreX;
+	NSLog(@"centreX: %f", centreX);
+	
+	if(dis < -20){
 		[currentBlock moveLeft];
-		NSLog(@"moved left x:%u  y:%u", currentBlock.x, currentBlock.y);
+		//[board validateBlock:currentBlock];
+		//NSLog(@"moved left x:%u  y:%u", currentBlock.x, currentBlock.y);
+	}
+	else if(dis > 20){
+		[currentBlock moveRight];
+		//[board validateBlock:currentBlock];
+		//NSLog(@"moved right x:%u  y:%u", currentBlock.x, currentBlock.y);
 	}
 	else{
-		[currentBlock moveRight];
-		NSLog(@"moved right x:%u  y:%u", currentBlock.x, currentBlock.y);
+		[currentBlock rotate];
+		//[board validateBlock:currentBlock];
 	}
 
 }

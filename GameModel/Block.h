@@ -14,8 +14,8 @@
 	// this x and y is used to indicate the position of this block in the bigger board
 	// all he cubes contained in this block will need thses values to calculate the real
 	// location in the board.
-	int x;
-	int y;
+	float x;
+	float y;
 	NSMutableSet *cubeSet;
 	
 	int maxX;
@@ -48,8 +48,8 @@
 -(void)printBlock;
 
 
-@property(assign) int x;
-@property(assign) int y;
+@property(assign) float x;
+@property(assign) float y;
 @property(retain) NSMutableSet *cubeSet;
 @property(readonly) int maxX;
 @property(readonly) int maxY;

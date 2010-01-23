@@ -78,7 +78,7 @@
 
 -(void)rotate
 {
-	NSLog(@"Rotating block with maxX:%d maxY:%d", maxX, maxY);
+	//NSLog(@"Rotating block with maxX:%d maxY:%d", maxX, maxY);
 	NSEnumerator *setEnumerator = [cubeSet objectEnumerator];
 	Cube *anCube;
 	
@@ -149,7 +149,6 @@
 		// calculate the board position
 		newCube.x += self.x;
 		newCube.y += self.y;
-		NSLog(@"Changed to new %@", newCube);
 		[newSet addObject:newCube];
 		[newCube release];
 	}
@@ -162,27 +161,27 @@
 	preX = x;
 	preY = y;
 	--x;
-	NSLog(@"Move Left, New %@", self);
+	//NSLog(@"Move Left, New %@", self);
 }
 -(void)moveRight
 {
 	preX = x;
 	preY = y;
 	++x;
-	NSLog(@"Move Right, New %@", self);
+	//NSLog(@"Move Right, New %@", self);
 }
 -(void)moveDown
 {
 	preX = x;
 	preY = y;
 	++y;
-	NSLog(@"Move Down, New %@", self);
+	//NSLog(@"Move Down, New %@", self);
 }
 -(void)moveReset
 {
 	x = preX;
 	y = preY;
-	NSLog(@"Move Reset, New %@", self);
+	//NSLog(@"Move Reset, New %@", self);
 }
 
 -(NSString*)description
