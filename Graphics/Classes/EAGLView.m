@@ -67,18 +67,24 @@
     return self;
 }
 
-- (void) drawView:(id)sender
+- (void) mainGameLoop
 {
+	CFTimeInterval now = CFAbsoluteTimeGetCurrent();
+	float delta = now - lastTime;
+	
 	//main game loop
-	[controller mainGameLoop];
+	[controller update:delta];
 	//render
     [renderer render];
+	
+	//update last time
+	lastTime = now;
 }
 
 - (void) layoutSubviews
 {
 	[renderer resizeFromLayer:(CAEAGLLayer*)self.layer];
-    [self drawView:nil];
+    [self mainGameLoop];
 }
 
 - (NSInteger) animationFrameInterval
@@ -116,13 +122,13 @@
 			// if the system version runtime check for CADisplayLink exists in -initWithCoder:. The runtime check ensures this code will
 			// not be called in system versions earlier than 3.1.
 
-			displayLink = [NSClassFromString(@"CADisplayLink") displayLinkWithTarget:self selector:@selector(drawView:)];
+			displayLink = [NSClassFromString(@"CADisplayLink") displayLinkWithTarget:self selector:@selector(mainGameLoop)];
 			[displayLink setFrameInterval:animationFrameInterval];
 			[displayLink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
 		}
 		else{
 			//animationTimer = [NSTimer scheduledTimerWithTimeInterval:(NSTimeInterval)((1.0 / 60.0) * animationFrameInterval) target:self selector:@selector(drawView:) userInfo:nil repeats:TRUE];
-			animationTimer = [NSTimer scheduledTimerWithTimeInterval:(1.0 / 60.0) target:self selector:@selector(drawView:) userInfo:nil repeats:TRUE];
+			animationTimer = [NSTimer scheduledTimerWithTimeInterval:(1.0 / 60.0) target:self selector:@selector(mainGameLoop) userInfo:nil repeats:TRUE];
 		}
 		animating = TRUE;
 	}

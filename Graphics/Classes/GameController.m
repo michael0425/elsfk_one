@@ -45,7 +45,7 @@
  *
  *
  */
-- (void) mainGameLoop{
+- (void) update:(float)delta{
 	currentBlock.y += 0.01f;
 }
 

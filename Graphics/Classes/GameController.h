@@ -17,7 +17,7 @@
 @property (readonly) Board* board;
 @property (readonly) Block* currentBlock;
 
-- (void) mainGameLoop;
+- (void) update: (float)delta;
 - (Block*) createBlock;
 
 @end

@@ -27,6 +27,7 @@
 		6A772B4C10A0E5840053427B /* GameController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A772B4B10A0E5840053427B /* GameController.m */; };
 		6AB205FE1090E6C300F5C1F7 /* pink.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6AB205FD1090E6C300F5C1F7 /* pink.jpg */; };
 		6AB206251090EFB400F5C1F7 /* grey.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6AB206241090EFB400F5C1F7 /* grey.jpg */; };
+		6AC18A64110F890D00A58D1F /* Image.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AC18A63110F890D00A58D1F /* Image.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -74,6 +75,8 @@
 		6A772B4B10A0E5840053427B /* GameController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameController.m; sourceTree = "<group>"; };
 		6AB205FD1090E6C300F5C1F7 /* pink.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = pink.jpg; path = Images/pink.jpg; sourceTree = "<group>"; };
 		6AB206241090EFB400F5C1F7 /* grey.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = grey.jpg; path = Images/grey.jpg; sourceTree = "<group>"; };
+		6AC18A62110F890D00A58D1F /* Image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Image.h; sourceTree = "<group>"; };
+		6AC18A63110F890D00A58D1F /* Image.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Image.m; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Graphics-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Graphics-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -211,6 +214,8 @@
 			children = (
 				6A6051A0108E5E3A00389313 /* Texture2D.h */,
 				6A6051A1108E5E3A00389313 /* Texture2D.m */,
+				6AC18A62110F890D00A58D1F /* Image.h */,
+				6AC18A63110F890D00A58D1F /* Image.m */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -307,6 +312,7 @@
 				6A60514E108E5BBC00389313 /* Cube.m in Sources */,
 				6A6051A2108E5E3A00389313 /* Texture2D.m in Sources */,
 				6A772B4C10A0E5840053427B /* GameController.m in Sources */,
+				6AC18A64110F890D00A58D1F /* Image.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -32,7 +32,9 @@
 	id displayLink;
     NSTimer *animationTimer;
 	
+	//controller to control the game logic
 	GameController* controller;
+	CFTimeInterval lastTime;
 }
 
 @property (readonly, nonatomic, getter=isAnimating) BOOL animating;
@@ -52,6 +54,6 @@
 /**
  *
  */
-- (void) drawView:(id)sender;
+- (void) mainGameLoop;
 
 @end
