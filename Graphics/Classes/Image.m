@@ -32,6 +32,7 @@
 @synthesize rotation;
 @synthesize scaleX;
 @synthesize scaleY;
+@synthesize colourFilter;
 
 - (id) init{
 	if(self = [super init]){
@@ -46,6 +47,7 @@
 		rotation = 0.0f;
 		scaleX = 1.0f;
 		scaleY = 1.0f;
+		colourFilter = malloc(sizeof(GLfloat) * 4);
 		colourFilter[0] = 1.0f;
 		colourFilter[1] = 1.0f;
 		colourFilter[2] = 1.0f;
@@ -55,18 +57,32 @@
 }
 
 - (id) initWithImage:(UIImage *)image{
-	texture = [[Texture2D alloc] initWithImage:image];
-	scaleX = 1.0f;
-	scaleY = 1.0f;
-	[self extraInit];
+	if(self = [super init]){
+		texture = [[Texture2D alloc] initWithImage:image];
+		scaleX = 1.0f;
+		scaleY = 1.0f;
+		[self extraInit];
+	}
 	return self;
 }
 
 - (id) initWithTexture:(Texture2D *)tex{
-	texture = tex;
-	scaleX = 1.0f;
-	scaleY = 1.0f;
-	[self extraInit];
+	if(self = [super init]){
+		texture = tex;
+		scaleX = 1.0f;
+		scaleY = 1.0f;
+		[self extraInit];
+	}
+	return self;
+}
+
+- (id) initWithTexture:(Texture2D *)tex scaleX:(GLfloat)sx scaleY:(GLfloat)sy{
+	if(self = [super init]){
+		texture = tex;
+		scaleX = 1.0f;
+		scaleY = 1.0f;
+		[self extraInit];
+	}
 	return self;
 }
 
@@ -79,32 +95,83 @@
 	subImage.scaleX = scale;
 	subImage.scaleY = scale;
 	subImage.rotation = rotation;
+	
 	return subImage;
+}
+
+- (void) renderToPos:(CGPoint)pos{
+	[self renderSubImageToPos:pos offsetPoint:CGPointMake(0.0, 0.0) subImageWidth:imageWidth subImageHeight:imageHeight];
 }
 
 - (void) renderSubImageToPos:(CGPoint)pos offsetPoint:(CGPoint)offset subImageWidth:(GLfloat)subImgWidth subImageHeight:(GLfloat)subImgHeight{
 	
-	//The texCoords are all from 0.0f-1.0f. offset is also a float from 0.0f-1.0f
-	//This texCoords are in the Z shape.
-	GLfloat texCoords[] = {
-		offset.x*texWidthRatio, offset.y*texHeightRatio,
-		offset.x*texWidthRatio + subImgWidth, offset.y*texHeightRatio,
-		offset.x*texWidthRatio, offset.y*texHeightRatio + subImgHeight,
-		offset.x*texWidthRatio + subImgWidth, offset.y*texHeightRatio + subImgHeight
+	//============
+	//Note that opengl 0,0 point is at bottom left hand side corner.
+	//probably is because of hand writing is normally from left to right, and text field registration point is at bottom left
+	//is easier to manage.
+	//============
+	
+	
+	/*
+	GLfloat	textureCoords[] = {
+		texWidthRatio*offset.x, texHeightRatio*offset.y,
+		texWidthRatio*subImgWidth + texWidthRatio*offset.x, texHeightRatio*offset.y,
+		texWidthRatio*offset.x,	texHeightRatio*offset.y + texHeightRatio*subImgHeight,
+		texWidthRatio*offset.x + texWidthRatio*subImgWidth,	texHeightRatio*subImgHeight + texHeightRatio*offset.y
 	};
 	
 	
-	GLfloat quadWidth = subImgWidth * scaleX;
-	GLfloat quadHeight = subImgHeight * scaleY;
-	//to vertices, which are in Z shape
-	GLfloat vertices[] = {
-		0.0f, 0.0f,
-		quadWidth, 0.0f,
-		0.0f, quadHeight,
-		quadWidth, quadHeight
+	// Calculate the width and the height of the quad using the current image scale and the width and height
+	// of the image we are going to render
+	GLfloat quadWidth = subImgWidth*scaleX;
+	GLfloat quadHeight = subImgHeight*scaleY;
+	
+	// Define the vertices for each corner of the quad which is going to contain our image.
+	// We calculate the size of the quad to match the size of the subimage which has been defined.
+	// If center is true, then make sure the point provided is in the center of the image else it will be
+	// the bottom left hand corner of the image
+	GLfloat vertices[8];
+	vertices[0] = 0;
+	vertices[1] = 0;
+	vertices[2] = quadWidth;
+	vertices[3] = 0;
+	vertices[4] = 0;
+	vertices[5] = quadHeight;
+	vertices[6] = quadWidth;
+	vertices[7] = quadHeight;
+	*/
+	
+	
+	//The texCoords are all from 0.0f-1.0f.
+	GLfloat	textureCoords[] = {
+		texWidthRatio*subImgWidth + texWidthRatio*offset.x, texHeightRatio*offset.y,
+		texWidthRatio*subImgWidth + texWidthRatio*offset.x, texHeightRatio*subImgHeight + texHeightRatio*offset.y,
+		texWidthRatio*offset.x,	texHeightRatio*offset.y,
+		texWidthRatio*offset.x,	texHeightRatio*subImgHeight + texHeightRatio*offset.y
 	};
 	
-	[self renderFrom:texCoords toVertices:vertices toPos:pos];
+	// Calculate the width and the height of the quad using the current image scale and the width and height
+	// of the image we are going to render
+	GLfloat quadWidth = subImgWidth*scaleX;
+	GLfloat quadHeight = subImgHeight*scaleY;
+	
+	// Define the vertices for each corner of the quad which is going to contain our image.
+	// We calculate the size of the quad to match the size of the subimage which has been defined.
+	// If center is true, then make sure the point provided is in the center of the image else it will be
+	// the bottom left hand corner of the image
+	GLfloat vertices[8];
+	vertices[0] = quadWidth;
+	vertices[1] = quadHeight;
+	vertices[2] = quadWidth;
+	vertices[3] = 0;
+	vertices[4] = 0;
+	vertices[5] = quadHeight;
+	vertices[6] = 0;
+	vertices[7] = 0;
+	
+	
+	
+	[self renderFrom:textureCoords toVertices:vertices toPos:pos];
 }
 
 - (void) renderFrom:(GLfloat[])texCoords toVertices:(GLfloat[])vertices toPos:(CGPoint)pos{
@@ -163,6 +230,7 @@
 	textureOffsetX = 0;
 	textureOffsetY = 0;
 	rotation = 0.0f;
+	colourFilter = malloc(sizeof(GLfloat) * 4);
 	colourFilter[0] = 1.0f;
 	colourFilter[1] = 1.0f;
 	colourFilter[2] = 1.0f;

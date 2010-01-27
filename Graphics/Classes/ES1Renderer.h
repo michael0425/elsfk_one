@@ -13,6 +13,7 @@
 #import "Texture2D.h"
 #import "Cube.h"
 #import "GameController.h"
+#import "Image.h"
 
 @interface ES1Renderer : NSObject <ESRenderer>
 {
@@ -26,9 +27,13 @@
 	// The OpenGL names for the framebuffer and renderbuffer used to render to this view
 	GLuint defaultFramebuffer, colorRenderbuffer;
 	
+	CGRect screenBounds;
+	
 	Texture2D* cubeTexture;
 	
 	GameController* controller;
+	
+	Image* imageTexture;
 }
 
 @property (readonly) GameController* controller;

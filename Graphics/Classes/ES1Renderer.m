@@ -41,30 +41,31 @@
 		glBindRenderbufferOES(GL_RENDERBUFFER_OES, colorRenderbuffer);
 		glFramebufferRenderbufferOES(GL_FRAMEBUFFER_OES, GL_COLOR_ATTACHMENT0_OES, GL_RENDERBUFFER_OES, colorRenderbuffer);
 		
+		
+		screenBounds = [[UIScreen mainScreen] bounds];
+		
+		
 		//clear colour
 		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		//disable depth test, 2D only
 		glDisable(GL_DEPTH_TEST);
-		
+		glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_BLEND_SRC);
+		glEnableClientState(GL_VERTEX_ARRAY);
 		//setup projection
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
-		glOrthof(0.0f, 320.0f, 480.0f, 0.0f, -1.0f, 1.0f);
+		glOrthof(0.0f, screenBounds.size.width, 0.0f, screenBounds.size.height, -1.0f, 1.0f);
+		
+		
 		
 		//create a cube texture
+		NSLog(@"initialized");
 		cubeTexture = [[Texture2D alloc] initWithImage:[UIImage imageNamed:@"grey.jpg"]];
+		imageTexture = [[Image alloc] initWithTexture:cubeTexture];
 	}
 	
 	return self;
 }
-
-//temp square vertices
-const static GLfloat squareVertices[8] = {
-	0.0f, 0.0f,
-	20.0f, 0.0f,
-	0.0f, 20.0f,
-	20.0f, 20.0f
-};
 
 - (void) render
 {	
@@ -75,26 +76,27 @@ const static GLfloat squareVertices[8] = {
 	// This application only creates a single default framebuffer which is already bound at this point.
 	// This call is redundant, but needed if dealing with multiple framebuffers.
     glBindFramebufferOES(GL_FRAMEBUFFER_OES, defaultFramebuffer);
-    glViewport(0, 0, backingWidth, backingHeight);
 	
-	//change to model view and clear transformation
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
 	
-	//clear previous frame's color
+	
+	
+	
+    // Define the viewport.  Changing the settings for the viewport can allow you to scale the viewport
+	// as well as the dimensions etc and so I'm setting it for each frame in case we want to change it
+	glViewport(0, 0, screenBounds.size.width , screenBounds.size.height);
+	
+	// Clear the screen.  If we are going to draw a background image then this clear is not necessary
+	// as drawing the background image will destroy the previous image
 	glClear(GL_COLOR_BUFFER_BIT);
 	
+	// Setup how the images are to be blended when rendered.  This could be changed at different points during your
+	// render process if you wanted to apply different effects
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	
 	
-	//draw a small square without texture
-	/*
-	glEnableClientState(GL_VERTEX_ARRAY);
-	glVertexPointer(2, GL_FLOAT, 0, squareVertices);
-	glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
-	glDisableClientState(GL_VERTEX_ARRAY);
-	 */
 	
 	[self drawCubes];
+
 	
 	// This application only creates a single color renderbuffer which is already bound at this point.
 	// This call is redundant, but needed if dealing with multiple renderbuffers.
@@ -107,9 +109,9 @@ const static GLfloat squareVertices[8] = {
 	static GLfloat ty = 0.0f;
 	
 	//draw a square using texture class
-	glEnable(GL_TEXTURE_2D);
-	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-	glEnableClientState(GL_VERTEX_ARRAY);
+	//glEnable(GL_TEXTURE_2D);
+	//glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+	//glEnableClientState(GL_VERTEX_ARRAY);
 	
 	//NSLog(@"       controller.currentBlock x:%u  y:%u", controller.currentBlock.x, controller.currentBlock.y);
 	
@@ -121,20 +123,27 @@ const static GLfloat squareVertices[8] = {
 	while (aCube = (Cube*)[enumerator nextObject]) {
 		[aCube retain];
 		//NSLog(@"       cube x:%u  y:%u", aCube.x, aCube.y);
-		//set blend color
-		glColor4f(1.0f, 1.0f, 0.0f, 1.0f);
 		[aCube getCubeVertexWithUnit:20];
-		[cubeTexture drawInRect:CGRectMake(aCube.x * 20, aCube.y * 20, 20, 20)];
+		
+		
+		//[cubeTexture drawInRect:CGRectMake(aCube.x * 20, aCube.y * 20, 20, 20)];
+		imageTexture.scaleX = 20/(float)imageTexture.imageWidth;
+		imageTexture.scaleY = 20/(float)imageTexture.imageHeight;
+		GLfloat filter[] = {1.0f, 0.0f,0.0f,1.0f};
+		imageTexture.colourFilter = filter;
+		[imageTexture renderToPos:CGPointMake(aCube.x * 20, 480-aCube.y * 20)];
+		
 	}
 	[cubes release];
 	
-	glDisableClientState(GL_VERTEX_ARRAY);
-	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-	glDisable(GL_TEXTURE_2D);
+	//glDisableClientState(GL_VERTEX_ARRAY);
+	//glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+	//glDisable(GL_TEXTURE_2D);
 	
 	ty+=2.0f;
 	if(ty>=420)
 		ty = 0.0f;
+	
 }
 
 - (BOOL) resizeFromLayer:(CAEAGLLayer *)layer
