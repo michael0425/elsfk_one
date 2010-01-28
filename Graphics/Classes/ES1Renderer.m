@@ -62,6 +62,8 @@
 		NSLog(@"initialized");
 		cubeTexture = [[Texture2D alloc] initWithImage:[UIImage imageNamed:@"grey.jpg"]];
 		imageTexture = [[Image alloc] initWithTexture:cubeTexture];
+		
+		spriteSheet = [[SpriteSheet alloc] initWithImageNamed:@"spritesheet16.gif" spriteWidth:16.0f spriteHeight:16.0f spacing:0.0f];
 	}
 	
 	return self;
@@ -106,15 +108,20 @@
 
 
 - (void) drawCubes{
-	static GLfloat ty = 0.0f;
+	//[imageTexture renderToPos:CGPointMake(0, 0) centreImage:NO];
+	static uint index=1;
 	
-	//draw a square using texture class
-	//glEnable(GL_TEXTURE_2D);
-	//glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-	//glEnableClientState(GL_VERTEX_ARRAY);
+	if(index > 8){
+		index = 1;
+	}
+	Image* sprite = [spriteSheet getSpriteAtRow:7 column:index];
+	sprite.scaleX = 2;
+	sprite.scaleY = 2;
+	[sprite renderToPos:CGPointMake(screenBounds.size.width/2, screenBounds.size.height/2) centreImage:YES];
+	++index;
 	
-	//NSLog(@"       controller.currentBlock x:%u  y:%u", controller.currentBlock.x, controller.currentBlock.y);
 	
+	/*
 	NSMutableSet* cubes = [controller.currentBlock getCubeSetToBoard];
 	
 	[cubes retain];
@@ -125,25 +132,17 @@
 		//NSLog(@"       cube x:%u  y:%u", aCube.x, aCube.y);
 		[aCube getCubeVertexWithUnit:20];
 		
-		
 		//[cubeTexture drawInRect:CGRectMake(aCube.x * 20, aCube.y * 20, 20, 20)];
 		imageTexture.scaleX = 20/(float)imageTexture.imageWidth;
 		imageTexture.scaleY = 20/(float)imageTexture.imageHeight;
-		GLfloat filter[] = {1.0f, 0.0f,0.0f,1.0f};
+		GLfloat filter[] = {1.0f, 0.0f, 0.0f, 1.0f};
 		imageTexture.colourFilter = filter;
-		[imageTexture renderToPos:CGPointMake(aCube.x * 20, 480-aCube.y * 20)];
+		//[imageTexture renderToPos:CGPointMake(aCube.x * 20, 480-aCube.y * 20) ];
+		[imageTexture renderToPos:CGPointMake(aCube.x * 20, 480-aCube.y * 20) centreImage:YES];
 		
 	}
 	[cubes release];
-	
-	//glDisableClientState(GL_VERTEX_ARRAY);
-	//glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-	//glDisable(GL_TEXTURE_2D);
-	
-	ty+=2.0f;
-	if(ty>=420)
-		ty = 0.0f;
-	
+	*/
 }
 
 - (BOOL) resizeFromLayer:(CAEAGLLayer *)layer

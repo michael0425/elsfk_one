@@ -7,6 +7,8 @@
  *
  * Once the texture is ready to use, Image class will try to render full or part of the texture on to the screen,
  * and the rotation, translation, tint, scale, can be applied as well.
+ *
+ * WRAPPER CLASS for Texture2D.
  * 
  * Created by Liy on 10-1-26.
  * Copyright 2010 Bangboo. All rights reserved.
@@ -90,10 +92,10 @@
 
 - (id) initWithTexture: (Texture2D*)tex;
 
-- (Image*) getSubImageAtPoint:(CGPoint)point subImageWidth:(GLfloat)subImgWidth subImageHeight:(GLfloat)subImgHeight subScale:(float)scale;
+- (Image*) getSubImageAtPoint:(CGPoint)point subImageWidth:(GLfloat)subImgWidth subImageHeight:(GLfloat)subImgHeight;
 
-- (void) renderToPos:(CGPoint)pos;
+- (void) renderToPos:(CGPoint)pos centreImage:(BOOL)flag;
 
-- (void) renderSubImageToPos:(CGPoint)pos offsetPoint:(CGPoint)offset subImageWidth:(GLfloat)subImgWidth subImageHeight:(GLfloat)subImgHeight; 
+- (void) renderSubImageToPos:(CGPoint)pos offsetPoint:(CGPoint)offset subImageWidth:(GLfloat)subImgWidth subImageHeight:(GLfloat)subImgHeight centreImage:(BOOL)flag; 
 
 @end
