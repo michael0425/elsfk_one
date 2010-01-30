@@ -27,6 +27,8 @@
 		6A772B4C10A0E5840053427B /* GameController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A772B4B10A0E5840053427B /* GameController.m */; };
 		6A8119351112290500F87CDF /* SpriteSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A8119341112290500F87CDF /* SpriteSheet.m */; };
 		6A81198811123C0200F87CDF /* spritesheet16.gif in Resources */ = {isa = PBXBuildFile; fileRef = 6A81198711123C0200F87CDF /* spritesheet16.gif */; };
+		6A92B7B11113B1E400243CF3 /* Animation.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A92B7B01113B1E400243CF3 /* Animation.m */; };
+		6A92B7CA1113B41200243CF3 /* Frame.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A92B7C91113B41200243CF3 /* Frame.m */; };
 		6AB205FE1090E6C300F5C1F7 /* pink.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6AB205FD1090E6C300F5C1F7 /* pink.jpg */; };
 		6AB206251090EFB400F5C1F7 /* grey.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6AB206241090EFB400F5C1F7 /* grey.jpg */; };
 		6AC18A64110F890D00A58D1F /* Image.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AC18A63110F890D00A58D1F /* Image.m */; };
@@ -78,6 +80,10 @@
 		6A8119331112290500F87CDF /* SpriteSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpriteSheet.h; sourceTree = "<group>"; };
 		6A8119341112290500F87CDF /* SpriteSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpriteSheet.m; sourceTree = "<group>"; };
 		6A81198711123C0200F87CDF /* spritesheet16.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = spritesheet16.gif; sourceTree = "<group>"; };
+		6A92B7AF1113B1E400243CF3 /* Animation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Animation.h; sourceTree = "<group>"; };
+		6A92B7B01113B1E400243CF3 /* Animation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Animation.m; sourceTree = "<group>"; };
+		6A92B7C81113B41200243CF3 /* Frame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Frame.h; sourceTree = "<group>"; };
+		6A92B7C91113B41200243CF3 /* Frame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Frame.m; sourceTree = "<group>"; };
 		6AB205FD1090E6C300F5C1F7 /* pink.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = pink.jpg; path = Images/pink.jpg; sourceTree = "<group>"; };
 		6AB206241090EFB400F5C1F7 /* grey.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = grey.jpg; path = Images/grey.jpg; sourceTree = "<group>"; };
 		6AC18A62110F890D00A58D1F /* Image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Image.h; sourceTree = "<group>"; };
@@ -104,7 +110,7 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				6AAA788D1104FFA30023849D /* Utils */,
+				6AAA788D1104FFA30023849D /* graphics */,
 				6A6251AA109C60B200A499D6 /* Controller */,
 				6A60513F108E5BBC00389313 /* GameModel */,
 				2514C26D10084DB100A42282 /* ES1Renderer.h */,
@@ -214,7 +220,7 @@
 			name = Controller;
 			sourceTree = "<group>";
 		};
-		6AAA788D1104FFA30023849D /* Utils */ = {
+		6AAA788D1104FFA30023849D /* graphics */ = {
 			isa = PBXGroup;
 			children = (
 				6A6051A0108E5E3A00389313 /* Texture2D.h */,
@@ -223,8 +229,12 @@
 				6AC18A63110F890D00A58D1F /* Image.m */,
 				6A8119331112290500F87CDF /* SpriteSheet.h */,
 				6A8119341112290500F87CDF /* SpriteSheet.m */,
+				6A92B7AF1113B1E400243CF3 /* Animation.h */,
+				6A92B7B01113B1E400243CF3 /* Animation.m */,
+				6A92B7C81113B41200243CF3 /* Frame.h */,
+				6A92B7C91113B41200243CF3 /* Frame.m */,
 			);
-			name = Utils;
+			name = graphics;
 			sourceTree = "<group>";
 		};
 		6AF44268108FAD6600589A7F /* Images */ = {
@@ -323,6 +333,8 @@
 				6A772B4C10A0E5840053427B /* GameController.m in Sources */,
 				6AC18A64110F890D00A58D1F /* Image.m in Sources */,
 				6A8119351112290500F87CDF /* SpriteSheet.m in Sources */,
+				6A92B7B11113B1E400243CF3 /* Animation.m in Sources */,
+				6A92B7CA1113B41200243CF3 /* Frame.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

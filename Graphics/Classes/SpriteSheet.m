@@ -15,6 +15,9 @@
 @synthesize spriteHeight;
 @synthesize image;
 @synthesize spacing;
+@synthesize scaleX;
+@synthesize scaleY;
+@synthesize rotation;
 
 - (id) initWithImage:(Image *)img spriteWidth:(GLfloat)width spriteHeight:(GLfloat)height spacing:(GLfloat)space{
 	if (self = [super init]) {
@@ -22,6 +25,9 @@
 		spriteWidth = width;
 		spriteHeight = height;
 		spacing = space;
+		scaleX = 1.0f;
+		scaleY = 1.0f;
+		rotation = 0.0f;
 		
 	}
 	return self;
@@ -33,6 +39,9 @@
 		spriteWidth = width;
 		spriteHeight = height;
 		spacing = space;
+		scaleX = 1.0f;
+		scaleY = 1.0f;
+		rotation = 0.0f;
 	}
 	return self;
 }
@@ -42,7 +51,18 @@
 	image.textureOffsetY = (row-1)*spriteHeight;
 	image.imageWidth = spriteWidth;
 	image.imageHeight = spriteHeight;
+	image.scaleX = scaleX;
+	image.scaleY = scaleY;
+	image.rotation = rotation;
 	return image;
+}
+
+- (void) renderSpriteToPos:(CGPoint)pos AtRow:(GLuint)row column:(GLuint)column centreImage:(BOOL)flag{
+	CGPoint offset = CGPointMake((column-1)*spriteWidth, (row-1)*spriteHeight);
+	image.scaleX = scaleX;
+	image.scaleY = scaleY;
+	image.rotation = rotation;
+	[image renderSubImageToPos:pos offsetPoint:offset subImageWidth:spriteWidth subImageHeight:spriteHeight centreImage:flag];
 }
 
 - (void) dealloc{

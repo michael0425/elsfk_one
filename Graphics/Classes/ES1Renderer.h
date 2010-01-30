@@ -15,6 +15,7 @@
 #import "GameController.h"
 #import "Image.h"
 #import "SpriteSheet.h"
+#import "Animation.h"
 
 @interface ES1Renderer : NSObject <ESRenderer>
 {
@@ -37,6 +38,8 @@
 	Image* imageTexture;
 	
 	SpriteSheet* spriteSheet;
+	
+	Animation* animation;
 }
 
 @property (readonly) GameController* controller;

@@ -63,7 +63,15 @@
 		cubeTexture = [[Texture2D alloc] initWithImage:[UIImage imageNamed:@"grey.jpg"]];
 		imageTexture = [[Image alloc] initWithTexture:cubeTexture];
 		
+		srand (CFAbsoluteTimeGetCurrent());
 		spriteSheet = [[SpriteSheet alloc] initWithImageNamed:@"spritesheet16.gif" spriteWidth:16.0f spriteHeight:16.0f spacing:0.0f];
+		
+		animation = [[Animation alloc] init];
+		
+		for (int i=0; i<17; i++) {
+			Image* img = [spriteSheet getSpriteAtRow:4 column:(i+1)];
+			[animation addFrameWithImage:img withDuration:80];
+		}
 	}
 	
 	return self;
@@ -106,19 +114,38 @@
     [context presentRenderbuffer:GL_RENDERBUFFER_OES];
 }
 
+float ran;
+float ran2;
+float scaleRan;
 
 - (void) drawCubes{
 	//[imageTexture renderToPos:CGPointMake(0, 0) centreImage:NO];
 	static uint index=1;
 	
-	if(index > 8){
+	if(index > 6){
 		index = 1;
+		ran = rand()/(float)RAND_MAX;
+		ran2 = rand()/(float)RAND_MAX;
+		scaleRan = rand()/(float)RAND_MAX; 
+		NSLog(@"ran: %f", ran);
 	}
+	
+	/*
 	Image* sprite = [spriteSheet getSpriteAtRow:7 column:index];
 	sprite.scaleX = 2;
 	sprite.scaleY = 2;
 	[sprite renderToPos:CGPointMake(screenBounds.size.width/2, screenBounds.size.height/2) centreImage:YES];
-	++index;
+	 */
+	
+	
+	
+	//for (int i=0; i<20; ++i) {
+		spriteSheet.scaleX = 2*scaleRan + 2;
+		spriteSheet.scaleY = 2*scaleRan + 2;
+		spriteSheet.rotation += 1;
+		[spriteSheet renderSpriteToPos:CGPointMake(screenBounds.size.width*ran, screenBounds.size.height*ran2) AtRow:3 column:index centreImage:YES];		
+	//}
+		++index;
 	
 	
 	/*

@@ -88,14 +88,32 @@
 @property (nonatomic) float *colourFilter;
 
 
+/**
+ * Initialize using UIImage.
+ */
 - (id) initWithImage: (UIImage*)image;
 
+/**
+ * Initialize using Texture2D.
+ */
 - (id) initWithTexture: (Texture2D*)tex;
 
+/**
+ * Get a sub image from the full image. The loaded image will not be changed, only the new sub Image instance's imageWidth and imageHeight will be changed.
+ * The underlying Texture2D will not be changed as well.
+ * If using this method to render, since it returns a newly create Image instance(which has the same Texture2D reference in the original Image), 
+ * compare to directly render a sub-image, this method will be slower. So this method should not be used heavily.
+ */
 - (Image*) getSubImageAtPoint:(CGPoint)point subImageWidth:(GLfloat)subImgWidth subImageHeight:(GLfloat)subImgHeight;
 
+/**
+ * Render the whole image to a position. If centreImage is set to YES, the registration point will be the centre of the image.
+ */
 - (void) renderToPos:(CGPoint)pos centreImage:(BOOL)flag;
 
+/**
+ * Directly render a sub image onto the screen. If centreImage is set to YES, the registration point will be the central point of the image.
+ */
 - (void) renderSubImageToPos:(CGPoint)pos offsetPoint:(CGPoint)offset subImageWidth:(GLfloat)subImgWidth subImageHeight:(GLfloat)subImgHeight centreImage:(BOOL)flag; 
 
 @end
