@@ -92,11 +92,11 @@
 	return subImage;
 }
 
-- (void) renderToPos:(CGPoint)pos centreImage:(BOOL)flag{
-	[self renderSubImageToPos:pos offsetPoint:CGPointMake(textureOffsetX, textureOffsetY) subImageWidth:imageWidth subImageHeight:imageHeight centreImage:flag];
+- (void) renderTo:(CGPoint)pos centreImage:(BOOL)flag{
+	[self renderSubImageTo:pos offsetPoint:CGPointMake(textureOffsetX, textureOffsetY) subImageWidth:imageWidth subImageHeight:imageHeight centreImage:flag];
 }
 
-- (void) renderSubImageToPos:(CGPoint)pos offsetPoint:(CGPoint)offset subImageWidth:(GLfloat)subImgWidth subImageHeight:(GLfloat)subImgHeight centreImage:(BOOL)flag{
+- (void) renderSubImageTo:(CGPoint)pos offsetPoint:(CGPoint)offset subImageWidth:(GLfloat)subImgWidth subImageHeight:(GLfloat)subImgHeight centreImage:(BOOL)flag{
 	
 	//============
 	//Note that opengl 0,0 point is at bottom left hand side corner.

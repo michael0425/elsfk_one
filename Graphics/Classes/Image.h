@@ -116,11 +116,11 @@ typedef struct _Quad2 {
 /**
  * Render the whole image to a position. If centreImage is set to YES, the registration point will be the centre of the image.
  */
-- (void) renderToPos:(CGPoint)pos centreImage:(BOOL)flag;
+- (void) renderTo:(CGPoint)pos centreImage:(BOOL)flag;
 
 /**
  * Directly render a sub image onto the screen. If centreImage is set to YES, the registration point will be the central point of the image.
  */
-- (void) renderSubImageToPos:(CGPoint)pos offsetPoint:(CGPoint)offset subImageWidth:(GLfloat)subImgWidth subImageHeight:(GLfloat)subImgHeight centreImage:(BOOL)flag; 
+- (void) renderSubImageTo:(CGPoint)pos offsetPoint:(CGPoint)offset subImageWidth:(GLfloat)subImgWidth subImageHeight:(GLfloat)subImgHeight centreImage:(BOOL)flag; 
 
 @end

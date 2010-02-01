@@ -24,7 +24,7 @@
 }
 
 - (void) renderTo:(CGPoint)pos centreImage:(BOOL)flag{
-	[image renderToPos:pos centreImage:flag];
+	[image renderTo:pos centreImage:flag];
 }
 
 - (void) dealloc{

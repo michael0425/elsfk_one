@@ -59,7 +59,7 @@
 	image.scaleX = scaleX;
 	image.scaleY = scaleY;
 	image.rotation = rotation;
-	[image renderSubImageToPos:pos offsetPoint:offset subImageWidth:spriteWidth subImageHeight:spriteHeight centreImage:flag];
+	[image renderSubImageTo:pos offsetPoint:offset subImageWidth:spriteWidth subImageHeight:spriteHeight centreImage:flag];
 }
 
 - (void) dealloc{
