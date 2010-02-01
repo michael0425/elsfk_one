@@ -19,6 +19,13 @@
 #import "Texture2D.h"
 
 
+typedef struct Quad2D {
+	GLfloat tl_x, tl_y;
+	GLfloat tr_x, tr_y;
+	GLfloat bl_x, bl_y;
+	GLfloat br_x, br_y;
+} Quad2D;
+
 @interface Image : NSObject {
 	
 	//Texture2D to load picture.
@@ -72,6 +79,12 @@
 	
 	//The colour filter apply to the image.
 	float *colourFilter;
+	
+	Quad2D* vertices;
+	
+	Quad2D* texCoords;
+	
+	GLubyte* indices;
 }
 
 @property (nonatomic) NSUInteger imageWidth;
@@ -109,11 +122,15 @@
 /**
  * Render the whole image to a position. If centreImage is set to YES, the registration point will be the centre of the image.
  */
-- (void) renderToPos:(CGPoint)pos centreImage:(BOOL)flag;
+- (void) renderTo:(CGPoint)pos centreImage:(BOOL)flag;
 
 /**
  * Directly render a sub image onto the screen. If centreImage is set to YES, the registration point will be the central point of the image.
  */
-- (void) renderSubImageToPos:(CGPoint)pos offsetPoint:(CGPoint)offset subImageWidth:(GLfloat)subImgWidth subImageHeight:(GLfloat)subImgHeight centreImage:(BOOL)flag; 
+- (void) renderSubImageTo:(CGPoint)pos offsetPoint:(CGPoint)offset subImageWidth:(GLfloat)subImgWidth subImageHeight:(GLfloat)subImgHeight centreImage:(BOOL)flag;
+
+- (void) genVerticesTo:(CGPoint)pos subImageWidth:(GLfloat)subImgWidth subImageHeight:(GLfloat)subImgHeight centreImage:(BOOL)flag;
+
+- (void) genTexCoordsAt:(CGPoint)offset subImageWidth:(GLfloat)subImgWidth subImageHeight:(GLfloat)subImgHeight;
 
 @end

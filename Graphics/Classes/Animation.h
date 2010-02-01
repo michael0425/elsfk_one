@@ -17,7 +17,7 @@ enum {
 
 @interface Animation : NSObject {
 	
-	uint currentFrameNum;
+	uint currentFrameIndex;
 	
 	NSMutableArray* frames;
 	
@@ -70,7 +70,7 @@ enum {
 
 - (Frame*) getCurrentFrame;
 
-@property (nonatomic, readonly) uint currentFrameNum;
+@property (nonatomic, readonly) uint currentFrameIndex;
 @property (nonatomic, readonly) BOOL running;
 @property (nonatomic) int direction;
 @property (nonatomic) BOOL pingpong;

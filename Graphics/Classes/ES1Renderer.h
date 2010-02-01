@@ -44,7 +44,7 @@
 
 @property (readonly) GameController* controller;
 
-- (void) render;
+- (void) render:(float)delta;
 - (BOOL) resizeFromLayer:(CAEAGLLayer *)layer;
 - (id) initWithGameController: (GameController*) controller;
 - (void) drawCubes;

@@ -15,7 +15,7 @@
 - (void) extraInit;
 
 //render the texture specified by texel coordinates to target vertices, to the position. 
-- (void) renderFrom:(GLfloat[])texCoords toVertices:(GLfloat[])vertices toPos:(CGPoint)pos;
+- (void) renderTo:(CGPoint)pos;
 @end
 
 
@@ -52,6 +52,19 @@
 		colourFilter[1] = 1.0f;
 		colourFilter[2] = 1.0f;
 		colourFilter[3] = 1.0f;
+		
+		//One Quad2D to represent a area of texture to draw from
+		texCoords = calloc(1, sizeof(Quad2D));
+		//Just one Quad2D to represent a area to draw
+		vertices = calloc(1, sizeof(Quad2D));
+		//6 GLubyte number to index the two triangles(6 vertices)
+		indices = calloc(6, sizeof(GLubyte));
+		indices[0] = 0;
+		indices[1] = 1;
+		indices[2] = 2;
+		indices[3] = 1;
+		indices[4] = 2;
+		indices[5] = 3;
 	}
 	return self;
 }
@@ -92,74 +105,88 @@
 	return subImage;
 }
 
-- (void) renderToPos:(CGPoint)pos centreImage:(BOOL)flag{
-	[self renderSubImageToPos:pos offsetPoint:CGPointMake(textureOffsetX, textureOffsetY) subImageWidth:imageWidth subImageHeight:imageHeight centreImage:flag];
-}
 
-- (void) renderSubImageToPos:(CGPoint)pos offsetPoint:(CGPoint)offset subImageWidth:(GLfloat)subImgWidth subImageHeight:(GLfloat)subImgHeight centreImage:(BOOL)flag{
-	
-	//============
-	//Note that opengl 0,0 point is at bottom left hand side corner.
-	//probably is because of hand writing is normally from left to right, and text field registration point is at bottom left
-	//is easier to manage.
-	//============
-
-	//The texCoords are all from 0.0f-1.0f.
-	GLfloat	textureCoords[] = {
-		texWidthRatio*subImgWidth + texWidthRatio*offset.x, texHeightRatio*offset.y,
-		texWidthRatio*subImgWidth + texWidthRatio*offset.x, texHeightRatio*subImgHeight + texHeightRatio*offset.y,
-		texWidthRatio*offset.x, texHeightRatio*offset.y,
-		texWidthRatio*offset.x, texHeightRatio*subImgHeight + texHeightRatio*offset.y
-		
-	};
-	
+- (void) genVerticesTo:(CGPoint)pos subImageWidth:(GLfloat)subImgWidth subImageHeight:(GLfloat)subImgHeight centreImage:(BOOL)flag{
 	// Calculate the width and the height of the quad using the current image scale and the width and height
 	// of the image we are going to render
-	GLfloat quadWidth = subImgWidth*scaleX;
-	GLfloat quadHeight = subImgHeight*scaleY;
-	
-	// Define the vertices for each corner of the quad which is going to contain our image.
-	// We calculate the size of the quad to match the size of the subimage which has been defined.
-	// If center is true, then make sure the point provided is in the center of the image else it will be
-	// the bottom left hand corner of the image
-	GLfloat vertices[8];
 	if (flag) {
-		vertices[0] = quadWidth/2;
-		vertices[1] = quadHeight/2;
+		GLfloat offsetX = subImgWidth*scaleX/2.0;
+		GLfloat offsetY = subImgHeight*scaleY/2.0;
 		
-		vertices[2] = quadWidth/2;
-		vertices[3] = -quadHeight/2;
+		vertices[0].bl_x = pos.x - offsetX;
+		vertices[0].bl_y = pos.y - offsetY;
 		
-		vertices[4] = -quadWidth/2;
-		vertices[5] = quadHeight/2;
+		vertices[0].br_x = pos.x + offsetX;
+		vertices[0].br_y = pos.y - offsetY;
 		
-		vertices[6] = -quadWidth/2;
-		vertices[7] = -quadHeight/2;
+		vertices[0].tl_x = pos.x - offsetX;
+		vertices[0].tl_y = pos.y + offsetY;
+		
+		vertices[0].tr_x = pos.x + offsetX;
+		vertices[0].tr_y = pos.y + offsetY;
 	}
 	else {
-		vertices[0] = quadWidth;
-		vertices[1] = quadHeight;
-		vertices[2] = quadWidth;
-		vertices[3] = 0;
-		vertices[4] = 0;
-		vertices[5] = quadHeight;
-		vertices[6] = 0;
-		vertices[7] = 0;
+		GLfloat quadWidth = subImgWidth*scaleX;
+		GLfloat quadHeight = subImgHeight*scaleY;
+		
+		vertices[0].bl_x = pos.x;
+		vertices[0].bl_y = pos.y;
+		
+		vertices[0].br_x = pos.x + quadWidth;
+		vertices[0].br_y = pos.y;
+		
+		vertices[0].tl_x = pos.x;
+		vertices[0].tl_y = pos.y + quadHeight;
+		
+		vertices[0].tr_x = pos.x + quadWidth;
+		vertices[0].tr_y = pos.y + quadHeight;
 	}
-	
-	
-	[self renderFrom:textureCoords toVertices:vertices toPos:pos];
 }
 
-- (void) renderFrom:(GLfloat[])texCoords toVertices:(GLfloat[])vertices toPos:(CGPoint)pos{
+- (void) genTexCoordsAt:(CGPoint)offset subImageWidth:(GLfloat)subImgWidth subImageHeight:(GLfloat)subImgHeight{
+	GLfloat subTexWidth = texWidthRatio*subImgWidth;
+	GLfloat subTexHeight = texHeightRatio*subImgHeight;
+	GLfloat offsetX = texWidthRatio*offset.x;
+	GLfloat offsetY = texHeightRatio*offset.y;
+	
+	texCoords[0].bl_x = offsetX;
+	texCoords[0].bl_y = offsetY;
+	
+	texCoords[0].br_x = offsetX + subTexWidth;
+	texCoords[0].br_y = offsetY;
+	
+	texCoords[0].tl_x = offsetX;
+	texCoords[0].tl_y = offsetY + subTexHeight;
+	
+	texCoords[0].tr_x = offsetX + subTexWidth;
+	texCoords[0].tr_y = offsetY + subTexHeight;
+	 
+}
+
+- (void) renderTo:(CGPoint)pos centreImage:(BOOL)flag{
+	
+	[self genTexCoordsAt:CGPointMake(textureOffsetX, textureOffsetY) subImageWidth:imageWidth subImageHeight:imageHeight];
+	[self genVerticesTo:pos subImageWidth:imageWidth subImageHeight:imageHeight centreImage:flag];
+	
+	[self renderTo:pos];
+}
+
+- (void) renderSubImageTo:(CGPoint)pos offsetPoint:(CGPoint)offset subImageWidth:(GLfloat)subImgWidth subImageHeight:(GLfloat)subImgHeight centreImage:(BOOL)flag{
+	
+	[self genTexCoordsAt:offset subImageWidth:subImgWidth subImageHeight:subImgWidth];
+	[self genVerticesTo:pos subImageWidth:subImgWidth subImageHeight:subImgWidth centreImage:flag];
+	
+	
+	[self renderTo:pos];
+}
+
+- (void) renderTo:(CGPoint)pos{
 	//save the current matrix
 	glPushMatrix();
 	
-	//translate the render target vertices to the position.
-	glTranslatef(pos.x, pos.y, 0.0f);
-	
-	//rotate around z axis
-	glRotatef(rotation, 0.0f, 0.0f, 1.0f);
+	glTranslatef(pos.x, pos.y, 0);
+	glRotatef(-rotation, 0.0f, 0.0f, 1.0f);
+	glTranslatef(-pos.x, -pos.y, 0);
 	
 	//apply tint.
 	glColor4f(colourFilter[0], colourFilter[1], colourFilter[2], colourFilter[3]);
@@ -212,6 +239,20 @@
 	colourFilter[1] = 1.0f;
 	colourFilter[2] = 1.0f;
 	colourFilter[3] = 1.0f;
+	
+	//One Quad2D to represent a area of texture to draw from
+	texCoords = calloc(1, sizeof(Quad2D));
+	//Just one Quad2D to represent a area to draw
+	vertices = calloc(1, sizeof(Quad2D));
+	//6 GLubyte number to index the two triangles(6 vertices)
+	indices = calloc(6, sizeof(GLubyte));
+	
+	indices[0] = 0;
+	indices[1] = 1;
+	indices[2] = 2;
+	indices[3] = 1;
+	indices[4] = 2;
+	indices[5] = 3;
 }
 
 @end

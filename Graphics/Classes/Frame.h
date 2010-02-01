@@ -20,5 +20,6 @@
 - (void) renderTo:(CGPoint)pos centreImage:(BOOL)flag;
 
 @property (nonatomic) float duration;
+@property (nonatomic, readonly) Image* image;
 
 @end

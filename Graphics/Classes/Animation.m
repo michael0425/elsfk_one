@@ -11,7 +11,7 @@
 
 @implementation Animation
 
-@synthesize currentFrameNum;
+@synthesize currentFrameIndex;
 @synthesize pingpong;
 @synthesize repeat;
 @synthesize running;
@@ -23,7 +23,7 @@
 	if (self=([super init])) {
 		frames = [[NSMutableArray alloc] init];
 		
-		currentFrameNum = 0;
+		currentFrameIndex = 0;
 		
 		pingpong = NO;
 		
@@ -35,7 +35,7 @@
 		
 		frameTimer = 0;
 		
-		defaultDuration = 1;
+		defaultDuration = 1.0/2.0;
 		
 		firstRound = YES;
 	}
@@ -58,43 +58,49 @@
 	}
 	else {
 		frameTimer += delta;
-		if (frameTimer < [[frames objectAtIndex:currentFrameNum] duration]) {
+		
+		if (frameTimer > [[frames objectAtIndex:currentFrameIndex] duration]) {
 			//go to next frame
-			currentFrameNum+=direction;
+			currentFrameIndex+=direction;
 			frameTimer = 0;
 			
 			//frame number is exceed limit
-			if (currentFrameNum>([frames count]-1) || currentFrameNum<0) {
+			if (currentFrameIndex>([frames count]-1) || currentFrameIndex<0) {
 				//keep repeat and pingpong, never stop
 				if(pingpong && repeat){
 					direction*=-1;
-					currentFrameNum+=direction;
+					currentFrameIndex+=direction;
 				}
 				//only pingpong once.
 				else if(pingpong && !repeat){
 					direction*=-1;
 					if (firstRound) {
 						firstRound = NO;
-						currentFrameNum+=direction;
+						currentFrameIndex+=direction;
 					}
 					else {
 						firstRound = YES;
 						running = NO;
-						currentFrameNum = 0;
+						currentFrameIndex = 0;
 					}
+				}
+				//go back to first frame
+				else if(!pingpong && repeat){
+					currentFrameIndex = 0;
 				}
 				//stop
 				else {
 					running = NO;
-					currentFrameNum = 0;
+					currentFrameIndex = 0;
 				}
 			}
+			NSLog(@"next frame %u",currentFrameIndex);
 		}
 	}
 }
 
 - (void) renderTo:(CGPoint)pos centreImage:(BOOL)flag{
-	[[frames objectAtIndex:currentFrameNum] renderTo:pos centreImage:flag];
+	[[frames objectAtIndex:(currentFrameIndex)] renderTo:pos centreImage:flag];
 }
 
 - (void) stop{
@@ -107,7 +113,7 @@
 }
 
 - (void) reset{
-	currentFrameNum = 0;
+	currentFrameIndex = 0;
 	running = NO;
 }
 
@@ -116,7 +122,7 @@
 		return;
 	}
 	running = YES;
-	currentFrameNum = frameNum;
+	currentFrameIndex = frameNum;
 }
 
 - (void) gotoAndStop:(uint)frameNum{
@@ -124,7 +130,7 @@
 		return;
 	}
 	running = NO;
-	currentFrameNum = frameNum;
+	currentFrameIndex = frameNum;
 }
 
 - (void) clear{
@@ -137,7 +143,7 @@
 }
 
 - (Frame*) getCurrentFrame{
-	return [frames objectAtIndex:currentFrameNum];
+	return [frames objectAtIndex:currentFrameIndex];
 }
 
 - (void) dealloc{
