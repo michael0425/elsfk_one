@@ -75,7 +75,7 @@
 	//main game loop
 	[controller update:delta];
 	//render
-    [renderer render];
+    [renderer render:delta];
 	
 	//update last time
 	lastTime = now;
@@ -128,7 +128,7 @@
 		}
 		else{
 			//animationTimer = [NSTimer scheduledTimerWithTimeInterval:(NSTimeInterval)((1.0 / 60.0) * animationFrameInterval) target:self selector:@selector(drawView:) userInfo:nil repeats:TRUE];
-			animationTimer = [NSTimer scheduledTimerWithTimeInterval:(1.0 / 30.0) target:self selector:@selector(mainGameLoop) userInfo:nil repeats:TRUE];
+			animationTimer = [NSTimer scheduledTimerWithTimeInterval:(1.0 / 60.0) target:self selector:@selector(mainGameLoop) userInfo:nil repeats:TRUE];
 		}
 		animating = TRUE;
 	}

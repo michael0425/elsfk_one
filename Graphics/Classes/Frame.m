@@ -13,6 +13,7 @@
 @implementation Frame
 
 @synthesize duration;
+@synthesize image;
 
 - (id) initWithImage:(Image*)img forDuration:(float)dur{
 	if (self = [super init]) {

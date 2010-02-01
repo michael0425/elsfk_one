@@ -47,14 +47,11 @@
 }
 
 - (Image*) getSpriteAtRow:(GLuint)row column:(GLuint)column{
-	image.textureOffsetX = (column-1)*spriteWidth;
-	image.textureOffsetY = (row-1)*spriteHeight;
-	image.imageWidth = spriteWidth;
-	image.imageHeight = spriteHeight;
-	image.scaleX = scaleX;
-	image.scaleY = scaleY;
-	image.rotation = rotation;
-	return image;
+	Image* img = [image getSubImageAtPoint:CGPointMake((column-1)*spriteWidth, (row-1)*spriteHeight) subImageWidth:spriteWidth subImageHeight:spriteHeight];
+	img.scaleX = scaleX;
+	img.scaleY = scaleY;
+	img.rotation = rotation;
+	return img;
 }
 
 - (void) renderSpriteToPos:(CGPoint)pos AtRow:(GLuint)row column:(GLuint)column centreImage:(BOOL)flag{

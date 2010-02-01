@@ -19,6 +19,13 @@
 #import "Texture2D.h"
 
 
+typedef struct _Quad2 {
+	float tl_x, tl_y;
+	float tr_x, tr_y;
+	float bl_x, bl_y;
+	float br_x, br_y;
+} Quad2;
+
 @interface Image : NSObject {
 	
 	//Texture2D to load picture.

@@ -70,14 +70,19 @@
 		
 		for (int i=0; i<17; i++) {
 			Image* img = [spriteSheet getSpriteAtRow:4 column:(i+1)];
-			[animation addFrameWithImage:img withDuration:80];
+			img.scaleX = 2;
+			img.scaleY = 2;
+			[animation addFrameWithImage:img withDuration:1.0/10.0];
 		}
+		animation.repeat = YES;
+		//animation.pingpong = YES;
+		[animation play];
 	}
 	
 	return self;
 }
 
-- (void) render
+- (void) render:(float)delta
 {	
 	// This application only creates a single context which is already set current at this point.
 	// This call is redundant, but needed if dealing with multiple contexts.
@@ -103,9 +108,19 @@
 	// render process if you wanted to apply different effects
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	
+	[animation update:delta];
+	[animation renderTo:CGPointMake(screenBounds.size.width/2, screenBounds.size.height/2) centreImage:YES];
 	
 	
-	[self drawCubes];
+	/**
+	 2010-01-31 23:18:03.303 Graphics[3167:207] size of GLushort: 2
+	 2010-01-31 23:18:03.303 Graphics[3167:207] size of float: 4
+	 2010-01-31 23:18:03.304 Graphics[3167:207] size of Quad2: 32
+	 */
+	NSLog(@"size of GLushort: %u", sizeof(GLushort));
+	NSLog(@"size of float: %u", sizeof(float));
+	NSLog(@"size of Quad2: %u", sizeof(Quad2));
+	//[self drawCubes];
 
 	
 	// This application only creates a single color renderbuffer which is already bound at this point.

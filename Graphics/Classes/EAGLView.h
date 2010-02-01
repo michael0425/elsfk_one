@@ -13,6 +13,7 @@
 #import "Block.h"
 #import "Board.h"
 #import "GameController.h"
+#import "Animation.h"
 
 // This class wraps the CAEAGLLayer from CoreAnimation into a convenient UIView subclass.
 // The view content is basically an EAGL surface you render your OpenGL scene into.
@@ -35,6 +36,8 @@
 	//controller to control the game logic
 	GameController* controller;
 	CFTimeInterval lastTime;
+	
+	Animation* ani;
 }
 
 @property (readonly, nonatomic, getter=isAnimating) BOOL animating;
