@@ -54,8 +54,9 @@
 		//setup projection
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
-		glOrthof(0.0f, screenBounds.size.width, 0.0f, screenBounds.size.height, -1.0f, 1.0f);
-		
+		//Since the OpenGL is using bottom left as 0,0 origin, iPhone, MacOSX is using top left as origin.
+		//we need to follow the iPhone screen's coordinate to specify the projection
+		glOrthof(0.0f, screenBounds.size.width, screenBounds.size.height, 0.0f, -1.0f, 1.0f);
 		
 		
 		//create a cube texture
@@ -68,8 +69,8 @@
 		
 		animation = [[Animation alloc] init];
 		
-		for (int i=0; i<17; i++) {
-			Image* img = [spriteSheet getSpriteAtRow:4 column:(i+1)];
+		for (int i=0; i<7; i++) {
+			Image* img = [spriteSheet getSpriteAtRow:15 column:(i+1)];
 			img.scaleX = 2;
 			img.scaleY = 2;
 			[animation addFrameWithImage:img withDuration:1.0/10.0];
@@ -119,7 +120,7 @@
 	 */
 	NSLog(@"size of GLushort: %u", sizeof(GLushort));
 	NSLog(@"size of float: %u", sizeof(float));
-	NSLog(@"size of Quad2: %u", sizeof(Quad2));
+	NSLog(@"size of Quad2: %u", sizeof(Quad2D));
 	//[self drawCubes];
 
 	
