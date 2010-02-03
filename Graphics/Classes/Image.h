@@ -17,14 +17,9 @@
 
 #import <Foundation/Foundation.h>
 #import "Texture2D.h"
+#import "Common.h"
 
 
-typedef struct Quad2D {
-	GLfloat tl_x, tl_y;
-	GLfloat tr_x, tr_y;
-	GLfloat bl_x, bl_y;
-	GLfloat br_x, br_y;
-} Quad2D;
 
 @interface Image : NSObject {
 	
@@ -80,13 +75,14 @@ typedef struct Quad2D {
 	//The colour filter apply to the image.
 	float *colourFilter;
 	
-	Quad2D* vertices;
+	Quad2f* vertices;
 	
-	Quad2D* texCoords;
+	Quad2f* texCoords;
 	
 	GLubyte* indices;
 }
 
+@property (readonly) Texture2D* texture;
 @property (nonatomic) NSUInteger imageWidth;
 @property (nonatomic) NSUInteger imageHeight;
 @property (nonatomic, readonly) NSUInteger textureWidth;

@@ -25,6 +25,7 @@
 		6A6051A2108E5E3A00389313 /* Texture2D.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A6051A1108E5E3A00389313 /* Texture2D.m */; };
 		6A6051A6108E5F4600389313 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A6051A5108E5F4600389313 /* CoreGraphics.framework */; };
 		6A772B4C10A0E5840053427B /* GameController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A772B4B10A0E5840053427B /* GameController.m */; };
+		6A7EB036111A349C00D29CF3 /* texture.png in Resources */ = {isa = PBXBuildFile; fileRef = 6A7EB035111A349C00D29CF3 /* texture.png */; };
 		6A8119351112290500F87CDF /* SpriteSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A8119341112290500F87CDF /* SpriteSheet.m */; };
 		6A81198811123C0200F87CDF /* spritesheet16.gif in Resources */ = {isa = PBXBuildFile; fileRef = 6A81198711123C0200F87CDF /* spritesheet16.gif */; };
 		6A92B7B11113B1E400243CF3 /* Animation.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A92B7B01113B1E400243CF3 /* Animation.m */; };
@@ -32,6 +33,7 @@
 		6AB205FE1090E6C300F5C1F7 /* pink.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6AB205FD1090E6C300F5C1F7 /* pink.jpg */; };
 		6AB206251090EFB400F5C1F7 /* grey.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6AB206241090EFB400F5C1F7 /* grey.jpg */; };
 		6AC18A64110F890D00A58D1F /* Image.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AC18A63110F890D00A58D1F /* Image.m */; };
+		6ADE793A1118D58D00C7EF88 /* ParticleEmitter.m in Sources */ = {isa = PBXBuildFile; fileRef = 6ADE79391118D58D00C7EF88 /* ParticleEmitter.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -77,6 +79,7 @@
 		6A6051A5108E5F4600389313 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		6A772B4A10A0E5840053427B /* GameController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameController.h; sourceTree = "<group>"; };
 		6A772B4B10A0E5840053427B /* GameController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameController.m; sourceTree = "<group>"; };
+		6A7EB035111A349C00D29CF3 /* texture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = texture.png; sourceTree = "<group>"; };
 		6A8119331112290500F87CDF /* SpriteSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpriteSheet.h; sourceTree = "<group>"; };
 		6A8119341112290500F87CDF /* SpriteSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpriteSheet.m; sourceTree = "<group>"; };
 		6A81198711123C0200F87CDF /* spritesheet16.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = spritesheet16.gif; sourceTree = "<group>"; };
@@ -88,6 +91,9 @@
 		6AB206241090EFB400F5C1F7 /* grey.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = grey.jpg; path = Images/grey.jpg; sourceTree = "<group>"; };
 		6AC18A62110F890D00A58D1F /* Image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Image.h; sourceTree = "<group>"; };
 		6AC18A63110F890D00A58D1F /* Image.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Image.m; sourceTree = "<group>"; };
+		6ADE79381118D58D00C7EF88 /* ParticleEmitter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParticleEmitter.h; sourceTree = "<group>"; };
+		6ADE79391118D58D00C7EF88 /* ParticleEmitter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParticleEmitter.m; sourceTree = "<group>"; };
+		6ADE79A91118D9CF00C7EF88 /* Common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Common.h; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Graphics-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Graphics-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -110,7 +116,7 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				6AAA788D1104FFA30023849D /* graphics */,
+				6AAA788D1104FFA30023849D /* GraphicEngine */,
 				6A6251AA109C60B200A499D6 /* Controller */,
 				6A60513F108E5BBC00389313 /* GameModel */,
 				2514C26D10084DB100A42282 /* ES1Renderer.h */,
@@ -220,9 +226,10 @@
 			name = Controller;
 			sourceTree = "<group>";
 		};
-		6AAA788D1104FFA30023849D /* graphics */ = {
+		6AAA788D1104FFA30023849D /* GraphicEngine */ = {
 			isa = PBXGroup;
 			children = (
+				6ADE793B1118D59400C7EF88 /* Common */,
 				6A6051A0108E5E3A00389313 /* Texture2D.h */,
 				6A6051A1108E5E3A00389313 /* Texture2D.m */,
 				6AC18A62110F890D00A58D1F /* Image.h */,
@@ -233,13 +240,24 @@
 				6A92B7B01113B1E400243CF3 /* Animation.m */,
 				6A92B7C81113B41200243CF3 /* Frame.h */,
 				6A92B7C91113B41200243CF3 /* Frame.m */,
+				6ADE79381118D58D00C7EF88 /* ParticleEmitter.h */,
+				6ADE79391118D58D00C7EF88 /* ParticleEmitter.m */,
 			);
-			name = graphics;
+			name = GraphicEngine;
+			sourceTree = "<group>";
+		};
+		6ADE793B1118D59400C7EF88 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				6ADE79A91118D9CF00C7EF88 /* Common.h */,
+			);
+			name = Common;
 			sourceTree = "<group>";
 		};
 		6AF44268108FAD6600589A7F /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				6A7EB035111A349C00D29CF3 /* texture.png */,
 				6A81198711123C0200F87CDF /* spritesheet16.gif */,
 				6AB206241090EFB400F5C1F7 /* grey.jpg */,
 				6AB205FD1090E6C300F5C1F7 /* pink.jpg */,
@@ -312,6 +330,7 @@
 				6AB205FE1090E6C300F5C1F7 /* pink.jpg in Resources */,
 				6AB206251090EFB400F5C1F7 /* grey.jpg in Resources */,
 				6A81198811123C0200F87CDF /* spritesheet16.gif in Resources */,
+				6A7EB036111A349C00D29CF3 /* texture.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -335,6 +354,7 @@
 				6A8119351112290500F87CDF /* SpriteSheet.m in Sources */,
 				6A92B7B11113B1E400243CF3 /* Animation.m in Sources */,
 				6A92B7CA1113B41200243CF3 /* Frame.m in Sources */,
+				6ADE793A1118D58D00C7EF88 /* ParticleEmitter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

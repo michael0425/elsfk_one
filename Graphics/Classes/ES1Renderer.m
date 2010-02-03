@@ -76,8 +76,28 @@
 			[animation addFrameWithImage:img withDuration:1.0/10.0];
 		}
 		animation.repeat = YES;
-		//animation.pingpong = YES;
+		animation.pingpong = YES;
 		[animation play];
+		
+		em = [[ParticleEmitter alloc] initParticleEmitterWithImageNamed:@"texture.png"
+														  startPosition:Vector2fMake(160, 240)
+												  startPositionVariance:Vector2fMake(5, 5)
+																  speed:2.5f
+														  speedVariance:0.5f
+													   particleLifeSpan:2.0f
+											   particleLifespanVariance:1.0f
+																  angle:-90.0f
+														  angleVariance:15
+																gravity:Vector2fMake(0.0f, 0.0f)
+															 startColor:Color4fMake(0.76f, 0.12f, 0.3f, 1.0f)
+													 startColorVariance:Color4fMake(1.0f, 0.0f, 0.0f, 1.0f)
+															   endColor:Color4fMake(0.0f, 0.4f, 1.0f, 0.0f) 
+													   endColorVariance:Color4fMake(0.0f, 0.0f, 0.0f, 0.0f)
+														   maxParticles:500
+														   particleSize:32
+												   particleSizeVariance:20
+															   duration:-1
+																  blend:YES];
 	}
 	
 	return self;
@@ -109,8 +129,12 @@
 	// render process if you wanted to apply different effects
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	
-	[animation update:delta];
-	[animation renderTo:CGPointMake(screenBounds.size.width/2, screenBounds.size.height/2) centreImage:YES];
+	//[animation update:delta];
+	//[animation renderTo:CGPointMake(screenBounds.size.width/2, screenBounds.size.height/2) centreImage:YES];
+	
+	NSLog(@"delta: %f", delta);
+	[em update:delta];
+	[em renderParticles];
 	
 	
 	/**
@@ -118,9 +142,9 @@
 	 2010-01-31 23:18:03.303 Graphics[3167:207] size of float: 4
 	 2010-01-31 23:18:03.304 Graphics[3167:207] size of Quad2: 32
 	 */
-	NSLog(@"size of GLushort: %u", sizeof(GLushort));
-	NSLog(@"size of float: %u", sizeof(float));
-	NSLog(@"size of Quad2: %u", sizeof(Quad2D));
+	//NSLog(@"size of GLushort: %u", sizeof(GLushort));
+	//NSLog(@"size of float: %u", sizeof(float));
+	//NSLog(@"size of Quad2: %u", sizeof(Quad2f));
 	//[self drawCubes];
 
 	

@@ -16,6 +16,7 @@
 #import "Image.h"
 #import "SpriteSheet.h"
 #import "Animation.h"
+#import "ParticleEmitter.h"
 
 @interface ES1Renderer : NSObject <ESRenderer>
 {
@@ -40,6 +41,8 @@
 	SpriteSheet* spriteSheet;
 	
 	Animation* animation;
+	
+	ParticleEmitter* em;
 }
 
 @property (readonly) GameController* controller;

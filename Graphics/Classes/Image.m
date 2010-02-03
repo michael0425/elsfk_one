@@ -21,6 +21,7 @@
 
 @implementation Image
 
+@synthesize texture;
 @synthesize	imageWidth;
 @synthesize imageHeight;
 @synthesize textureWidth;
@@ -53,10 +54,10 @@
 		colourFilter[2] = 1.0f;
 		colourFilter[3] = 1.0f;
 		
-		//One Quad2D to represent a area of texture to draw from
-		texCoords = calloc(1, sizeof(Quad2D));
-		//Just one Quad2D to represent a area to draw
-		vertices = calloc(1, sizeof(Quad2D));
+		//One Quad2f to represent a area of texture to draw from
+		texCoords = calloc(1, sizeof(Quad2f));
+		//Just one Quad2f to represent a area to draw
+		vertices = calloc(1, sizeof(Quad2f));
 		//6 GLubyte number to index the two triangles(6 vertices)
 		indices = calloc(6, sizeof(GLubyte));
 		indices[0] = 0;
@@ -240,10 +241,10 @@
 	colourFilter[2] = 1.0f;
 	colourFilter[3] = 1.0f;
 	
-	//One Quad2D to represent a area of texture to draw from
-	texCoords = calloc(1, sizeof(Quad2D));
-	//Just one Quad2D to represent a area to draw
-	vertices = calloc(1, sizeof(Quad2D));
+	//One Quad2f to represent a area of texture to draw from
+	texCoords = calloc(1, sizeof(Quad2f));
+	//Just one Quad2f to represent a area to draw
+	vertices = calloc(1, sizeof(Quad2f));
 	//6 GLubyte number to index the two triangles(6 vertices)
 	indices = calloc(6, sizeof(GLubyte));
 	
