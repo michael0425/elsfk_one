@@ -74,9 +74,9 @@
 	GLuint particleIndex;
 	
 	//how many mini seconds has past since the particle is emitted.
-	GLuint elapsedTime;
+	GLfloat elapsedTime;
 	//how many mini seconds this emitter should run. -1 forever.
-	GLint duration;
+	GLfloat duration;
 	
 	//use blend or not
 	BOOL blend;
@@ -103,7 +103,7 @@
 @property(nonatomic, assign) GLfloat emitRate;
 @property(nonatomic, assign) GLfloat emitTimer;
 @property(nonatomic, assign) BOOL active;
-@property(nonatomic, assign) GLint duration;
+@property(nonatomic, assign) GLfloat duration;
 @property(nonatomic, assign) BOOL blend;
 
 - (id)initParticleEmitterWithImageNamed:(NSString*)name

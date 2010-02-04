@@ -215,7 +215,7 @@
 		}
 		else {
 			if(particleIndex != numActiveParticles-1)
-				particle[particleIndex] = particle[numActiveParticles-1];
+				particles[particleIndex] = particles[numActiveParticles-1];
 			--numActiveParticles;
 		}
 	}

@@ -82,19 +82,19 @@
 		em = [[ParticleEmitter alloc] initParticleEmitterWithImageNamed:@"texture.png"
 														  startPosition:Vector2fMake(160, 240)
 												  startPositionVariance:Vector2fMake(5, 5)
-																  speed:2.5f
-														  speedVariance:0.5f
-													   particleLifeSpan:2.0f
-											   particleLifespanVariance:1.0f
+																  speed:2.0f
+														  speedVariance:1.0f
+													   particleLifeSpan:0.7f
+											   particleLifespanVariance:0.5f
 																  angle:-90.0f
-														  angleVariance:15
+														  angleVariance:5.0f
 																gravity:Vector2fMake(0.0f, 0.0f)
-															 startColor:Color4fMake(0.76f, 0.12f, 0.3f, 1.0f)
-													 startColorVariance:Color4fMake(1.0f, 0.0f, 0.0f, 1.0f)
-															   endColor:Color4fMake(0.0f, 0.4f, 1.0f, 0.0f) 
+															 startColor:Color4fMake(1.0f, 0.0f, 0.0f, 1.0f)
+													 startColorVariance:Color4fMake(1.0f, 0.5f, 0.0f, 1.0f)
+															   endColor:Color4fMake(1.0f, 0.0f, 0.0f, 0.0f) 
 													   endColorVariance:Color4fMake(0.0f, 0.0f, 0.0f, 0.0f)
-														   maxParticles:500
-														   particleSize:32
+														   maxParticles:400
+														   particleSize:20
 												   particleSizeVariance:20
 															   duration:-1
 																  blend:YES];
