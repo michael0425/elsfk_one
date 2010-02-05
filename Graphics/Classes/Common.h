@@ -39,10 +39,11 @@ typedef struct _Quad2f{
 
 typedef struct _Particle{
 	Vector2f position;
-	Vector2f direction;
+	Vector2f velocity;
 	Color4f color;
-	Color4f deltaColor;
+	Color4f endColor;
 	GLfloat size;
+	GLfloat endSize;
 	GLfloat timeToLive;
 }Particle;
 

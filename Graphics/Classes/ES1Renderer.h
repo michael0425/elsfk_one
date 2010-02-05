@@ -42,7 +42,11 @@
 	
 	Animation* animation;
 	
-	ParticleEmitter* em;
+	ParticleEmitter* fire;
+	ParticleEmitter* fountain;
+	ParticleEmitter* smoke;
+	
+	Image* particleImage;
 }
 
 @property (readonly) GameController* controller;

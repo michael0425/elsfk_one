@@ -79,25 +79,74 @@
 		animation.pingpong = YES;
 		[animation play];
 		
-		em = [[ParticleEmitter alloc] initParticleEmitterWithImageNamed:@"texture.png"
+		
+		fountain = [[ParticleEmitter alloc] initParticleEmitterWithImageNamed:@"texture.png"
 														  startPosition:Vector2fMake(160, 240)
-												  startPositionVariance:Vector2fMake(5, 5)
-																  speed:2.0f
-														  speedVariance:1.0f
-													   particleLifeSpan:0.7f
+												  startPositionVariance:Vector2fMake(5, 10)
+															speedPerSec:300.0
+													speedPerSecVariance:100.0
+													   particleLifeSpan:1.0f
+											   particleLifespanVariance:1.0f
+																  angle:-90.0f
+														  angleVariance:20.0f
+																gravity:Vector2fMake(0.0f, 8.0f)
+															 startColor:Color4fMake(0.6f, 0.8f, 0.8f, 0.8f)
+													 startColorVariance:Color4fMake(0.1f, 0.1f, 0.1f, 0.2f)
+															   endColor:Color4fMake(0.5f, 0.5f, 0.5f, 0.0f) 
+													   endColorVariance:Color4fMake(0.1f, 0.1f, 0.1f, 0.0f)
+														   maxParticles:600
+														   particleSize:15.0f
+												   particleSizeVariance:5.0f
+														endParticleSize:1.0f
+												endParticleSizeVariance:1.0f
+															   duration:-1.0f
+																  blend:YES];
+		
+		fire = [[ParticleEmitter alloc] initParticleEmitterWithImageNamed:@"texture.png"
+														  startPosition:Vector2fMake(80, 240)
+												  startPositionVariance:Vector2fMake(5, 10)
+															speedPerSec:50.0
+													speedPerSecVariance:70.0
+													   particleLifeSpan:1.0f
 											   particleLifespanVariance:0.5f
 																  angle:-90.0f
-														  angleVariance:5.0f
+														  angleVariance:10.0f
 																gravity:Vector2fMake(0.0f, 0.0f)
-															 startColor:Color4fMake(1.0f, 0.0f, 0.0f, 1.0f)
-													 startColorVariance:Color4fMake(1.0f, 0.5f, 0.0f, 1.0f)
-															   endColor:Color4fMake(1.0f, 0.0f, 0.0f, 0.0f) 
-													   endColorVariance:Color4fMake(0.0f, 0.0f, 0.0f, 0.0f)
-														   maxParticles:400
-														   particleSize:20
-												   particleSizeVariance:20
-															   duration:-1
+															 startColor:Color4fMake(1.0f, 0.3f, 0.0f, 0.8f)
+													 startColorVariance:Color4fMake(0.1f, 0.1f, 0.1f, 0.2f)
+															   endColor:Color4fMake(0.9f, 0.1f, 0.0f, 0.0f) 
+													   endColorVariance:Color4fMake(0.1f, 0.1f, 0.1f, 0.1f)
+															maxParticles:400
+														   particleSize:20.0f
+												   particleSizeVariance:15.0f
+														endParticleSize:10.0f
+												endParticleSizeVariance:15.0f
+															   duration:-1.0f
 																  blend:YES];
+		
+		smoke = [[ParticleEmitter alloc] initParticleEmitterWithImageNamed:@"texture.png"
+															startPosition:Vector2fMake(240, 240)
+													startPositionVariance:Vector2fMake(5, 20)
+															  speedPerSec:32.0
+													  speedPerSecVariance:30.0
+														 particleLifeSpan:1.5f
+												 particleLifespanVariance:3.0f
+																	angle:-90.0f
+															angleVariance:20.0f
+																  gravity:Vector2fMake(0.2f, 0.0f)
+															   startColor:Color4fMake(0.5f, 0.5f, 0.5f, 0.3f)
+													   startColorVariance:Color4fMake(0.0f, 0.0f, 0.0f, 0.3f)
+																 endColor:Color4fMake(0.5f, 0.5f, 0.5f, 0.0f) 
+														 endColorVariance:Color4fMake(0.0f, 0.0f, 0.0f, 0.0f)
+															 maxParticles:100
+															 particleSize:30.0f
+													 particleSizeVariance:10.0f
+														  endParticleSize:50.0f
+												  endParticleSizeVariance:40.0f
+																 duration:-1.0f
+																	blend:YES];
+		
+		particleImage = [[Image alloc] initWithImage:[UIImage imageNamed:@"texture.png"]];
 	}
 	
 	return self;
@@ -132,10 +181,19 @@
 	//[animation update:delta];
 	//[animation renderTo:CGPointMake(screenBounds.size.width/2, screenBounds.size.height/2) centreImage:YES];
 	
-	NSLog(@"delta: %f", delta);
-	[em update:delta];
-	[em renderParticles];
+	//NSLog(@"delta: %f", delta);
+	[fire update:delta];
+	[fire renderParticles];
 	
+	[fountain update:delta];
+	[fountain renderParticles];
+	
+	[smoke update:delta];
+	[smoke renderParticles];
+	
+	[particleImage renderTo:CGPointMake(screenBounds.size.width/2, screenBounds.size.height/2+80) centreImage:YES];
+	
+	//em.startPosition = Vector2fAdd(em.startPosition, Vector2fMake(0.4f, 0.0f));
 	
 	/**
 	 2010-01-31 23:18:03.303 Graphics[3167:207] size of GLushort: 2

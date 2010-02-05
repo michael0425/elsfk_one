@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "Image.h"
+#import "Image.h"emitTimer
 #import "Common.h"
 
 @interface ParticleEmitter : NSObject {
@@ -23,8 +23,8 @@
 	GLfloat angle;
 	GLfloat angleVariance;
 	//speed and angle together can form a directed speed vector
-	GLfloat speed;
-	GLfloat speedVariance;
+	GLfloat speedPerSec;
+	GLfloat speedPerSecVariance;
 	
 	//gravity can be apply to x or y
 	Vector2f gravity;
@@ -41,10 +41,11 @@
 	Color4f endColor;
 	Color4f endColorVariance;
 	
-	//TODO start and end size
 	//how big is the particle
 	GLfloat particleSize;
 	GLfloat particleSizeVariance;
+	GLfloat endParticleSize;
+	GLfloat endParticleSizeVariance;
 	
 	GLuint maxParticles;
 	
@@ -52,11 +53,14 @@
 	GLuint numActiveParticles;
 	
 	
-	//NOT sure how it works at the moment
+	//emit rate represent a time period. emitRate = particleLifespace/maxParticles.
+	//It means how many seconds emit one particle during a particle's lifespan.
+	//This variable together with emitTimer will ensure the particles been smoothly emitted.
 	GLfloat emitRate;
+	//emitTimer is used for tracking how many second has past after last particle is emitted.
 	GLfloat emitTimer;
 	
-	//not sure 
+	//Two video buffer object's id, for rendering color and vertices.
 	GLuint verticesID;
 	GLuint colorsID;
 	
@@ -87,8 +91,8 @@
 @property(nonatomic, assign) Vector2f startPositionVariance;
 @property(nonatomic, assign) GLfloat angle;
 @property(nonatomic, assign) GLfloat angleVariance;
-@property(nonatomic, assign) GLfloat speed;
-@property(nonatomic, assign) GLfloat speedVariance;
+@property(nonatomic, assign) GLfloat speedPerSec;
+@property(nonatomic, assign) GLfloat speedPerSecVariance;
 @property(nonatomic, assign) Vector2f gravity;
 @property(nonatomic, assign) GLfloat particleLifespan;
 @property(nonatomic, assign) GLfloat particleLifespanVariance;
@@ -98,6 +102,8 @@
 @property(nonatomic, assign) Color4f endColorVariance;
 @property(nonatomic, assign) GLfloat particleSize;
 @property(nonatomic, assign) GLfloat particleSizeVariance;
+@property(nonatomic, assign) GLfloat endParticleSize;
+@property(nonatomic, assign) GLfloat endParticleSizeVariance;
 @property(nonatomic, assign) GLuint maxParticles;
 @property(nonatomic, assign) GLuint numActiveParticles;
 @property(nonatomic, assign) GLfloat emitRate;
@@ -109,8 +115,8 @@
 - (id)initParticleEmitterWithImageNamed:(NSString*)name
 						  startPosition:(Vector2f)startPos 
 				  startPositionVariance:(Vector2f)startPosVariance
-								  speed:(GLfloat)aSpeed
-						  speedVariance:(GLfloat)aSpeedVariance 
+							speedPerSec:(GLfloat)aSpeedPerSec
+					speedPerSecVariance:(GLfloat)aSpeedPerSecVariance 
 					   particleLifeSpan:(GLfloat)lifeSpan
 			   particleLifespanVariance:(GLfloat)lifeSpanVariance 
 								  angle:(GLfloat)aAngle 
@@ -123,6 +129,8 @@
 						   maxParticles:(GLuint)aMaxParticles 
 						   particleSize:(GLfloat)aParticleSize
 				   particleSizeVariance:(GLfloat)aParticleSizeVariance
+						endParticleSize:(GLfloat)aEndParticleSize
+				endParticleSizeVariance:(GLfloat)aEndParticleSizeVariance
 							   duration:(GLfloat)aDuration
 								  blend:(BOOL)flag;
 

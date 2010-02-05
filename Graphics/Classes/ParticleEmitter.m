@@ -16,8 +16,8 @@
 @synthesize startPositionVariance;
 @synthesize angle;
 @synthesize angleVariance;
-@synthesize speed;
-@synthesize speedVariance;
+@synthesize speedPerSec;
+@synthesize speedPerSecVariance;
 @synthesize gravity;
 @synthesize particleLifespan;
 @synthesize particleLifespanVariance;
@@ -27,6 +27,8 @@
 @synthesize endColorVariance;
 @synthesize particleSize;
 @synthesize particleSizeVariance;
+@synthesize endParticleSize;
+@synthesize endParticleSizeVariance;
 @synthesize maxParticles;
 @synthesize duration;
 @synthesize blend;
@@ -36,10 +38,10 @@
 @synthesize active;
 
 - (id) initParticleEmitterWithImageNamed:(NSString*)name
-								startPosition:(Vector2f)startPos 
-				  startPositionVariance:(Vector2f)startPosVariance
-								   speed:(GLfloat)aSpeed
-						   speedVariance:(GLfloat)aSpeedVariance 
+						   startPosition:(Vector2f)startPos 
+				   startPositionVariance:(Vector2f)startPosVariance
+							 speedPerSec:(GLfloat)aSpeedPerSec
+					 speedPerSecVariance:(GLfloat)aSpeedPerSecVariance 
 						particleLifeSpan:(GLfloat)lifeSpan
 				particleLifespanVariance:(GLfloat)lifeSpanVariance 
 								   angle:(GLfloat)aAngle 
@@ -52,14 +54,16 @@
 							maxParticles:(GLuint)aMaxParticles 
 							particleSize:(GLfloat)aParticleSize
 					particleSizeVariance:(GLfloat)aParticleSizeVariance
+						 endParticleSize:(GLfloat)aEndParticleSize
+				 endParticleSizeVariance:(GLfloat)aEndParticleSizeVariance
 								duration:(GLfloat)aDuration
 								   blend:(BOOL)flag{
 	if (self = [self init]) {
 		image = [[Image alloc] initWithImage:[UIImage imageNamed:name]];
 		startPosition = startPos;
 		startPositionVariance = startPosVariance;
-		speed = aSpeed;
-		speedVariance = aSpeedVariance;
+		speedPerSec = aSpeedPerSec;
+		speedPerSecVariance = aSpeedPerSecVariance;
 		particleLifespan = lifeSpan;
 		particleLifespanVariance = lifeSpanVariance;
 		angle = aAngle;
@@ -72,12 +76,15 @@
 		maxParticles = aMaxParticles;
 		particleSize = aParticleSize;
 		particleSizeVariance = aParticleSizeVariance;
+		endParticleSize = aEndParticleSize;
+		endParticleSizeVariance = aEndParticleSizeVariance;
 		duration = aDuration;
 		blend = flag;
 		
 		
 		numActiveParticles = 0;
-		emitRate = maxParticles/particleLifespan;
+		//emitRate = maxParticles/particleLifespan;
+		emitRate = particleLifespan/maxParticles;
 		emitTimer = 0;
 		active = YES;
 		
@@ -128,13 +135,14 @@
 	particle->position.y = startPosition.y + startPositionVariance.y * RANDOM_MINUS_1_TO_1();
 	
 	particle->size = particleSize + particleSizeVariance * RANDOM_MINUS_1_TO_1();
+	particle->endSize = endParticleSize + endParticleSizeVariance * RANDOM_MINUS_1_TO_1();
 	
 	particle->timeToLive = particleLifespan + particleLifespanVariance * RANDOM_MINUS_1_TO_1();
 	
 	//calculate the direction vector for the particle.
 	float radians = (float)DEGREES_TO_RADIANS(angle + angleVariance * RANDOM_MINUS_1_TO_1());
 	Vector2f angleVector = Vector2fMake(cosf(radians), sinf(radians));
-	particle->direction = Vector2fMultiply(angleVector, speed + speedVariance * RANDOM_MINUS_1_TO_1());
+	particle->velocity = Vector2fMultiply(angleVector, speedPerSec + speedPerSecVariance * RANDOM_MINUS_1_TO_1());
 	
 	Color4f sc = {0.0f, 0.0f, 0.0f, 0.0f};
 	sc.r = startColor.r + startColorVariance.r * RANDOM_MINUS_1_TO_1();
@@ -148,28 +156,33 @@
 	ec.g = endColor.g + endColorVariance.g * RANDOM_MINUS_1_TO_1();
 	ec.b = endColor.b + endColorVariance.b * RANDOM_MINUS_1_TO_1();
 	ec.a = endColor.a + endColorVariance.a * RANDOM_MINUS_1_TO_1();
-	
-	//delta color
-	particle->deltaColor.r = (ec.r - sc.r)/particle->timeToLive;
-	particle->deltaColor.g = (ec.g - sc.g)/particle->timeToLive;
-	particle->deltaColor.b = (ec.b - sc.b)/particle->timeToLive;
-	particle->deltaColor.a = (ec.a - sc.a)/particle->timeToLive;
+	particle->endColor = ec;
 }
 
 - (void) update:(GLfloat)delta{
 	//if the emitter is not active, do not add any more active particles.
 	//but the remaining active particle will continue be updated.
-	if (active) {
-		uint howmanyToEmit = emitRate * delta;
-		while (numActiveParticles<maxParticles && howmanyToEmit>0) {
+	if(active) {
+		//keep track of time for next emit particle time point
+		emitTimer += delta;
+		//if not exceed maximun allowrance, and
+		//The emitTimer has go over or equal emitRate(How many second emit one particle).
+		//Emitter will emit one particle.
+		while(numActiveParticles < maxParticles && emitTimer >= emitRate) {
 			[self addParticle];
-			--howmanyToEmit;
+			//After emit one particle, we need to reset the emitTimer in order to track next emit time point.
+			//We can not simply reset it to 0, since it will lose some of the time. This is because when this
+			//update function is called, the emitTimer may already go past emitRate, for example: 1 second emit one
+			//particle, but when update function is called, emitTimer is already 1.5 second. If we reset to
+			//0, we will lose 0.5 second so next emit time point will be late for 0.5 second. This will cause the
+			//Number of active particle will never reach the max particle allowrance.
+			//FIXME: Because of the rounding float number problem, the emitTimer seem like will keep increasing.
+			//may cause some problem in the future.
+			emitTimer-= emitRate;
 		}
 		
-		//update the elapsed time of this emitter
 		elapsedTime += delta;
-		//has passed this emitter's life time, and the duration life time is not set to -1(play forever)
-		if(elapsedTime>duration && duration != -1)
+		if(duration != -1 && duration < elapsedTime)
 			[self stop];
 	}
 	
@@ -184,25 +197,24 @@
 		//if the particle still has time to live.
 		if(particle->timeToLive > 0){
 			//update direction vector
-			particle->direction = Vector2fAdd(particle->direction, gravity);
-			//update position using direction vector. delta is used to calculate corret direction vector, since update method
-			//will not always be call accurately in every mini-second.
-			//particle->position = Vector2fAdd(particle->position, Vector2fMultiply(particle->direction, delta));
-			particle->position = Vector2fAdd(particle->position, particle->direction);
+			particle->velocity = Vector2fAdd(particle->velocity, gravity);
+			//update position using velocity vector. delta is used to calculate corret velocity vector, since update method
+			//will not always be call accurately in every second.
+			particle->position = Vector2fAdd(particle->position, Vector2fMultiply(particle->velocity, delta));
 			
 			//update the vertices array with updated particle position
 			vertices[particleIndex].x = particle->position.x;
 			vertices[particleIndex].y = particle->position.y;
 			
-			//update the vertices size with current particle size
-			//TODO: update particle size.
+			//update the vertices size with current particle size, make sure it is corrected using delta time
+			particle->size += (particle->endSize-particle->size)/particle->timeToLive * delta;
 			vertices[particleIndex].size = particle->size;
 			
-			//Update particles color
-			particle->color.r += (particle->deltaColor.r * delta);
-			particle->color.g += (particle->deltaColor.g * delta);
-			particle->color.b += (particle->deltaColor.b * delta);
-			particle->color.a += (particle->deltaColor.a * delta);
+			//Update particles color, make sure it is corrected using delta time
+			particle->color.r += (particle->endColor.r - particle->color.r)/particle->timeToLive * delta;
+			particle->color.g += (particle->endColor.g - particle->color.g)/particle->timeToLive * delta;
+			particle->color.b += (particle->endColor.b - particle->color.b)/particle->timeToLive * delta;
+			particle->color.a += (particle->endColor.a - particle->color.a)/particle->timeToLive * delta;
 			
 			//Update the color of the current particle with the color array
 			colors[particleIndex] = particle->color;
@@ -214,75 +226,81 @@
 			++particleIndex;
 		}
 		else {
+			//Keep all the active particle in the front part of the whole particle array.
+			//So we only scan the active particles all the time.
+			//If a particle is dead, simply replace it with the last active particle, then deduct
+			//the number of active particle. If the dead particle is the last one, directly reduce
+			//the number of active particle by one.
 			if(particleIndex != numActiveParticles-1)
 				particles[particleIndex] = particles[numActiveParticles-1];
 			--numActiveParticles;
 		}
 	}
 	
-	//Now we have updated all the particles, update the VBOs with the arrays we have just updated
+	//Update the VBOs with the arrays we have just updated
 	glBindBuffer(GL_ARRAY_BUFFER, verticesID);
-	//FIXME: using maxParticles or just the actived number of particles??????????????????????????????????????????????????????????
-	glBufferData(GL_ARRAY_BUFFER, sizeof(PointSprite)*maxParticles, vertices, GL_DYNAMIC_DRAW);
+	//FIXME: using maxParticles or just the actived number of particles???
+	//From my point of view, since we only render actived particles, then we do not need to
+	//allocate video buffer for maximun number of particles. It is clearly a waste of memory.
+	glBufferData(GL_ARRAY_BUFFER, sizeof(PointSprite)*numActiveParticles, vertices, GL_DYNAMIC_DRAW);
 	glBindBuffer(GL_ARRAY_BUFFER, colorsID);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(Color4f)*maxParticles, colors, GL_DYNAMIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(Color4f)*numActiveParticles, colors, GL_DYNAMIC_DRAW);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
 - (void) renderParticles{
-	//re-enable 
+	//enable texture
 	glEnable(GL_TEXTURE_2D);
 	
-	// Enable texturing and bind the texture to be used as the point sprite
+	//bind texture
+	//TODO check whether the texture is already bind.
 	glBindTexture(GL_TEXTURE_2D, [[image texture] name]);
 	
-	// Enable and configure blending
+	//enable blend
 	glEnable(GL_BLEND);
-	
-	// Change the blend function used if blendAdditive has been set
-	if(blend) {
+	if (blend) {
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE);
-	} else {
+	}
+	else {
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	}
 	
-	// Enable and configure point sprites which we are going to use for our particles
+	//enable configure point sprite
 	glEnable(GL_POINT_SPRITE_OES);
-	glTexEnvi( GL_POINT_SPRITE_OES, GL_COORD_REPLACE_OES, GL_TRUE );
+	glTexEnvf(GL_POINT_SPRITE_OES, GL_COORD_REPLACE_OES, GL_TRUE);
 	
-	// Enable vertex arrays and bind to the vertices VBO which has been created
+	//enable vertices array and bind video object buffer for vertices
 	glEnableClientState(GL_VERTEX_ARRAY);
+	//the bind vertices buffer object is used by both glVertexPointer and glPointSizePointerOES.
 	glBindBuffer(GL_ARRAY_BUFFER, verticesID);
-	
-	// Configure the vertex pointer which will use the vertices VBO
+	//configure the position vertices array. 
+	//2 means only have x and y, no z. GL_FLOAT, define the data type which vertex array is using.
+	//Since vertex array are represented in PointSprite type, so scan through the binded buffer array for every sizeOf(PointSprite) bytes 
+	//you will find two GLfloat X and Y. And since they are all at first two element of PointSprite, there will no need for an offset,
+	//so it is set to 0.
 	glVertexPointer(2, GL_FLOAT, sizeof(PointSprite), 0);
 	
-	// Enable the point size array
+	//render point size array, no need to bind the buffer since the buffer is already binded.
 	glEnableClientState(GL_POINT_SIZE_ARRAY_OES);
+	//Similar to vertex array, the only difference is that, we only need the size information.
+	//However the size is at the third field in PointSprite struct. Before size field, we have GLfloat typed x and y.
+	//In order to find the size value in every PointSprite sized memory bytes, we have to set a offset for 2*sizeof(GLfloat).
+	glPointSizePointerOES(GL_FLOAT, sizeof(PointSprite), (GLvoid*)(sizeof(GLfloat)*2));
 	
-	// Configure the point size pointer which will use the currently bound VBO.  PointSprite contains
-	// both the location of the point as well as its size, so the config below tells the point size
-	// pointer where in the currently bound VBO it can find the size for each point
-	glPointSizePointerOES(GL_FLOAT,sizeof(PointSprite),(GLvoid*) (sizeof(GL_FLOAT)*2));
-	
-	// Enable the use of the color array
+	//enable color array
 	glEnableClientState(GL_COLOR_ARRAY);
-	
-	// Bind to the color VBO which has been created
 	glBindBuffer(GL_ARRAY_BUFFER, colorsID);
+	//Color information is represented using Color4f which have continuesly 4 GLfloat value(rgba).
+	//the third 0 means, every color is continuesly connected. (I think if set to sizeof(Color4f) will also work)
+	//no offset needed neither.
+	glColorPointer(4, GL_FLOAT, 0, 0);
 	
-	// Configure the color pointer specifying how many values there are for each color and their type
-	glColorPointer(4,GL_FLOAT,0,0);
+	//now draw!!!
+	glDrawArrays(GL_POINTS, 0, numActiveParticles);
 	
-	// Now that all of the VBOs have been used to configure the vertices, pointer size and color
-	// use glDrawArrays to draw the points
-	glDrawArrays(GL_POINTS, 0, particleIndex);
-	
-	// Unbind the current VBO
+	//unbind the buffer object
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	
-	// Disable the client states which have been used incase the next draw function does 
-	// not need or use them
 	glDisableClientState(GL_POINT_SPRITE_OES);
 	glDisableClientState(GL_POINT_SIZE_ARRAY_OES);
 	glDisableClientState(GL_COLOR_ARRAY);
