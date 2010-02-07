@@ -28,6 +28,12 @@
 @property(readonly) CubeType **poArray;
 @property(retain) NSSet *currentCubeSet;
 
+/**
+ * Singleton class.
+ * Get a board instance for the game. Note that the return instance has not been initialized.
+ * @return A Board instance which is not initialized.
+ */
++ (Board*)sharedBoard;
 
 -(id)initWithX:(int)gX Y:(int)gY;
 

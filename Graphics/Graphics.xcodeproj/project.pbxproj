@@ -33,6 +33,7 @@
 		6AB205FE1090E6C300F5C1F7 /* pink.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6AB205FD1090E6C300F5C1F7 /* pink.jpg */; };
 		6AB206251090EFB400F5C1F7 /* grey.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6AB206241090EFB400F5C1F7 /* grey.jpg */; };
 		6AC18A64110F890D00A58D1F /* Image.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AC18A63110F890D00A58D1F /* Image.m */; };
+		6AD8C4CD111CC87100D7B427 /* ResourcesManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AD8C4CC111CC87100D7B427 /* ResourcesManager.m */; };
 		6ADE793A1118D58D00C7EF88 /* ParticleEmitter.m in Sources */ = {isa = PBXBuildFile; fileRef = 6ADE79391118D58D00C7EF88 /* ParticleEmitter.m */; };
 /* End PBXBuildFile section */
 
@@ -91,6 +92,8 @@
 		6AB206241090EFB400F5C1F7 /* grey.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = grey.jpg; path = Images/grey.jpg; sourceTree = "<group>"; };
 		6AC18A62110F890D00A58D1F /* Image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Image.h; sourceTree = "<group>"; };
 		6AC18A63110F890D00A58D1F /* Image.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Image.m; sourceTree = "<group>"; };
+		6AD8C4CB111CC87100D7B427 /* ResourcesManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResourcesManager.h; sourceTree = "<group>"; };
+		6AD8C4CC111CC87100D7B427 /* ResourcesManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResourcesManager.m; sourceTree = "<group>"; };
 		6ADE79381118D58D00C7EF88 /* ParticleEmitter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParticleEmitter.h; sourceTree = "<group>"; };
 		6ADE79391118D58D00C7EF88 /* ParticleEmitter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParticleEmitter.m; sourceTree = "<group>"; };
 		6ADE79A91118D9CF00C7EF88 /* Common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Common.h; sourceTree = "<group>"; };
@@ -242,6 +245,8 @@
 				6A92B7C91113B41200243CF3 /* Frame.m */,
 				6ADE79381118D58D00C7EF88 /* ParticleEmitter.h */,
 				6ADE79391118D58D00C7EF88 /* ParticleEmitter.m */,
+				6AD8C4CB111CC87100D7B427 /* ResourcesManager.h */,
+				6AD8C4CC111CC87100D7B427 /* ResourcesManager.m */,
 			);
 			name = GraphicEngine;
 			sourceTree = "<group>";
@@ -355,6 +360,7 @@
 				6A92B7B11113B1E400243CF3 /* Animation.m in Sources */,
 				6A92B7CA1113B41200243CF3 /* Frame.m in Sources */,
 				6ADE793A1118D58D00C7EF88 /* ParticleEmitter.m in Sources */,
+				6AD8C4CD111CC87100D7B427 /* ResourcesManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -32,6 +32,7 @@
 		self.color = gColor;
 		self.type = gType;
 	}
+	
 	//NSLog(@"Created %@",self);
 	return self;
 }

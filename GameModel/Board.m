@@ -20,6 +20,15 @@ static int maxYCo = 420;
 @synthesize poArray;
 @synthesize currentCubeSet;
 
++ (Board*) sharedBoard{
+	static Board* instance;
+	@synchronized(self){
+		if (instance == nil) {
+			instance = [Board alloc];
+		}
+	}
+	return instance;
+}
 
 -(id)initWithX:(int)gX Y:(int)gY
 {

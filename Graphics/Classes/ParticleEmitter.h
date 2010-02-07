@@ -7,10 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "Image.h"emitTimer
+#import "Image.h"
 #import "Common.h"
+#import "ResourcesManager.h"
 
 @interface ParticleEmitter : NSObject {
+	ResourcesManager* resourcesManager;
 	
 	//the texture will be bind to the point sprite
 	Image* image;

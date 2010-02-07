@@ -59,7 +59,9 @@
 								duration:(GLfloat)aDuration
 								   blend:(BOOL)flag{
 	if (self = [self init]) {
-		image = [[Image alloc] initWithImage:[UIImage imageNamed:name]];
+		resourcesManager = [ResourcesManager sharedResourcesManager];
+		
+		image = [[Image alloc] initWithName:name];
 		startPosition = startPos;
 		startPositionVariance = startPosVariance;
 		speedPerSec = aSpeedPerSec;
@@ -253,8 +255,15 @@
 	glEnable(GL_TEXTURE_2D);
 	
 	//bind texture
-	//TODO check whether the texture is already bind.
-	glBindTexture(GL_TEXTURE_2D, [[image texture] name]);
+	if ([[image texture] name] != resourcesManager.boundedTexture) {
+		glBindTexture(GL_TEXTURE_2D, [[image texture] name]);
+		resourcesManager.boundedTexture = [[image texture] name];
+	}
+	else {
+		NSLog(@"Already binded");
+	}
+
+
 	
 	//enable blend
 	glEnable(GL_BLEND);

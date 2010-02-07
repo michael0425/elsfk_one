@@ -18,10 +18,14 @@
 #import <Foundation/Foundation.h>
 #import "Texture2D.h"
 #import "Common.h"
-
+#import "ResourcesManager.h"
 
 
 @interface Image : NSObject {
+	ResourcesManager* resourcesManager;
+	
+	//name of the txture
+	NSString* name;
 	
 	//Texture2D to load picture.
 	Texture2D* texture;
@@ -75,13 +79,19 @@
 	//The colour filter apply to the image.
 	float *colourFilter;
 	
+	//Quad2f array for vertices.
 	Quad2f* vertices;
 	
+	//Quad2f array for texture coordinate.
 	Quad2f* texCoords;
 	
+	//Index to tell OpenGL how to draw the texture quad on to the screen.
+	//Basically is an length of 6 index array which tell the sequence for drawing 6 vertices.(Two triangle to form a quad)
+	//For example: {0,1,2,1,2,3} This will draw a traingle stripe.
 	GLubyte* indices;
 }
 
+@property (readonly) NSString* name;
 @property (readonly) Texture2D* texture;
 @property (nonatomic) NSUInteger imageWidth;
 @property (nonatomic) NSUInteger imageHeight;
@@ -98,14 +108,9 @@
 
 
 /**
- * Initialize using UIImage.
+ * Initialize using name of image to load in.
  */
-- (id) initWithImage: (UIImage*)image;
-
-/**
- * Initialize using Texture2D.
- */
-- (id) initWithTexture: (Texture2D*)tex;
+- (id) initWithName: (NSString*)aName;
 
 /**
  * Get a sub image from the full image. The loaded image will not be changed, only the new sub Image instance's imageWidth and imageHeight will be changed.
@@ -125,8 +130,16 @@
  */
 - (void) renderSubImageTo:(CGPoint)pos offsetPoint:(CGPoint)offset subImageWidth:(GLfloat)subImgWidth subImageHeight:(GLfloat)subImgHeight centreImage:(BOOL)flag;
 
-- (void) genVerticesTo:(CGPoint)pos subImageWidth:(GLfloat)subImgWidth subImageHeight:(GLfloat)subImgHeight centreImage:(BOOL)flag;
+/**
+ * Generate a Quad2f vertices array for the sub image. Since Image has only 4 corners, so the Quad2f vertices array length is one.
+ * @return An array of type Quad2f represents vertices.
+ */
+- (Quad2f*) genVerticesTo:(CGPoint)pos subImageWidth:(GLfloat)subImgWidth subImageHeight:(GLfloat)subImgHeight centreImage:(BOOL)flag;
 
-- (void) genTexCoordsAt:(CGPoint)offset subImageWidth:(GLfloat)subImgWidth subImageHeight:(GLfloat)subImgHeight;
+/**
+ * Generate a Quad2f typed texture coordinate array for the texture. The array length will be one(Texture quad only has 4 corners).
+ * @return An Quad2f typed array represents texture coordincate.
+ */
+- (Quad2f*) genTexCoordsAt:(CGPoint)offset subImageWidth:(GLfloat)subImgWidth subImageHeight:(GLfloat)subImgHeight;
 
 @end

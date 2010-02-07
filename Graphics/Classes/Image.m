@@ -21,6 +21,7 @@
 
 @implementation Image
 
+@synthesize name;
 @synthesize texture;
 @synthesize	imageWidth;
 @synthesize imageHeight;
@@ -37,6 +38,8 @@
 
 - (id) init{
 	if(self = [super init]){
+		resourcesManager = [ResourcesManager sharedResourcesManager];
+		name = nil;
 		imageWidth = 0;
 		imageHeight = 0;
 		textureWidth = 0;
@@ -70,19 +73,11 @@
 	return self;
 }
 
-- (id) initWithImage:(UIImage *)image{
+- (id) initWithName:(NSString *)aName{
 	if(self = [super init]){
-		texture = [[Texture2D alloc] initWithImage:image];
-		scaleX = 1.0f;
-		scaleY = 1.0f;
-		[self extraInit];
-	}
-	return self;
-}
-
-- (id) initWithTexture:(Texture2D *)tex{
-	if(self = [super init]){
-		texture = tex;
+		resourcesManager = [ResourcesManager sharedResourcesManager];
+		name = aName;
+		texture = [[resourcesManager getTexture2D:aName] retain];
 		scaleX = 1.0f;
 		scaleY = 1.0f;
 		[self extraInit];
@@ -91,7 +86,7 @@
 }
 
 - (Image*) getSubImageAtPoint:(CGPoint)point subImageWidth:(GLfloat)subImgWidth subImageHeight:(GLfloat)subImgHeight{
-	Image* subImage = [[Image alloc] initWithTexture:texture];
+	Image* subImage = [[Image alloc] initWithName:name];
 	subImage.textureOffsetX = point.x;
 	subImage.textureOffsetY = point.y;
 	subImage.imageWidth = subImgWidth;
@@ -107,7 +102,7 @@
 }
 
 
-- (void) genVerticesTo:(CGPoint)pos subImageWidth:(GLfloat)subImgWidth subImageHeight:(GLfloat)subImgHeight centreImage:(BOOL)flag{
+- (Quad2f*) genVerticesTo:(CGPoint)pos subImageWidth:(GLfloat)subImgWidth subImageHeight:(GLfloat)subImgHeight centreImage:(BOOL)flag{
 	// Calculate the width and the height of the quad using the current image scale and the width and height
 	// of the image we are going to render
 	if (flag) {
@@ -142,9 +137,10 @@
 		vertices[0].tr_x = pos.x + quadWidth;
 		vertices[0].tr_y = pos.y + quadHeight;
 	}
+	return vertices;
 }
 
-- (void) genTexCoordsAt:(CGPoint)offset subImageWidth:(GLfloat)subImgWidth subImageHeight:(GLfloat)subImgHeight{
+- (Quad2f*) genTexCoordsAt:(CGPoint)offset subImageWidth:(GLfloat)subImgWidth subImageHeight:(GLfloat)subImgHeight{
 	GLfloat subTexWidth = texWidthRatio*subImgWidth;
 	GLfloat subTexHeight = texHeightRatio*subImgHeight;
 	GLfloat offsetX = texWidthRatio*offset.x;
@@ -161,11 +157,11 @@
 	
 	texCoords[0].tr_x = offsetX + subTexWidth;
 	texCoords[0].tr_y = offsetY + subTexHeight;
-	 
+	
+	return texCoords;
 }
 
 - (void) renderTo:(CGPoint)pos centreImage:(BOOL)flag{
-	
 	[self genTexCoordsAt:CGPointMake(textureOffsetX, textureOffsetY) subImageWidth:imageWidth subImageHeight:imageHeight];
 	[self genVerticesTo:pos subImageWidth:imageWidth subImageHeight:imageHeight centreImage:flag];
 	
@@ -200,7 +196,14 @@
 	
 	//bind the texture.
 	//The texture we are using here is loaded using Texture2D, which is texture size always be n^2.
-	glBindTexture(GL_TEXTURE_2D, [texture name]);
+	if (resourcesManager.boundedTexture != [texture name]) {
+		glBindTexture(GL_TEXTURE_2D, [texture name]);
+		resourcesManager.boundedTexture = [texture name];
+	}
+	else {
+		NSLog(@"Image already binded");
+	}
+	
 	
 	//set the texture coordinates we what to render from. (positions on the Texture2D generated image)
 	glTexCoordPointer(2, GL_FLOAT, 0, texCoords);
@@ -212,7 +215,9 @@
 	glEnable(GL_BLEND);
 	
 	//draw the image
-	glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+	//glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+	//draw the image using draw elements. 6 means 6 vertices.
+	glDrawElements(GL_TRIANGLE_STRIP, 6, GL_UNSIGNED_BYTE, indices);
 	
 	//disable
 	glDisable(GL_BLEND);

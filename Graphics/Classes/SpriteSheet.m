@@ -35,7 +35,7 @@
 
 - (id) initWithImageNamed:(NSString *)imageName spriteWidth:(GLfloat)width spriteHeight:(GLfloat)height spacing:(GLfloat)space{
 	if (self = [super init]) {
-		image = [[Image alloc] initWithImage:[UIImage imageNamed:imageName]];
+		image = [[Image alloc] initWithName:imageName];
 		spriteWidth = width;
 		spriteHeight = height;
 		spacing = space;
