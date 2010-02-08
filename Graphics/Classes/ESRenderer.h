@@ -13,7 +13,10 @@
 
 @protocol ESRenderer <NSObject>
 
+- (void)startRender;
+- (void)endRender;
 - (void) render:(float)delta;
 - (BOOL) resizeFromLayer:(CAEAGLLayer *)layer;
+- (void) drawCubes:(NSMutableSet*)cubes;
 
 @end

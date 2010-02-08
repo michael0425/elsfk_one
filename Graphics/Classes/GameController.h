@@ -8,16 +8,20 @@
 #import <Foundation/Foundation.h>
 #import "Block.h"
 #import "Board.h"
+#import "ESRenderer.h"
 
 @interface GameController : UIViewController {
-	Board* board;
+	id <ESRenderer> renderer;
 	Block* currentBlock;
+	Board* board;
+	
+	GLfloat fallRate;
+	GLfloat fallTimer;
 }
 
 @property (readonly) Board* board;
-@property (readonly) Block* currentBlock;
 
+- (id)initWithRender:(id <ESRenderer>)aRenderer;
 - (void) update: (float)delta;
-- (Block*) createBlock;
 
 @end

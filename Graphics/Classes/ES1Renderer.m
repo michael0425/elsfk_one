@@ -11,16 +11,6 @@
 
 @implementation ES1Renderer
 
-@synthesize controller;
-
-- (id) initWithGameController: (GameController*) _controller{
-	if (self = [self init]){
-		controller = _controller;
-		[controller retain];
-	}
-	return self;
-}
-
 // Create an ES 1.1 context
 - (id) init
 {
@@ -61,29 +51,74 @@
 		//initialize resource manager
 		[[ResourcesManager sharedResourcesManager] init];
 		
+		imageTexture = [[Image alloc] initWithName:@"grey.jpg"];
+		
+		fountain = [[ParticleEmitter alloc] initParticleEmitterWithImageNamed:@"texture.png"
+																startPosition:Vector2fMake(160, 240)
+														startPositionVariance:Vector2fMake(5, 10)
+																  speedPerSec:300.0
+														  speedPerSecVariance:100.0
+															 particleLifeSpan:1.0f
+													 particleLifespanVariance:1.0f
+																		angle:-90.0f
+																angleVariance:20.0f
+																	  gravity:Vector2fMake(0.0f, 8.0f)
+																   startColor:Color4fMake(0.6f, 0.8f, 0.8f, 0.8f)
+														   startColorVariance:Color4fMake(0.1f, 0.1f, 0.1f, 0.2f)
+																	 endColor:Color4fMake(0.5f, 0.5f, 0.5f, 0.0f)
+															 endColorVariance:Color4fMake(0.1f, 0.1f, 0.1f, 0.0f)
+																 maxParticles:600
+																 particleSize:15.0f
+														 particleSizeVariance:5.0f
+															  endParticleSize:1.0f
+													  endParticleSizeVariance:1.0f
+																	 duration:-1.0f
+																		blend:YES];
+		
 		fire = [[ParticleEmitter alloc] initParticleEmitterWithImageNamed:@"texture.png"
-															startPosition:Vector2fMake(160.0f, 240.0f) 
-													startPositionVariance:Vector2fMake(5.0f, 10.0f) 
-															  speedPerSec:30.0f 
-													  speedPerSecVariance:15.0f 
-														 particleLifeSpan:2.0f 
-												 particleLifespanVariance:1.0f 
-																	angle:-90.0f 
-															angleVariance:5.0f 
-																  gravity:Vector2fMake(0.0f, 0.0f) 
-															   startColor:Color4fMake(0.8f, 0.3f, 0.0f, 1.0f) 
-													   startColorVariance:Color4fMake(0.2f, 0.1f, 0.0f, 0.0f) 
-																 endColor:Color4fMake(0.8f, 0.0f, 0.0f, 0.0f) 
-														 endColorVariance:Color4fMake(0.0f, 0.0f, 0.0f, 0.0f)
-															 maxParticles:300 
-															 particleSize:15.0f 
-													 particleSizeVariance:5.0f 
-														  endParticleSize:10.0f 
-												  endParticleSizeVariance:10.0f 
-																 duration:-1 
+															startPosition:Vector2fMake(80, 240)
+													startPositionVariance:Vector2fMake(5, 10)
+															  speedPerSec:50.0
+													  speedPerSecVariance:70.0
+														 particleLifeSpan:1.0f
+												 particleLifespanVariance:0.5f
+																	angle:-90.0f
+															angleVariance:10.0f
+																  gravity:Vector2fMake(0.0f, 0.0f)
+															   startColor:Color4fMake(1.0f, 0.3f, 0.0f, 0.8f)
+													   startColorVariance:Color4fMake(0.1f, 0.1f, 0.1f, 0.2f)
+																 endColor:Color4fMake(0.9f, 0.1f, 0.0f, 0.0f)
+														 endColorVariance:Color4fMake(0.1f, 0.1f, 0.1f, 0.1f)
+															 maxParticles:400
+															 particleSize:20.0f
+													 particleSizeVariance:15.0f
+														  endParticleSize:10.0f
+												  endParticleSizeVariance:15.0f
+																 duration:-1.0f
 																	blend:YES];
 		
-		particleImage = [[Image alloc] initWithName:@"texture.png"];
+		smoke = [[ParticleEmitter alloc] initParticleEmitterWithImageNamed:@"texture.png"
+															 startPosition:Vector2fMake(240, 240)
+													 startPositionVariance:Vector2fMake(5, 20)
+															   speedPerSec:32.0
+													   speedPerSecVariance:30.0
+														  particleLifeSpan:1.5f
+												  particleLifespanVariance:3.0f
+																	 angle:-90.0f
+															 angleVariance:20.0f
+																   gravity:Vector2fMake(0.2f, 0.0f)
+																startColor:Color4fMake(0.5f, 0.5f, 0.5f, 0.3f)
+														startColorVariance:Color4fMake(0.0f, 0.0f, 0.0f, 0.3f)
+																  endColor:Color4fMake(0.5f, 0.5f, 0.5f, 0.0f)
+														  endColorVariance:Color4fMake(0.0f, 0.0f, 0.0f, 0.0f)
+															  maxParticles:100
+															  particleSize:30.0f
+													  particleSizeVariance:10.0f
+														   endParticleSize:50.0f
+												   endParticleSizeVariance:40.0f
+																  duration:-1.0f
+																	 blend:YES];
+				 
 		
 		//create a cube texture
 		NSLog(@"initialized");
@@ -92,8 +127,7 @@
 	return self;
 }
 
-- (void) render:(float)delta
-{	
+- (void)startRender{
 	// This application only creates a single context which is already set current at this point.
 	// This call is redundant, but needed if dealing with multiple contexts.
     [EAGLContext setCurrentContext:context];
@@ -101,10 +135,6 @@
 	// This application only creates a single default framebuffer which is already bound at this point.
 	// This call is redundant, but needed if dealing with multiple framebuffers.
     glBindFramebufferOES(GL_FRAMEBUFFER_OES, defaultFramebuffer);
-	
-	
-	
-	
 	
     // Define the viewport.  Changing the settings for the viewport can allow you to scale the viewport
 	// as well as the dimensions etc and so I'm setting it for each frame in case we want to change it
@@ -117,97 +147,44 @@
 	// Setup how the images are to be blended when rendered.  This could be changed at different points during your
 	// render process if you wanted to apply different effects
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	
-	//[animation update:delta];
-	//[animation renderTo:CGPointMake(screenBounds.size.width/2, screenBounds.size.height/2) centreImage:YES];
-	
-	//NSLog(@"delta: %f", delta);
-	[fire update:delta];
-	[fire renderParticles];
-	
-	//[fountain update:delta];
-	//[fountain renderParticles];
-	
-	//[smoke update:delta];
-	//[smoke renderParticles];
-	
-	[particleImage renderTo:CGPointMake(screenBounds.size.width/2, screenBounds.size.height/2+80) centreImage:YES];
-	
-	//em.startPosition = Vector2fAdd(em.startPosition, Vector2fMake(0.4f, 0.0f));
-	
-	/**
-	 2010-01-31 23:18:03.303 Graphics[3167:207] size of GLushort: 2
-	 2010-01-31 23:18:03.303 Graphics[3167:207] size of float: 4
-	 2010-01-31 23:18:03.304 Graphics[3167:207] size of Quad2: 32
-	 */
-	//NSLog(@"size of GLushort: %u", sizeof(GLushort));
-	//NSLog(@"size of float: %u", sizeof(float));
-	//NSLog(@"size of Quad2: %u", sizeof(Quad2f));
-	//[self drawCubes];
+}
 
-	
+- (void)endRender{
 	// This application only creates a single color renderbuffer which is already bound at this point.
 	// This call is redundant, but needed if dealing with multiple renderbuffers.
     glBindRenderbufferOES(GL_RENDERBUFFER_OES, colorRenderbuffer);
     [context presentRenderbuffer:GL_RENDERBUFFER_OES];
 }
 
-float ran;
-float ran2;
-float scaleRan;
+- (void) render:(float)delta
+{	
+	//NSLog(@"delta: %f", delta);
+	[fire update:delta];
+	[fire renderParticles];
+	
+	[smoke update:delta];
+	[smoke renderParticles];
+	
+	[fountain update:delta];
+	[fountain renderParticles];
+}
 
-- (void) drawCubes{
-	//[imageTexture renderToPos:CGPointMake(0, 0) centreImage:NO];
-	static uint index=1;
-	
-	if(index > 6){
-		index = 1;
-		ran = rand()/(float)RAND_MAX;
-		ran2 = rand()/(float)RAND_MAX;
-		scaleRan = rand()/(float)RAND_MAX; 
-		NSLog(@"ran: %f", ran);
-	}
-	
-	/*
-	Image* sprite = [spriteSheet getSpriteAtRow:7 column:index];
-	sprite.scaleX = 2;
-	sprite.scaleY = 2;
-	[sprite renderToPos:CGPointMake(screenBounds.size.width/2, screenBounds.size.height/2) centreImage:YES];
-	 */
-	
-	
-	
-	//for (int i=0; i<20; ++i) {
-		spriteSheet.scaleX = 2*scaleRan + 2;
-		spriteSheet.scaleY = 2*scaleRan + 2;
-		spriteSheet.rotation += 1;
-		[spriteSheet renderSpriteToPos:CGPointMake(screenBounds.size.width*ran, screenBounds.size.height*ran2) AtRow:3 column:index centreImage:YES];		
-	//}
-		++index;
-	
-	
-	/*
-	NSMutableSet* cubes = [controller.currentBlock getCubeSetToBoard];
-	
+- (void) drawCubes:(NSMutableSet*)cubes{
 	[cubes retain];
 	NSEnumerator* enumerator = [cubes objectEnumerator];
 	Cube *aCube = nil;
 	while (aCube = (Cube*)[enumerator nextObject]) {
 		[aCube retain];
-		//NSLog(@"       cube x:%u  y:%u", aCube.x, aCube.y);
+		//NSLog(@" cube x:%u y:%u", aCube.x, aCube.y);
 		[aCube getCubeVertexWithUnit:20];
-		
 		//[cubeTexture drawInRect:CGRectMake(aCube.x * 20, aCube.y * 20, 20, 20)];
 		imageTexture.scaleX = 20/(float)imageTexture.imageWidth;
 		imageTexture.scaleY = 20/(float)imageTexture.imageHeight;
 		GLfloat filter[] = {1.0f, 0.0f, 0.0f, 1.0f};
 		imageTexture.colourFilter = filter;
-		//[imageTexture renderToPos:CGPointMake(aCube.x * 20, 480-aCube.y * 20) ];
-		[imageTexture renderToPos:CGPointMake(aCube.x * 20, 480-aCube.y * 20) centreImage:YES];
-		
+		[imageTexture renderTo:CGPointMake(aCube.x * 20, aCube.y * 20) centreImage:NO];
 	}
 	[cubes release];
-	*/
 }
 
 - (BOOL) resizeFromLayer:(CAEAGLLayer *)layer

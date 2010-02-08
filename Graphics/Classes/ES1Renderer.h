@@ -32,28 +32,17 @@
 	
 	CGRect screenBounds;
 	
-	Texture2D* cubeTexture;
-	
-	GameController* controller;
-	
-	Image* imageTexture;
-	
-	SpriteSheet* spriteSheet;
-	
-	Animation* animation;
-	
-	ParticleEmitter* fire;
 	ParticleEmitter* fountain;
+	ParticleEmitter* fire;
 	ParticleEmitter* smoke;
 	
-	Image* particleImage;
+	Image* imageTexture;
 }
 
-@property (readonly) GameController* controller;
-
+- (void)startRender;
+- (void)endRender;
 - (void) render:(float)delta;
+- (void) drawCubes:(NSMutableSet*)cubes;
 - (BOOL) resizeFromLayer:(CAEAGLLayer *)layer;
-- (id) initWithGameController: (GameController*) controller;
-- (void) drawCubes;
 
 @end

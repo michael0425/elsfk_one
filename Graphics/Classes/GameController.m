@@ -7,18 +7,22 @@
 //
 
 #import "GameController.h"
+#import "ES1Renderer.h"
 
 @implementation GameController
 
 /**
  *
  */
-@synthesize currentBlock;
-
-/**
- *
- */
 @synthesize board;
+
+- (id)initWithRender:(id <ESRenderer>)aRenderer{
+	if (self = [super init]) {
+		renderer = aRenderer;
+		[self init];
+	}
+	return self;
+}
 
 /**
  * 
@@ -28,15 +32,23 @@
 - (id) init{
 	if (self = [super init])
 	{
-		board = [[Block alloc] init];
-		currentBlock = [self createBlock];
-		[currentBlock retain];
+		fallRate = 10.0f/20.0f;
+		fallTimer = 0.0f;
+		
+		currentBlock = [[Block alloc] init];
+		[currentBlock loadCubeWithX:0 Y:0 color:RED type:SOLID];
+		[currentBlock loadCubeWithX:0 Y:1 color:RED type:SOLID];
+		[currentBlock loadCubeWithX:0 Y:2 color:RED type:SOLID];
+		[currentBlock loadCubeWithX:1 Y:2 color:RED type:SOLID];
+		
+		board = [[Board sharedBoard] initWithX:16 Y:24];
+		
+		board.currentBlock = currentBlock;
 	}
 	return self;
 }
 
 - (void) dealloc{
-	[currentBlock release];
 	[board release];
 	[super dealloc];
 }
@@ -46,19 +58,32 @@
  *
  */
 - (void) update:(float)delta{
-	currentBlock.y += 0.01f;
-}
-
-- (Block*) createBlock{
-	Block* newBlock = [[Block alloc] init];
-	//random
-	[newBlock loadCubeWithX:0 Y:0 color:RED type:SOLID];
-	[newBlock loadCubeWithX:0 Y:1 color:RED type:SOLID];
-	[newBlock loadCubeWithX:0 Y:2 color:RED type:SOLID];
-	[newBlock loadCubeWithX:1 Y:2 color:RED type:SOLID];
-	[newBlock autorelease];
+	//update game logic
+	fallTimer += delta;
+	if (fallTimer>=fallRate) {
+		NSLog(@"fallTimer: %f    fallRate: %f", fallTimer, fallRate);
+		[currentBlock moveDown];
+		if (![board validateBlock:currentBlock]) {
+			[board landCurrentBlock];
+			
+			/*
+			currentBlock = [[Block alloc] init];
+			[currentBlock loadCubeWithX:0 Y:0 color:RED type:SOLID];
+			[currentBlock loadCubeWithX:0 Y:1 color:RED type:SOLID];
+			[currentBlock loadCubeWithX:0 Y:2 color:RED type:SOLID];
+			[currentBlock loadCubeWithX:1 Y:2 color:RED type:SOLID];
+			board.currentBlock = currentBlock;
+			 */
+		}
+		
+		fallTimer -= fallRate;
+	}
 	
-	return newBlock;
+	//render
+	[renderer startRender];
+	[renderer render:delta];
+	[renderer drawCubes:[currentBlock getCubeSetToBoard]];
+	[renderer endRender];
 }
 
 /**
@@ -68,7 +93,7 @@
  */
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
 	//touch begin, check whether the block is touched or empty space is touched.
-	UITouch* touch = [touches anyObject]; 
+	UITouch* touch = [touches anyObject];
 	CGPoint pos = [touch locationInView:[self view]];
 	
 	
@@ -78,19 +103,18 @@
 	
 	if(dis < -20){
 		[currentBlock moveLeft];
-		//[board validateBlock:currentBlock];
-		//NSLog(@"moved left x:%u  y:%u", currentBlock.x, currentBlock.y);
+		[board validateBlock:currentBlock];
+		//NSLog(@"moved left x:%u y:%u", currentBlock.x, currentBlock.y);
 	}
 	else if(dis > 20){
 		[currentBlock moveRight];
-		//[board validateBlock:currentBlock];
-		//NSLog(@"moved right x:%u  y:%u", currentBlock.x, currentBlock.y);
+		[board validateBlock:currentBlock];
+		//NSLog(@"moved right x:%u y:%u", currentBlock.x, currentBlock.y);
 	}
 	else{
 		[currentBlock rotate];
-		//[board validateBlock:currentBlock];
+		[board validateBlock:currentBlock];
 	}
-
 }
 
 @end

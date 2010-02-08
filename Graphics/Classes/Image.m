@@ -201,7 +201,7 @@
 		resourcesManager.boundedTexture = [texture name];
 	}
 	else {
-		NSLog(@"Image already binded");
+		//NSLog(@"Image already binded");
 	}
 	
 	

@@ -31,6 +31,8 @@
 {    
     if ((self = [super initWithCoder:coder]))
 	{
+		[[UIApplication sharedApplication] setStatusBarHidden:YES animated:YES];
+		
         // Get the layer
         CAEAGLLayer *eaglLayer = (CAEAGLLayer *)self.layer;
         
@@ -38,11 +40,11 @@
         eaglLayer.drawableProperties = [NSDictionary dictionaryWithObjectsAndKeys:
                                         [NSNumber numberWithBool:FALSE], kEAGLDrawablePropertyRetainedBacking, kEAGLColorFormatRGBA8, kEAGLDrawablePropertyColorFormat, nil];
 		
-		// initialize the controller to handle the ui event and the game logic.
-		controller = [[GameController alloc] init];
-		controller.view = self;
+		renderer = [[ES1Renderer alloc] init];
 		
-		renderer = [[ES1Renderer alloc] initWithGameController:controller];
+		// initialize the controller to handle the ui event and the game logic.
+		controller = [[GameController alloc] initWithRender:renderer];
+		controller.view = self;
 			
 		if (!renderer)
 		{
@@ -69,13 +71,13 @@
 
 - (void) mainGameLoop
 {
+	while(CFRunLoopRunInMode(kCFRunLoopDefaultMode, 0.002, TRUE) == kCFRunLoopRunHandledSource);
+		
 	CFTimeInterval now = CFAbsoluteTimeGetCurrent();
 	float delta = now - lastTime;
 	
 	//main game loop
 	[controller update:delta];
-	//render
-    [renderer render:delta];
 	
 	//update last time
 	lastTime = now;
@@ -155,6 +157,7 @@
 
 - (void) dealloc
 {
+	[controller release];
     [renderer release];
     [super dealloc];
 }
