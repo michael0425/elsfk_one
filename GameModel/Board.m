@@ -19,6 +19,7 @@ static int maxYCo = 420;
 @synthesize unit;
 @synthesize poArray;
 @synthesize currentCubeSet;
+@synthesize poCubeSet;
 
 + (Board*) sharedBoard{
 	static Board* instance;
@@ -76,7 +77,6 @@ static int maxYCo = 420;
 	[cubeSet retain];
 
 	// use the new method
-	
 	[poCubeSet minusSet:currentCubeSet];
 	
 	if (block.x >= 0 && 
@@ -85,22 +85,22 @@ static int maxYCo = 420;
 		block.y + block.maxY < self.y) {
 		//this means the block is valid, then we need to 
 		//find if there are intersections
-		if (![poCubeSet intersectsSet:cubeSet]){
+		if (![self intersectsTotalCubeSetWithBlock:block]){
 			isValid = YES;
 		}
 	}
 	
 	if (isValid) {
 		NSLog(@"%@ is valid.", block);
-		[poCubeSet unionSet:cubeSet];
 		self.currentCubeSet = [NSSet setWithSet:cubeSet];
+		[poCubeSet unionSet:self.currentCubeSet];		
 	}else {
 		// if not valid, then we need to set back the previous state.
 		// now the self.currentCubeSet is set to NULL, the board status
 		// is kept.
-		NSLog(@"%@ is invalid.", block);
-		[poCubeSet unionSet:currentCubeSet];
+		NSLog(@"%@ is invalid.", block);		
 		[block moveReset];
+		[poCubeSet unionSet:currentCubeSet];
 		NSLog(@"Reset block to %@", block);
 	}
 	
@@ -128,6 +128,28 @@ static int maxYCo = 420;
 	
 	currentBlock = NULL;
 	self.currentCubeSet = NULL;
+}
+
+-(BOOL)intersectsTotalCubeSetWithBlock:(Block *)block
+{
+	NSSet* cubeSet = [block getCubeSetToBoard];
+	[cubeSet retain];
+	NSEnumerator* enumeratorA = [cubeSet objectEnumerator];
+	NSEnumerator* enumeratorB;
+	
+	Cube* cubeA;
+	Cube* cubeB;
+	while (cubeA = [enumeratorA nextObject]) {
+		enumeratorB = [poCubeSet objectEnumerator];
+		while (cubeB = [enumeratorB nextObject]) {
+			if ([cubeA compareWithCube:cubeB]) {
+				[cubeSet release];
+				return YES;
+			}
+		}
+	}
+	[cubeSet release];
+	return NO;
 }
 
 // used to provide real vertex to draw cubes in openGL

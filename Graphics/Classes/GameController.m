@@ -66,14 +66,14 @@
 		if (![board validateBlock:currentBlock]) {
 			[board landCurrentBlock];
 			
-			/*
+			
 			currentBlock = [[Block alloc] init];
 			[currentBlock loadCubeWithX:0 Y:0 color:RED type:SOLID];
 			[currentBlock loadCubeWithX:0 Y:1 color:RED type:SOLID];
 			[currentBlock loadCubeWithX:0 Y:2 color:RED type:SOLID];
 			[currentBlock loadCubeWithX:1 Y:2 color:RED type:SOLID];
 			board.currentBlock = currentBlock;
-			 */
+			
 		}
 		
 		fallTimer -= fallRate;
@@ -82,7 +82,7 @@
 	//render
 	[renderer startRender];
 	[renderer render:delta];
-	[renderer drawCubes:[currentBlock getCubeSetToBoard]];
+	[renderer drawCubes:board.poCubeSet];
 	[renderer endRender];
 }
 
