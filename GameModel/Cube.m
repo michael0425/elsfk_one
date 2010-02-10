@@ -72,6 +72,13 @@
 	return NO;
 }
 
+-(void)shiftDownInBoardY:(NSNumber*)boardY;
+{
+	if (y < [boardY intValue]) {
+		y++;
+	}
+}
+
 -(void)dealloc
 {
 	//NSLog(@"####Deallocing %@", self);

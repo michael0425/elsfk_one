@@ -20,6 +20,7 @@ static int maxYCo = 420;
 @synthesize poArray;
 @synthesize currentCubeSet;
 @synthesize poCubeSet;
+@synthesize cubeCounterInLines;
 
 + (Board*) sharedBoard{
 	static Board* instance;
@@ -40,6 +41,7 @@ static int maxYCo = 420;
 		unit = maxXCo / gX;
 		
 		poArray = calloc(y, sizeof(CubeType*));
+		/*
 		for (size_t i = 0; i < y; ++i)
 		{
 			poArray[i] = calloc(x, sizeof(CubeType));
@@ -48,6 +50,13 @@ static int maxYCo = 420;
 			{
 				poArray[i][j] = EMPTY;
 			}
+		}
+		*/
+		
+		cubeCounterInLines = calloc(y, sizeof(size_t));
+		
+		for (size_t i = 0; i < y; ++i) {
+			cubeCounterInLines[i] = 0;
 		}
 		
 		currentBlock = NULL;
@@ -126,6 +135,13 @@ static int maxYCo = 420;
 	// new method
 	//[currentCubeSet release];
 	
+	/// register currentCubeSet
+	for (Cube* cube in currentCubeSet) {
+		++cubeCounterInLines[cube.y];
+	}
+	
+	[self checkTotalCubeSetForFullLine];
+	
 	currentBlock = NULL;
 	self.currentCubeSet = NULL;
 }
@@ -182,6 +198,46 @@ static int maxYCo = 420;
 	}
 	
 	return vertices;
+}
+
+-(NSSet*)checkTotalCubeSetForFullLine
+{
+	/// get all the full lines
+	NSMutableArray* fullLines = [[NSMutableArray alloc] initWithCapacity:y];
+	
+	for (size_t i = 0; i < y ; ++i) {
+		if (cubeCounterInLines[i] >= x) {
+			[fullLines addObject:[NSNumber numberWithInt:i]];
+		}
+	}
+	/// get dead cube set
+	NSMutableSet* needToDeleteCubeSet = [[NSMutableSet alloc] initWithCapacity:[poCubeSet count]];
+	
+	for (Cube* cube in poCubeSet) {
+		for (NSNumber* number in fullLines) {
+			if ([number intValue] == cube.y) {
+				[needToDeleteCubeSet addObject:cube];
+			}
+		}
+	}
+	///shift line counter
+	for (NSNumber* number in fullLines) {
+		for (size_t i = [number intValue]; i > 0; --i) {
+			cubeCounterInLines[i] = cubeCounterInLines[i-1];
+		}
+	}
+	
+	
+	if ((int)[needToDeleteCubeSet count] != 0) {
+		[poCubeSet minusSet:needToDeleteCubeSet];
+		
+		///shift all the cubes
+		[poCubeSet makeObjectsPerformSelector:@selector(shiftDownInBoardY:) 
+								   withObject:[NSNumber numberWithInt:y]];
+	}
+	
+	
+	return [needToDeleteCubeSet autorelease];
 }
 
 -(void)printBoard

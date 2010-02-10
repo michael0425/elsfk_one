@@ -19,6 +19,8 @@
 	int unit;
 	NSMutableSet *poCubeSet;
 	NSSet *currentCubeSet;
+	/// used to count how many cubes are there in all lines
+	size_t* cubeCounterInLines;
 }
 
 @property(readonly) int x;
@@ -28,6 +30,7 @@
 @property(readonly) CubeType **poArray;
 @property(retain) NSSet *currentCubeSet;
 @property(readonly) NSMutableSet *poCubeSet;
+@property(readonly) size_t* cubeCounterInLines;
 
 /**
  * Singleton class.
@@ -62,6 +65,11 @@
  * taken.
  */
 -(BOOL)intersectsTotalCubeSetWithBlock:(Block*)block;
+
+/**
+ * Check CubeSet for any full lines
+ */
+-(NSSet*)checkTotalCubeSetForFullLine;
 
 
 -(void)setArrayCubeTypeWithX:(int)gX Y:(int)gY type:(CubeType)type;

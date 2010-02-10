@@ -39,6 +39,11 @@ typedef enum cColor {
  */
 -(BOOL)compareWithCube:(Cube*)cube;
 
+/**
+ * Used to shift down cubes, with boarder checking. 
+ * Only move when the after state is valid
+ */
+-(void)shiftDownInBoardY:(int)boardY;
 
 @property(assign) int x;
 @property(assign) int y;
