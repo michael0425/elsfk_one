@@ -38,7 +38,7 @@
 - (id) init{
 	if (self = [super init])
 	{
-		fallRate = 1.0f;
+		fallRate = 0.3f;
 		fallTimer = 0.0f;
 		
 		currentBlock = [[Block alloc] init];
@@ -146,14 +146,14 @@
 		if (![board validateBlock:currentBlock]) {
 			[board landCurrentBlock];
 			
-			/*
+			
 			currentBlock = [[Block alloc] init];
 			[currentBlock loadCubeWithX:0 Y:0 color:RED type:SOLID];
 			[currentBlock loadCubeWithX:0 Y:1 color:RED type:SOLID];
 			[currentBlock loadCubeWithX:0 Y:2 color:RED type:SOLID];
 			[currentBlock loadCubeWithX:1 Y:2 color:RED type:SOLID];
 			board.currentBlock = currentBlock;
-			 */
+			
 		}
 		
 		fallTimer -= fallRate;
@@ -182,7 +182,7 @@
 	[fire renderParticles];
 	[smoke renderParticles];
 	[fountain renderParticles];
-	[renderer drawCubes:[currentBlock getCubeSetToBoard]];
+	[renderer drawCubes:board.poCubeSet];
 	[renderer endRender];
 }
 

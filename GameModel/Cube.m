@@ -64,6 +64,14 @@
 			self.x, self.y, self.color, self.color];
 }
 
+-(BOOL)compareWithCube:(Cube *)cube
+{
+	if (self.x == cube.x && self.y == cube.y) {
+		return YES;
+	}
+	return NO;
+}
+
 -(void)dealloc
 {
 	//NSLog(@"####Deallocing %@", self);

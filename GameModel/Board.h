@@ -27,6 +27,7 @@
 @property(readonly) int unit;
 @property(readonly) CubeType **poArray;
 @property(retain) NSSet *currentCubeSet;
+@property(readonly) NSMutableSet *poCubeSet;
 
 /**
  * Singleton class.
@@ -35,9 +36,16 @@
  */
 + (Board*)sharedBoard;
 
+/**
+ * 
+ */
 -(id)initWithX:(int)gX Y:(int)gY;
 
-//return YES if the block can be shown in the board.
+/**
+ * After every move, the block has to be validated by this method.
+ * It compares against 4 edges and existing blocks.
+ * Return YES if the block can be shown in the board.
+ */
 -(BOOL)validateBlock:(Block*)block;
 
 // make current block solid and remove it out of currenBlock.
@@ -47,6 +55,13 @@
 
 -(GLfloat*)getCubeVertex:(Cube*)cube;
 -(GLfloat*)getCubeSetVerticesInBoard;
+
+/**
+ * Check if the block has any cube which ocupies
+ * same position in the board that is already been 
+ * taken.
+ */
+-(BOOL)intersectsTotalCubeSetWithBlock:(Block*)block;
 
 
 -(void)setArrayCubeTypeWithX:(int)gX Y:(int)gY type:(CubeType)type;

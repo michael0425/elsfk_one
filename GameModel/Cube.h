@@ -34,6 +34,11 @@ typedef enum cColor {
 
 -(GLfloat*)getCubeVertexWithUnit:(int)unit;
 
+/**
+ * When comparing cubes, only need to compare x & y
+ */
+-(BOOL)compareWithCube:(Cube*)cube;
+
 
 @property(assign) int x;
 @property(assign) int y;
