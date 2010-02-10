@@ -9,6 +9,7 @@
 #import "Block.h"
 #import "Board.h"
 #import "ESRenderer.h"
+#import "ParticleEmitter.h"
 
 @interface GameController : UIViewController {
 	id <ESRenderer> renderer;
@@ -17,6 +18,14 @@
 	
 	GLfloat fallRate;
 	GLfloat fallTimer;
+	
+	NSTimer *pressTimer;
+	
+	CGPoint pressPoint;
+	
+	ParticleEmitter* fountain;
+	ParticleEmitter* fire;
+	ParticleEmitter* smoke;
 }
 
 @property (readonly) Board* board;

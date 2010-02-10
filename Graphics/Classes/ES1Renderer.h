@@ -32,10 +32,6 @@
 	
 	CGRect screenBounds;
 	
-	ParticleEmitter* fountain;
-	ParticleEmitter* fire;
-	ParticleEmitter* smoke;
-	
 	Image* imageTexture;
 }
 
@@ -44,5 +40,6 @@
 - (void) render:(float)delta;
 - (void) drawCubes:(NSMutableSet*)cubes;
 - (BOOL) resizeFromLayer:(CAEAGLLayer *)layer;
+
 
 @end
