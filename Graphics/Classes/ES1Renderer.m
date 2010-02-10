@@ -53,73 +53,6 @@
 		
 		imageTexture = [[Image alloc] initWithName:@"grey.jpg"];
 		
-		fountain = [[ParticleEmitter alloc] initParticleEmitterWithImageNamed:@"texture.png"
-																startPosition:Vector2fMake(160, 240)
-														startPositionVariance:Vector2fMake(5, 10)
-																  speedPerSec:300.0
-														  speedPerSecVariance:100.0
-															 particleLifeSpan:1.0f
-													 particleLifespanVariance:1.0f
-																		angle:-90.0f
-																angleVariance:20.0f
-																	  gravity:Vector2fMake(0.0f, 8.0f)
-																   startColor:Color4fMake(0.6f, 0.8f, 0.8f, 0.8f)
-														   startColorVariance:Color4fMake(0.1f, 0.1f, 0.1f, 0.2f)
-																	 endColor:Color4fMake(0.5f, 0.5f, 0.5f, 0.0f)
-															 endColorVariance:Color4fMake(0.1f, 0.1f, 0.1f, 0.0f)
-																 maxParticles:600
-																 particleSize:15.0f
-														 particleSizeVariance:5.0f
-															  endParticleSize:1.0f
-													  endParticleSizeVariance:1.0f
-																	 duration:-1.0f
-																		blend:YES];
-		
-		fire = [[ParticleEmitter alloc] initParticleEmitterWithImageNamed:@"texture.png"
-															startPosition:Vector2fMake(80, 240)
-													startPositionVariance:Vector2fMake(5, 10)
-															  speedPerSec:50.0
-													  speedPerSecVariance:70.0
-														 particleLifeSpan:1.0f
-												 particleLifespanVariance:0.5f
-																	angle:-90.0f
-															angleVariance:10.0f
-																  gravity:Vector2fMake(0.0f, 0.0f)
-															   startColor:Color4fMake(1.0f, 0.3f, 0.0f, 0.8f)
-													   startColorVariance:Color4fMake(0.1f, 0.1f, 0.1f, 0.2f)
-																 endColor:Color4fMake(0.9f, 0.1f, 0.0f, 0.0f)
-														 endColorVariance:Color4fMake(0.1f, 0.1f, 0.1f, 0.1f)
-															 maxParticles:400
-															 particleSize:20.0f
-													 particleSizeVariance:15.0f
-														  endParticleSize:10.0f
-												  endParticleSizeVariance:15.0f
-																 duration:-1.0f
-																	blend:YES];
-		
-		smoke = [[ParticleEmitter alloc] initParticleEmitterWithImageNamed:@"texture.png"
-															 startPosition:Vector2fMake(240, 240)
-													 startPositionVariance:Vector2fMake(5, 20)
-															   speedPerSec:32.0
-													   speedPerSecVariance:30.0
-														  particleLifeSpan:1.5f
-												  particleLifespanVariance:3.0f
-																	 angle:-90.0f
-															 angleVariance:20.0f
-																   gravity:Vector2fMake(0.2f, 0.0f)
-																startColor:Color4fMake(0.5f, 0.5f, 0.5f, 0.3f)
-														startColorVariance:Color4fMake(0.0f, 0.0f, 0.0f, 0.3f)
-																  endColor:Color4fMake(0.5f, 0.5f, 0.5f, 0.0f)
-														  endColorVariance:Color4fMake(0.0f, 0.0f, 0.0f, 0.0f)
-															  maxParticles:100
-															  particleSize:30.0f
-													  particleSizeVariance:10.0f
-														   endParticleSize:50.0f
-												   endParticleSizeVariance:40.0f
-																  duration:-1.0f
-																	 blend:YES];
-				 
-		
 		//create a cube texture
 		NSLog(@"initialized");
 	}
@@ -158,15 +91,7 @@
 
 - (void) render:(float)delta
 {	
-	//NSLog(@"delta: %f", delta);
-	[fire update:delta];
-	[fire renderParticles];
 	
-	[smoke update:delta];
-	[smoke renderParticles];
-	
-	[fountain update:delta];
-	[fountain renderParticles];
 }
 
 - (void) drawCubes:(NSMutableSet*)cubes{
