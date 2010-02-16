@@ -43,7 +43,7 @@ typedef enum cColor {
  * Used to shift down cubes, with boarder checking. 
  * Only move when the after state is valid
  */
--(void)shiftDownInBoardY:(int)boardY;
+-(void)shiftDownInBoardAtLine:(NSNumber*)line;
 
 @property(assign) int x;
 @property(assign) int y;

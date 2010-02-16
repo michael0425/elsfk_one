@@ -72,9 +72,9 @@
 	return NO;
 }
 
--(void)shiftDownInBoardY:(NSNumber*)boardY;
+-(void)shiftDownInBoardAtLine:(NSNumber*)line;
 {
-	if (y < [boardY intValue]) {
+	if (y < [line intValue]) {
 		y++;
 	}
 }

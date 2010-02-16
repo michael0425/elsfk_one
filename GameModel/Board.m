@@ -210,34 +210,37 @@ static int maxYCo = 420;
 			[fullLines addObject:[NSNumber numberWithInt:i]];
 		}
 	}
-	/// get dead cube set
-	NSMutableSet* needToDeleteCubeSet = [[NSMutableSet alloc] initWithCapacity:[poCubeSet count]];
-	
-	for (Cube* cube in poCubeSet) {
-		for (NSNumber* number in fullLines) {
-			if ([number intValue] == cube.y) {
-				[needToDeleteCubeSet addObject:cube];
+	if ((int)[fullLines count] > 0) {
+		/// get dead cube set
+		NSMutableSet* needToDeleteCubeSet = [[NSMutableSet alloc] initWithCapacity:[poCubeSet count]];
+		
+		for (Cube* cube in poCubeSet) {
+			for (NSNumber* number in fullLines) {
+				if ([number intValue] == cube.y) {
+					[needToDeleteCubeSet addObject:cube];
+				}
 			}
 		}
-	}
-	///shift line counter
-	for (NSNumber* number in fullLines) {
-		for (size_t i = [number intValue]; i > 0; --i) {
-			cubeCounterInLines[i] = cubeCounterInLines[i-1];
-		}
-	}
-	
-	
-	if ((int)[needToDeleteCubeSet count] != 0) {
+		
+		/// delete the full line
 		[poCubeSet minusSet:needToDeleteCubeSet];
 		
-		///shift all the cubes
-		[poCubeSet makeObjectsPerformSelector:@selector(shiftDownInBoardY:) 
-								   withObject:[NSNumber numberWithInt:y]];
+		
+		///shift line counter and other lines
+		for (NSNumber* number in fullLines) {
+			for (size_t i = [number intValue]; i > 0; --i) {
+				cubeCounterInLines[i] = cubeCounterInLines[i-1];
+			}
+			
+			///shift all the cubes
+			[poCubeSet makeObjectsPerformSelector:@selector(shiftDownInBoardAtLine:) 
+									   withObject:number];
+		}
+
+		return [needToDeleteCubeSet autorelease];
 	}
-	
-	
-	return [needToDeleteCubeSet autorelease];
+
+	return 0;
 }
 
 -(void)printBoard
