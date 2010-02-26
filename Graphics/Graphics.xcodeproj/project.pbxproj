@@ -18,6 +18,7 @@
 		28FD14FE0DC6FC130079059D /* EAGLView.m in Sources */ = {isa = PBXBuildFile; fileRef = 28FD14FD0DC6FC130079059D /* EAGLView.m */; };
 		28FD15000DC6FC520079059D /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28FD14FF0DC6FC520079059D /* OpenGLES.framework */; };
 		28FD15080DC6FC5B0079059D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28FD15070DC6FC5B0079059D /* QuartzCore.framework */; };
+		4C628DA91135CC1000967C38 /* BlockFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C628DA81135CC1000967C38 /* BlockFactory.m */; };
 		6A60514C108E5BBC00389313 /* Block.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A605141108E5BBC00389313 /* Block.m */; };
 		6A60514D108E5BBC00389313 /* Board.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A605143108E5BBC00389313 /* Board.m */; };
 		6A60514E108E5BBC00389313 /* Cube.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A605145108E5BBC00389313 /* Cube.m */; };
@@ -65,6 +66,8 @@
 		28FD15070DC6FC5B0079059D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* Graphics_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Graphics_Prefix.pch; sourceTree = "<group>"; };
+		4C628DA71135CC1000967C38 /* BlockFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlockFactory.h; sourceTree = "<group>"; };
+		4C628DA81135CC1000967C38 /* BlockFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlockFactory.m; sourceTree = "<group>"; };
 		6A605140108E5BBC00389313 /* Block.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Block.h; sourceTree = "<group>"; };
 		6A605141108E5BBC00389313 /* Block.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Block.m; sourceTree = "<group>"; };
 		6A605142108E5BBC00389313 /* Board.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Board.h; sourceTree = "<group>"; };
@@ -207,6 +210,8 @@
 				6A605147108E5BBC00389313 /* GameModel.m */,
 				6A605148108E5BBC00389313 /* GameModel.xcodeproj */,
 				6A60514B108E5BBC00389313 /* GameModel_Prefix.pch */,
+				4C628DA71135CC1000967C38 /* BlockFactory.h */,
+				4C628DA81135CC1000967C38 /* BlockFactory.m */,
 			);
 			name = GameModel;
 			path = ../GameModel;
@@ -295,6 +300,9 @@
 /* Begin PBXProject section */
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
+			attributes = {
+				ORGANIZATIONNAME = Bangboo;
+			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "Graphics" */;
 			compatibilityVersion = "Xcode 3.1";
 			hasScannedForEncodings = 1;
@@ -361,6 +369,7 @@
 				6A92B7CA1113B41200243CF3 /* Frame.m in Sources */,
 				6ADE793A1118D58D00C7EF88 /* ParticleEmitter.m in Sources */,
 				6AD8C4CD111CC87100D7B427 /* ResourcesManager.m in Sources */,
+				4C628DA91135CC1000967C38 /* BlockFactory.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -3,7 +3,7 @@
 //  GameModel
 //
 //  Created by Yanlong Zhang on 13/10/2009.
-//  Copyright 2009 __MyCompanyName__. All rights reserved.
+//  Copyright 2009 Bangboo. All rights reserved.
 //
 
 #import "Cube.h"

@@ -8,6 +8,7 @@
 #import <Foundation/Foundation.h>
 #import "Block.h"
 #import "Board.h"
+#import "BlockFactory.h"
 #import "ESRenderer.h"
 #import "ParticleEmitter.h"
 
@@ -15,6 +16,7 @@
 	id <ESRenderer> renderer;
 	Block* currentBlock;
 	Board* board;
+	BlockFactory* blockFactory;
 	
 	GLfloat fallRate;
 	GLfloat fallTimer;
@@ -29,8 +31,10 @@
 }
 
 @property (readonly) Board* board;
+@property (nonatomic, retain) Block* currentBlock;
 
 - (id)initWithRender:(id <ESRenderer>)aRenderer;
 - (void) update: (float)delta;
+
 
 @end

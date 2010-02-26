@@ -50,12 +50,11 @@
 	[self init];
 	x = block_.x;
 	y = block_.y;
-	NSEnumerator *enumerator = [block_.cubeSet objectEnumerator];
-	Cube *aCube;
 	
-	while (aCube = (Cube*)[enumerator nextObject]) {
-		Cube *tmpCube = [[Cube alloc] initWithCube:aCube];
-		[cubeSet addObject:tmpCube];
+	for (Cube* cube in block_.cubeSet) {
+		Cube *tmp = [[Cube alloc] initWithCube:cube];
+		[cubeSet addObject:tmp];
+		[tmp release];
 	}
 	return self;
 }

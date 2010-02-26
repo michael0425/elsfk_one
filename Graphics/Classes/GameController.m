@@ -21,6 +21,7 @@
  *
  */
 @synthesize board;
+@synthesize currentBlock;
 
 - (id)initWithRender:(id <ESRenderer>)aRenderer{
 	if (self = [super init]) {
@@ -41,11 +42,14 @@
 		fallRate = 0.3f;
 		fallTimer = 0.0f;
 		
-		currentBlock = [[Block alloc] init];
-		[currentBlock loadCubeWithX:0 Y:0 color:RED type:SOLID];
-		[currentBlock loadCubeWithX:0 Y:1 color:RED type:SOLID];
-		[currentBlock loadCubeWithX:0 Y:2 color:RED type:SOLID];
-		[currentBlock loadCubeWithX:1 Y:2 color:RED type:SOLID];
+		blockFactory = [[BlockFactory sharedBlockFactory] init];
+		//currentBlock = [[Block alloc] init];
+//		[currentBlock loadCubeWithX:0 Y:0 color:RED type:SOLID];
+//		[currentBlock loadCubeWithX:0 Y:1 color:RED type:SOLID];
+//		[currentBlock loadCubeWithX:0 Y:2 color:RED type:SOLID];
+//		[currentBlock loadCubeWithX:1 Y:2 color:RED type:SOLID];
+		self.currentBlock = [blockFactory getRandomBlock];
+		
 		
 		board = [[Board sharedBoard] initWithX:16 Y:24];
 		
@@ -122,6 +126,7 @@
 
 - (void) dealloc{
 	[board release];
+	[currentBlock release];
 	[super dealloc];
 }
 
@@ -147,12 +152,14 @@
 			[board landCurrentBlock];
 			
 			
-			currentBlock = [[Block alloc] init];
-			[currentBlock loadCubeWithX:0 Y:0 color:RED type:SOLID];
-			[currentBlock loadCubeWithX:0 Y:1 color:RED type:SOLID];
-			[currentBlock loadCubeWithX:0 Y:2 color:RED type:SOLID];
-			[currentBlock loadCubeWithX:1 Y:2 color:RED type:SOLID];
-			board.currentBlock = currentBlock;
+			//currentBlock = [[Block alloc] init];
+//			[currentBlock loadCubeWithX:0 Y:0 color:RED type:SOLID];
+//			[currentBlock loadCubeWithX:0 Y:1 color:RED type:SOLID];
+//			[currentBlock loadCubeWithX:0 Y:2 color:RED type:SOLID];
+//			[currentBlock loadCubeWithX:1 Y:2 color:RED type:SOLID];
+//			board.currentBlock = currentBlock;
+			self.currentBlock = [blockFactory getRandomBlock];
+			
 			
 		}
 		
