@@ -96,9 +96,9 @@ static BlockFactory* instance;
 	[block release];
 	
 	blockDict = [NSDictionary dictionaryWithObjects:blockArray forKeys:nameArray];
-	[nameArray release];
-	[blockArray release];
 	[blockDict retain];
+	
+	[blockArray release];
 }
 
 -(Block*)getBlockWithType:(NSString *)type {

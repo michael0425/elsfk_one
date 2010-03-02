@@ -152,13 +152,14 @@
 			[board landCurrentBlock];
 			
 			
-			//currentBlock = [[Block alloc] init];
+//			currentBlock = [[Block alloc] init];
 //			[currentBlock loadCubeWithX:0 Y:0 color:RED type:SOLID];
 //			[currentBlock loadCubeWithX:0 Y:1 color:RED type:SOLID];
 //			[currentBlock loadCubeWithX:0 Y:2 color:RED type:SOLID];
 //			[currentBlock loadCubeWithX:1 Y:2 color:RED type:SOLID];
 //			board.currentBlock = currentBlock;
 			self.currentBlock = [blockFactory getRandomBlock];
+			board.currentBlock = currentBlock;
 			
 			
 		}

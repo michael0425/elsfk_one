@@ -59,9 +59,9 @@ static int maxYCo = 420;
 			cubeCounterInLines[i] = 0;
 		}
 		
-		currentBlock = NULL;
+		currentBlock = nil;
 		poCubeSet = [[NSMutableSet alloc] initWithCapacity:x * y];
-		currentCubeSet = NULL;
+		currentCubeSet = nil;
 	}
 	return self;
 }
@@ -142,8 +142,8 @@ static int maxYCo = 420;
 	
 	[self checkTotalCubeSetForFullLine];
 	
-	currentBlock = NULL;
-	self.currentCubeSet = NULL;
+	self.currentBlock = nil;
+	self.currentCubeSet = nil;
 }
 
 -(BOOL)intersectsTotalCubeSetWithBlock:(Block *)block

@@ -185,7 +185,7 @@
 
 -(NSString*)description
 {
-	return [NSString stringWithFormat:@"Block X:%d Y:%d", x,y];
+	return [NSString stringWithFormat:@"Block X:%1.1f Y:%1.1f", x,y];
 }
 
 -(void)dealloc
