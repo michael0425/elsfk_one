@@ -10,7 +10,7 @@
 		4C7C12ED1085001D00378F4D /* Cube.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7C12EC1085001D00378F4D /* Cube.m */; };
 		4C7C12FA1085043900378F4D /* Block.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7C12F91085043900378F4D /* Block.m */; };
 		4C7C13BF1086863100378F4D /* Board.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7C13BE1086863100378F4D /* Board.m */; };
-		4C7C16D41091061400378F4D /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C7C16D31091061400378F4D /* OpenGLES.framework */; };
+		4CE9B5B911407B10009B6D92 /* BlockFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE9B5B811407B10009B6D92 /* BlockFactory.m */; };
 		8DD76F9A0486AA7600D96B5E /* GameModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 08FB7796FE84155DC02AAC07 /* GameModel.m */; settings = {ATTRIBUTES = (); }; };
 		8DD76F9C0486AA7600D96B5E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08FB779EFE84155DC02AAC07 /* Foundation.framework */; };
 		8DD76F9F0486AA7600D96B5E /* GameModel.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = C6859EA3029092ED04C91782 /* GameModel.1 */; };
@@ -39,7 +39,8 @@
 		4C7C12F91085043900378F4D /* Block.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Block.m; sourceTree = "<group>"; };
 		4C7C13BD1086863100378F4D /* Board.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Board.h; sourceTree = "<group>"; };
 		4C7C13BE1086863100378F4D /* Board.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Board.m; sourceTree = "<group>"; };
-		4C7C16D31091061400378F4D /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = OpenGLES.framework; sourceTree = "<group>"; };
+		4CE9B5B711407B10009B6D92 /* BlockFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlockFactory.h; sourceTree = "<group>"; };
+		4CE9B5B811407B10009B6D92 /* BlockFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlockFactory.m; sourceTree = "<group>"; };
 		8DD76FA10486AA7600D96B5E /* GameModel */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = GameModel; sourceTree = BUILT_PRODUCTS_DIR; };
 		C6859EA3029092ED04C91782 /* GameModel.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = GameModel.1; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -50,7 +51,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				8DD76F9C0486AA7600D96B5E /* Foundation.framework in Frameworks */,
-				4C7C16D41091061400378F4D /* OpenGLES.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -81,7 +81,6 @@
 		08FB779DFE84155DC02AAC07 /* External Frameworks and Libraries */ = {
 			isa = PBXGroup;
 			children = (
-				4C7C16D31091061400378F4D /* OpenGLES.framework */,
 				08FB779EFE84155DC02AAC07 /* Foundation.framework */,
 			);
 			name = "External Frameworks and Libraries";
@@ -98,6 +97,8 @@
 		4C7C12E81085000C00378F4D /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				4CE9B5B711407B10009B6D92 /* BlockFactory.h */,
+				4CE9B5B811407B10009B6D92 /* BlockFactory.m */,
 				4C7C12EB1085001D00378F4D /* Cube.h */,
 				4C7C12EC1085001D00378F4D /* Cube.m */,
 				4C7C12F81085043900378F4D /* Block.h */,
@@ -163,6 +164,7 @@
 				4C7C12ED1085001D00378F4D /* Cube.m in Sources */,
 				4C7C12FA1085043900378F4D /* Block.m in Sources */,
 				4C7C13BF1086863100378F4D /* Board.m in Sources */,
+				4CE9B5B911407B10009B6D92 /* BlockFactory.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

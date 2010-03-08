@@ -103,13 +103,17 @@ static BlockFactory* instance;
 
 -(Block*)getBlockWithType:(NSString *)type {
 	Block *block = [blockDict objectForKey:type];
+	[block retain];
 	Block *copyBlock = [[Block alloc] initWithBlock:block];
+	[block release];
 	return [copyBlock autorelease];
 }
 
 -(Block*)getRandomBlock {
 	int total = [nameArray count];
-	return [self getBlockWithType:@"P"];
+	int index = rand() % total;
+	NSString* type = [nameArray objectAtIndex:index];
+	return [self getBlockWithType:type];
 }
 
 -(void)dealloc {

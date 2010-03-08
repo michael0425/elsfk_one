@@ -34,7 +34,7 @@
 
 -(id)initWithX:(int)x_ Y:(int)y_
 {
-	return [self initWithX:x_ Y:y_ capacity:maxX * maxY];
+	return [self initWithX:x_ Y:y_ capacity:4 * 4];
 }
 
 -(id)init
@@ -44,12 +44,14 @@
 
 // clone a block.
 // note this cloned block doesn't have 
-// preXY and maxXY.
+// preXY.
 -(id)initWithBlock:(Block *)block_
 {
 	[self init];
 	x = block_.x;
 	y = block_.y;
+	maxX = block_.maxX;
+	maxY = block_.maxY;
 	
 	for (Cube* cube in block_.cubeSet) {
 		Cube *tmp = [[Cube alloc] initWithCube:cube];

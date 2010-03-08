@@ -41,7 +41,7 @@ static int maxYCo = 420;
 		unit = maxXCo / gX;
 		
 		poArray = calloc(y, sizeof(CubeType*));
-		/*
+		
 		for (size_t i = 0; i < y; ++i)
 		{
 			poArray[i] = calloc(x, sizeof(CubeType));
@@ -51,7 +51,7 @@ static int maxYCo = 420;
 				poArray[i][j] = EMPTY;
 			}
 		}
-		*/
+		
 		
 		cubeCounterInLines = calloc(y, sizeof(size_t));
 		
@@ -109,7 +109,7 @@ static int maxYCo = 420;
 		// is kept.
 		NSLog(@"%@ is invalid.", block);		
 		[block moveReset];
-		[poCubeSet unionSet:currentCubeSet];
+		[poCubeSet unionSet:self.currentCubeSet];
 		NSLog(@"Reset block to %@", block);
 	}
 	
@@ -281,16 +281,14 @@ static int maxYCo = 420;
 -(void)dealloc
 {
 	NSLog(@"#####Deallocing Board.");
-	for (int i = 0; i < self.y; ++i)
-	{
-		free(poArray[i]);
-	}
+
 	free(poArray);
-	
+	free(cubeCounterInLines);
 	
 	[currentBlock release];
 	[poCubeSet release];
 	[currentCubeSet release];
+	
 	
 	[super dealloc];
 }
