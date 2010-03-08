@@ -90,13 +90,17 @@ static int maxYCo = 420;
 	
 	if (block.x >= 0 && 
 		block.y >= 0 &&
-		block.x + block.maxX < self.x &&
 		block.y + block.maxY < self.y) {
 		//this means the block is valid, then we need to 
 		//find if there are intersections
 		if (![self intersectsTotalCubeSetWithBlock:block]){
 			isValid = YES;
 		}
+	}
+	
+	// if block is turning at the very right, allow rotation and move to left until valid.
+	while (block.x + block.maxX >= self.x) {
+		[block moveLeft];
 	}
 	
 	if (isValid) {

@@ -10,6 +10,10 @@
 #import "Block.h"
 #import "Cube.h"
 
+enum CurrentBlockStatus {
+	CONTINUE,
+	STOP
+};
 
 @interface Board : NSObject {
 	int x;
