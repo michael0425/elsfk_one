@@ -7,8 +7,11 @@
 //
 
 #import "GameController.h"
-#import "ES1Renderer.h"
 #import <Foundation/Foundation.h>
+#import "Graphic.h"
+#import "Sprite.h"
+#import "Animation.h"
+
 
 @interface GameController()
 - (BOOL)point:(CGPoint)point hitArea:(CGRect)rect;
@@ -17,109 +20,88 @@
 
 
 @implementation GameController
-/**
- *
- */
+
 @synthesize board;
 @synthesize currentBlock;
 
-- (id)initWithRender:(id <ESRenderer>)aRenderer{
-	if (self = [super init]) {
-		renderer = aRenderer;
-		[self init];
+- (void)test{
+	Sprite* container = [[Sprite alloc] init];
+	[director.currentScene addChild:container];
+	
+	Graphic* q1 = [[Graphic alloc] initWithFile:@"grey.jpg"];
+	q1.pos = CGPointMake(120, 120);
+	q1.scaleX = 0.5;
+	q1.scaleY = 0.5;
+	q1.rotation = 45;
+	
+	//q1.transform = matrix;
+	[container addChild:q1];
+	
+	
+	Graphic* q2 = [[Graphic alloc] initWithFile:@"grey.jpg"];
+	[container addChild:q2];
+	container.scaleX = 0.5;
+	container.scaleY = 0.5;
+	container.size = CGSizeMake(90, 90);
+	
+	
+	//NSLog(@"container contentSize width:%.2f height:%.2f", container.contentSize.width, container.contentSize.height);
+	
+	CGRect box = [container boundingbox];
+	//NSLog(@"container bouding box width:%.2f height:%.2f", box.size.width, box.size.height);
+	Graphic* walk = [[Graphic alloc] initWithFile:@"walking.png"];
+	walk.pos = CGPointMake(box.origin.x+box.size.width, box.origin.y+box.size.height);
+	//walk.rect = CGRectMake(0.0, 0.0, 17, 31);
+	[director.currentScene addChild:walk];
+	
+	
+	Graphic* indicator = [[Graphic alloc] initWithFile:@"grey.jpg"];
+	indicator.size = CGSizeMake(5, 5);
+	indicator.pos = CGPointMake(90, 90);
+	[director.currentScene addChild:indicator];
+	
+	Animation* animation = [[Animation alloc] initWithFile:@"walking.png"];
+	animation.pos = CGPointMake(160.0f, 240.0f);
+	animation.anchor = CGPointMake(0.0, 1.0);
+	animation.scaleX = -1.0;
+	float trackX = 0.0f;
+	for (int i=0; i<3; ++i) {
+		[animation addFrame:CGRectMake(trackX, 0.0f, 17.0f, 31.0f) withDelay:0.1];
+		trackX+=18.0f;
 	}
-	return self;
+	[animation play];
+	animation.repeat = YES;
+	animation.pingpong = YES;
+	animation.tlColor = Color4bMake(255, 0, 0, 255);
+	[director.currentScene addChild:animation];
 }
 
-/**
- * 
- *
- *
- */
 - (id) init{
 	if (self = [super init])
 	{
-		fallRate = 0.3f;
-		fallTimer = 0.0f;
-		
 		blockFactory = [[BlockFactory sharedBlockFactory] init];
-		//currentBlock = [[Block alloc] init];
-//		[currentBlock loadCubeWithX:0 Y:0 color:RED type:SOLID];
-//		[currentBlock loadCubeWithX:0 Y:1 color:RED type:SOLID];
-//		[currentBlock loadCubeWithX:0 Y:2 color:RED type:SOLID];
-//		[currentBlock loadCubeWithX:1 Y:2 color:RED type:SOLID];
 		self.currentBlock = [blockFactory getRandomBlock];
 		
-		
-		board = [[Board sharedBoard] initWithX:16 Y:24];
-		
+		cubeSize = CGSizeMake(20.0f, 20.0f);
+		int numOfCubeInX = 320.0f/cubeSize.width;
+		int numOfCubeInY = 480.0f/cubeSize.height;
+		board = [[Board sharedBoard] initWithX:numOfCubeInX Y:numOfCubeInY];
 		board.currentBlock = currentBlock;
 		
-		fountain = [[ParticleEmitter alloc] initParticleEmitterWithImageNamed:@"texture.png"
-																startPosition:Vector2fMake(160, 240)
-														startPositionVariance:Vector2fMake(5, 10)
-																  speedPerSec:300.0
-														  speedPerSecVariance:100.0
-															 particleLifeSpan:1.0f
-													 particleLifespanVariance:1.0f
-																		angle:-90.0f
-																angleVariance:20.0f
-																	  gravity:Vector2fMake(0.0f, 8.0f)
-																   startColor:Color4fMake(0.6f, 0.8f, 0.8f, 0.8f)
-														   startColorVariance:Color4fMake(0.1f, 0.1f, 0.1f, 0.2f)
-																	 endColor:Color4fMake(0.5f, 0.5f, 0.5f, 0.0f)
-															 endColorVariance:Color4fMake(0.1f, 0.1f, 0.1f, 0.0f)
-																 maxParticles:600
-																 particleSize:15.0f
-														 particleSizeVariance:5.0f
-															  endParticleSize:1.0f
-													  endParticleSizeVariance:1.0f
-																	 duration:-1.0f
-																		blend:YES];
+		director = [Director sharedDirector];
+		//set background color to black
+		director.bgColor = Color4bMake(60, 60, 60, 255);
+		fallRate = 0.2;
+		//Add a timer, every fallRate seconds will trigger the update function, and also pass the delta parameter.
+		[[GEScheduler sharedScheduler] addTarget:self sel:@selector(update:) interval:fallRate];
 		
-		fire = [[ParticleEmitter alloc] initParticleEmitterWithImageNamed:@"texture.png"
-															startPosition:Vector2fMake(80, 240)
-													startPositionVariance:Vector2fMake(10, 15)
-															  speedPerSec:50.0
-													  speedPerSecVariance:70.0
-														 particleLifeSpan:1.0f
-												 particleLifespanVariance:0.5f
-																	angle:-90.0f
-															angleVariance:10.0f
-																  gravity:Vector2fMake(0.0f, 0.0f)
-															   startColor:Color4fMake(1.0f, 0.3f, 0.0f, 0.8f)
-													   startColorVariance:Color4fMake(0.1f, 0.1f, 0.1f, 0.2f)
-																 endColor:Color4fMake(0.9f, 0.1f, 0.0f, 0.0f)
-														 endColorVariance:Color4fMake(0.1f, 0.1f, 0.1f, 0.1f)
-															 maxParticles:400
-															 particleSize:20.0f
-													 particleSizeVariance:15.0f
-														  endParticleSize:10.0f
-												  endParticleSizeVariance:15.0f
-																 duration:-1.0f
-																	blend:YES];
+		[self test];
 		
-		smoke = [[ParticleEmitter alloc] initParticleEmitterWithImageNamed:@"texture.png"
-															 startPosition:Vector2fMake(240, 240)
-													 startPositionVariance:Vector2fMake(5, 20)
-															   speedPerSec:32.0
-													   speedPerSecVariance:30.0
-														  particleLifeSpan:1.5f
-												  particleLifespanVariance:3.0f
-																	 angle:-90.0f
-															 angleVariance:20.0f
-																   gravity:Vector2fMake(0.2f, 0.0f)
-																startColor:Color4fMake(0.5f, 0.5f, 0.5f, 0.3f)
-														startColorVariance:Color4fMake(0.0f, 0.0f, 0.0f, 0.3f)
-																  endColor:Color4fMake(0.5f, 0.5f, 0.5f, 0.0f)
-														  endColorVariance:Color4fMake(0.0f, 0.0f, 0.0f, 0.0f)
-															  maxParticles:100
-															  particleSize:30.0f
-													  particleSizeVariance:10.0f
-														   endParticleSize:50.0f
-												   endParticleSizeVariance:40.0f
-																  duration:-1.0f
-																	 blend:YES];
+		//create the display object to draw all the cubes in the board
+		DOBoard* doBoard = [[DOBoard alloc] initWithBoard:board withFile:@"grey.jpg"];
+		[doBoard setCubeSize:cubeSize];
+		//add it onto the current sccene, it will be auto rendered.
+		[director.currentScene addChild:doBoard];
 	}
 	return self;
 }
@@ -130,76 +112,27 @@
 	[super dealloc];
 }
 
-- (BOOL)point:(CGPoint)point hitArea:(CGRect)rect{
-	if (point.x < rect.origin.x || point.y < rect.origin.y ||
-		point.x > (rect.origin.x + rect.size.width) || point.y > (rect.origin.y + rect.size.height)) {
-		return NO;
-	}
-	return YES;
-}
-
 /**
- *
+ * Keep update block postion, make it move down one square every fallRate seconds.
  *
  */
 - (void) update:(float)delta{
 	//update game logic
-	fallTimer += delta;
-	if (fallTimer>=fallRate) {
-		//NSLog(@"fallTimer: %f    fallRate: %f", fallTimer, fallRate);
-		[currentBlock moveDown];
-		if (![board validateBlock:currentBlock]) {
-			[board landCurrentBlock];
-			
-			
-//			currentBlock = [[Block alloc] init];
-//			[currentBlock loadCubeWithX:0 Y:0 color:RED type:SOLID];
-//			[currentBlock loadCubeWithX:0 Y:1 color:RED type:SOLID];
-//			[currentBlock loadCubeWithX:0 Y:2 color:RED type:SOLID];
-//			[currentBlock loadCubeWithX:1 Y:2 color:RED type:SOLID];
-//			board.currentBlock = currentBlock;
-			self.currentBlock = [blockFactory getRandomBlock];
-			board.currentBlock = currentBlock;
-			
-			
-		}
-		
-		fallTimer -= fallRate;
+	[currentBlock moveDown];
+	if (![board validateBlock:currentBlock]) {
+		[board landCurrentBlock];
+		self.currentBlock = [blockFactory getRandomBlock];
+		board.currentBlock = currentBlock;
 	}
-	//update particle
-	[fire update:delta];
-	[smoke update:delta];
-	[fountain update:delta];
-	
-	//testing for particle movement
-	GLfloat dx = pressPoint.x - fountain.startPosition.x;
-	GLfloat dy = pressPoint.y - fountain.startPosition.y;
-	//Vector2f fountainNewPos = Vector2fMake(fountain.startPosition.x + dx/10.0f, fountain.startPosition.y + dy/10.0f);
-	//fountain.startPosition = fountainNewPos;
-	dx = pressPoint.x - fire.startPosition.x;
-	dy = pressPoint.y - fire.startPosition.y;
-	Vector2f fireNewPos = Vector2fMake(fire.startPosition.x + dx/20.0f, fire.startPosition.y + dy/20.0f);
-	fire.startPosition = fireNewPos;
-	//dx = pressPoint.x - smoke.startPosition.x;
-	//dy = pressPoint.y - smoke.startPosition.y;
-	//Vector2f smokeNewPos = Vector2fMake(smoke.startPosition.x + dx/30.0f, smoke.startPosition.y + dy/30.0f);
-	//smoke.startPosition = smokeNewPos;
-	
-	//render
-	[renderer startRender];
-	[fire renderParticles];
-	[smoke renderParticles];
-	[fountain renderParticles];
-	[renderer drawCubes:board.poCubeSet];
-	[renderer endRender];
 }
 
+/**
+ * Control logic, make block goes left or right.
+ */
 - (void)controlBlock{
-	//NSLog(@"position: x:%f y:%f", pos.x, pos.y);
-	//NSLog(@"blockRect: x:%f y:%f width:%f height:%f", blockRect.origin.x, blockRect.origin.y, blockRect.size.width, blockRect.size.height);
-		
+	//define a naive rectangle as a hit area from the current block
 	CGRect blockRect = CGRectMake(currentBlock.x*20.0f, currentBlock.y*20.0f, (currentBlock.maxX+1)*20.0f, (currentBlock.maxY+1)*20.0f);
-		
+	
 	if(pressPoint.x < blockRect.origin.x) {
 		[currentBlock moveLeft];
 		[board validateBlock:currentBlock];
@@ -211,6 +144,17 @@
 }
 
 /**
+ * Check whether the point hits the rectangle.
+ */
+- (BOOL)point:(CGPoint)point hitArea:(CGRect)rect{
+	if (point.x < rect.origin.x || point.y < rect.origin.y ||
+		point.x > (rect.origin.x + rect.size.width) || point.y > (rect.origin.y + rect.size.height)) {
+		return NO;
+	}
+	return YES;
+}
+
+/**
  * Handle main game view touch begin events.
  * @param touches The NSSet of touches received.
  * @param event An UIEvent.
@@ -219,7 +163,8 @@
 	//touch begin, check whether the block is touched or empty space is touched.
 	UITouch* touch = [touches anyObject];
 	pressPoint = [touch locationInView:[self view]];
-	CGRect blockRect = CGRectMake(currentBlock.x*20.0f, currentBlock.y*20.0f, (currentBlock.maxX+1)*20.0f, (currentBlock.maxY+1)*20.0f);
+	CGRect blockRect = CGRectMake(currentBlock.x*cubeSize.width, currentBlock.y*cubeSize.height, 
+								  (currentBlock.maxX+1)*cubeSize.height, (currentBlock.maxY+1)*cubeSize.height);
 	
 	if ([self point:pressPoint hitArea:blockRect]) {
 		[currentBlock rotate];

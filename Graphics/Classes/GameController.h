@@ -9,31 +9,29 @@
 #import "Block.h"
 #import "Board.h"
 #import "BlockFactory.h"
-#import "ESRenderer.h"
-#import "ParticleEmitter.h"
+#import "Director.h"
+#import "DOBoard.h"
 
 @interface GameController : UIViewController {
-	id <ESRenderer> renderer;
 	Block* currentBlock;
 	Board* board;
 	BlockFactory* blockFactory;
 	
+	CGSize cubeSize;
+	
 	GLfloat fallRate;
-	GLfloat fallTimer;
 	
 	NSTimer *pressTimer;
 	
 	CGPoint pressPoint;
 	
-	ParticleEmitter* fountain;
-	ParticleEmitter* fire;
-	ParticleEmitter* smoke;
+	//engine
+	Director* director;
 }
 
 @property (readonly) Board* board;
 @property (nonatomic, retain) Block* currentBlock;
 
-- (id)initWithRender:(id <ESRenderer>)aRenderer;
 - (void) update: (float)delta;
 
 
