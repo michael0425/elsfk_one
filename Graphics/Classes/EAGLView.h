@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
 
-#import "Director.h"
+#import "GEDirector.h"
 #import "GameController.h"
 
 // This class wraps the CAEAGLLayer from CoreAnimation into a convenient UIView subclass.
@@ -17,7 +17,7 @@
 // Note that setting the view non-opaque will only work if the EAGL surface has an alpha channel.
 @interface EAGLView : UIView
 {	
-	Director* director;
+	GEDirector* director;
 	
 	GameController* controller;
 }

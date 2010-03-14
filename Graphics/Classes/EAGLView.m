@@ -7,10 +7,10 @@
 //
 
 #import "EAGLView.h"
-#import "Animation.h"
-#import "Director.h"
-#import "Sprite.h"
-#import "Common.h"
+#import "GEAnimation.h"
+#import "GEDirector.h"
+#import "GESprite.h"
+#import "GECommon.h"
 
 @implementation EAGLView
 
@@ -33,9 +33,9 @@
                                         [NSNumber numberWithBool:FALSE], kEAGLDrawablePropertyRetainedBacking, kEAGLColorFormatRGBA8, kEAGLDrawablePropertyColorFormat, nil];
 		
 		//setup the director.
-		director = [[Director sharedDirector] init];
+		director = [[GEDirector sharedDirector] init];
 		//create a scene immediately as the current scene;
-		Scene* scene = [[Scene alloc] initWithName:@"Main Scene"];
+		GEScene* scene = [[GEScene alloc] initWithName:@"Main Scene"];
 		[director addScene:scene];
 		director.currentScene = scene;
 		

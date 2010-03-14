@@ -8,9 +8,9 @@
 
 #import "GameController.h"
 #import <Foundation/Foundation.h>
-#import "Graphic.h"
-#import "Sprite.h"
-#import "Animation.h"
+#import "GEGraphic.h"
+#import "GESprite.h"
+#import "GEAnimation.h"
 
 
 @interface GameController()
@@ -25,10 +25,10 @@
 @synthesize currentBlock;
 
 - (void)test{
-	Sprite* container = [[Sprite alloc] init];
+	GESprite* container = [[GESprite alloc] init];
 	[director.currentScene addChild:container];
 	
-	Graphic* q1 = [[Graphic alloc] initWithFile:@"grey.jpg"];
+	GEGraphic* q1 = [[GEGraphic alloc] initWithFile:@"grey.jpg"];
 	q1.pos = CGPointMake(120, 120);
 	q1.scaleX = 0.5;
 	q1.scaleY = 0.5;
@@ -38,7 +38,7 @@
 	[container addChild:q1];
 	
 	
-	Graphic* q2 = [[Graphic alloc] initWithFile:@"grey.jpg"];
+	GEGraphic* q2 = [[GEGraphic alloc] initWithFile:@"grey.jpg"];
 	[container addChild:q2];
 	container.scaleX = 0.5;
 	container.scaleY = 0.5;
@@ -49,18 +49,18 @@
 	
 	CGRect box = [container boundingbox];
 	//NSLog(@"container bouding box width:%.2f height:%.2f", box.size.width, box.size.height);
-	Graphic* walk = [[Graphic alloc] initWithFile:@"walking.png"];
+	GEGraphic* walk = [[GEGraphic alloc] initWithFile:@"walking.png"];
 	walk.pos = CGPointMake(box.origin.x+box.size.width, box.origin.y+box.size.height);
 	//walk.rect = CGRectMake(0.0, 0.0, 17, 31);
 	[director.currentScene addChild:walk];
 	
 	
-	Graphic* indicator = [[Graphic alloc] initWithFile:@"grey.jpg"];
+	GEGraphic* indicator = [[GEGraphic alloc] initWithFile:@"grey.jpg"];
 	indicator.size = CGSizeMake(5, 5);
 	indicator.pos = CGPointMake(90, 90);
 	[director.currentScene addChild:indicator];
 	
-	Animation* animation = [[Animation alloc] initWithFile:@"walking.png"];
+	GEAnimation* animation = [[GEAnimation alloc] initWithFile:@"walking.png"];
 	animation.pos = CGPointMake(160.0f, 240.0f);
 	animation.anchor = CGPointMake(0.0, 1.0);
 	animation.scaleX = -1.0;
@@ -74,6 +74,28 @@
 	animation.pingpong = YES;
 	animation.tlColor = Color4bMake(255, 0, 0, 255);
 	[director.currentScene addChild:animation];
+	
+	GEGraphic* bibi = [[GEGraphic alloc] initWithFile:@"bibi.png"];
+	bibi.pos = CGPointMake(200, 400);
+	bibi.scaleX = 0.8;
+	bibi.tintColor = Color4bMake(40, 40, 30, 255);
+	[director.currentScene addChild:bibi];
+	
+	GEAnimation* explosion = [[GEAnimation alloc] initWithFile:@"explosion.png"];
+	explosion.pos = CGPointMake(160.0f, 240.0f);
+	explosion.anchor = CGPointMake(0.5, 0.5);
+	trackX = 0.0f;
+	for (int i=0; i<11; ++i) {
+		[explosion addFrame:CGRectMake(trackX, 0.0f, 70.0f, 70.0f) withDelay:0.04*i/2];
+		trackX+=70.0f;
+	}
+	[explosion play];
+	explosion.repeat = YES;
+	[director.currentScene addChild:explosion];
+	
+	GEGraphic* mushroom = [[GEGraphic alloc] initWithFile:@"mushroom.png"];
+	mushroom.pos = CGPointMake(140, 350);
+	[director.currentScene addChild:mushroom];
 }
 
 - (id) init{
@@ -88,7 +110,7 @@
 		board = [[Board sharedBoard] initWithX:numOfCubeInX Y:numOfCubeInY];
 		board.currentBlock = currentBlock;
 		
-		director = [Director sharedDirector];
+		director = [GEDirector sharedDirector];
 		//set background color to black
 		director.bgColor = Color4bMake(60, 60, 60, 255);
 		fallRate = 0.2;
@@ -98,7 +120,7 @@
 		[self test];
 		
 		//create the display object to draw all the cubes in the board
-		DOBoard* doBoard = [[DOBoard alloc] initWithBoard:board withFile:@"grey.jpg"];
+		DOBoard* doBoard = [[DOBoard alloc] initWithBoard:board withFile:@"smallCube.png"];
 		[doBoard setCubeSize:cubeSize];
 		//add it onto the current sccene, it will be auto rendered.
 		[director.currentScene addChild:doBoard];

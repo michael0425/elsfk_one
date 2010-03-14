@@ -9,7 +9,7 @@
 #import "Block.h"
 #import "Board.h"
 #import "BlockFactory.h"
-#import "Director.h"
+#import "GEDirector.h"
 #import "DOBoard.h"
 
 @interface GameController : UIViewController {
@@ -26,7 +26,7 @@
 	CGPoint pressPoint;
 	
 	//engine
-	Director* director;
+	GEDirector* director;
 }
 
 @property (readonly) Board* board;

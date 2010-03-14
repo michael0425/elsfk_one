@@ -17,7 +17,7 @@
 	if (self = [super init]) {
 		board = aBoard;
 		
-		texManager = [TextureManager sharedTextureManager];
+		texManager = [GETexManager sharedTextureManager];
 		texRef = [texManager getTexture2D:aName];
 		
 		cubeSize = CGSizeMake(20.0f, 20.0f);
@@ -68,28 +68,32 @@
 		quads[i].br.texCoords.u = offsetX + texWidth;
 		quads[i].br.texCoords.v = offsetY;
 		
-		quads[i].tl.vertices.x = cube.x*cubeSize.width;
-		quads[i].tl.vertices.y = cube.y*cubeSize.height;
 		quads[i].bl.vertices.x = cube.x*cubeSize.width;
-		quads[i].bl.vertices.y = cube.y*cubeSize.height + cubeSize.height;
-		quads[i].tr.vertices.x = cube.x*cubeSize.width + cubeSize.width;
-		quads[i].tr.vertices.y = cube.y*cubeSize.height;
+		quads[i].bl.vertices.y = cube.y*cubeSize.height;
+		quads[i].tl.vertices.x = cube.x*cubeSize.width;
+		quads[i].tl.vertices.y = cube.y*cubeSize.height + cubeSize.height;
 		quads[i].br.vertices.x = cube.x*cubeSize.width + cubeSize.width;
-		quads[i].br.vertices.y = cube.y*cubeSize.height + cubeSize.height;
+		quads[i].br.vertices.y = cube.y*cubeSize.height;
+		quads[i].tr.vertices.x = cube.x*cubeSize.width + cubeSize.width;
+		quads[i].tr.vertices.y = cube.y*cubeSize.height + cubeSize.height;
 		
 		//color
-		quads[i].tl.color = Color4bMake(255, 0, 0, 100);
+		//quads[i].tl.color = Color4bMake(255, 255, 255, 255);
+		//quads[i].bl.color = Color4bMake(255, 255, 255, 255);
+		//quads[i].tr.color = Color4bMake(255, 255, 255, 255);
+		//quads[i].br.color = Color4bMake(255, 255, 255, 255);
+		quads[i].tl.color = Color4bMake(255, 0, 0, 255);
 		quads[i].bl.color = Color4bMake(255, 0, 0, 255);
-		quads[i].tr.color = Color4bMake(255, 0, 0, 100);
+		quads[i].tr.color = Color4bMake(255, 0, 0, 255);
 		quads[i].br.color = Color4bMake(255, 0, 0, 255);
 		
-		indices[i*6+0] = i*4+2;
+		indices[i*6+0] = i*4+0;
 		indices[i*6+1] = i*4+1;
-		indices[i*6+2] = i*4+0;
+		indices[i*6+2] = i*4+2;
 		
-		indices[i*6+3] = i*4+3;
+		indices[i*6+3] = i*4+1;
 		indices[i*6+4] = i*4+2;
-		indices[i*6+5] = i*4+1;
+		indices[i*6+5] = i*4+3;
 		
 		 ++i;
 		[cube release];
@@ -121,9 +125,9 @@
 	
 	//bind the texture.
 	//The texture we are using here is loaded using Texture2D, which is texture size always be n^2.
-	if ([TextureManager sharedTextureManager].boundedTex != [texRef name]) {
+	if ([GETexManager sharedTextureManager].boundedTex != [texRef name]) {
 		glBindTexture(GL_TEXTURE_2D, [texRef name]);
-		[TextureManager sharedTextureManager].boundedTex = [texRef name];
+		[GETexManager sharedTextureManager].boundedTex = [texRef name];
 	}
 	else {
 		//NSLog(@"Image already binded");

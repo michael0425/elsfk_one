@@ -7,22 +7,22 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "LeafNode.h"
-#import "TextureManager.h"
-#import "Common.h"
+#import "GENode.h"
+#import "GETexManager.h"
+#import "GECommon.h"
 #import "Board.h"
 
 /**
  * This class extends the LeafNode, it actually draws all the cubes directly onto the screen.
  */
-@interface DOBoard:LeafNode{
+@interface DOBoard:GENode{
 	TVCQuad* quads;
 	
 	int numOfCubes;
 	GLushort* indices;
 	Board* board;
 	
-	TextureManager* texManager;
+	GETexManager* texManager;
 	Texture2D* texRef;
 	
 	CGSize cubeSize;
